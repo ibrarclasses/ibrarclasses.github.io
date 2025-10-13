@@ -174,6 +174,32 @@
   color: #1a73e8;
   margin: 5px 0;
 }
+    /* === Buy Now Button === */
+.buy-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #2563eb, #3b82f6); /* royal blue gradient */
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.buy-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.5);
+}
+
+.buy-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+}
+
 
     /* ====== FOOTER ====== */
     footer {
@@ -347,37 +373,6 @@
     <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
   </nav>
 
-  <main>
-    <div class="container">
-      <div class="product-grid">
-        <div class="product-card">
-          <img src="images/notebook.jpg" alt="Notebook" />
-          <h3>Premium Notebook</h3>
-          <p>Perfect for UPSC notes and daily planning.</p>
-          <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
-        </div>
-        <div class="product-card">
-          <img src="images/pen-set.jpg" alt="Pen Set" />
-          <h3>Gel Pen Set</h3>
-          <p>Smooth writing pens for long study sessions.</p>
-          <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
-        </div>
-        <div class="product-card">
-          <img src="images/calculator.jpg" alt="Calculator" />
-          <h3>Scientific Calculator</h3>
-          <p>Essential tool for Math preparation and calculations.</p>
-          <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
-        </div>
-        <div class="product-card">
-          <img src="images/highlighter.jpg" alt="Highlighter" />
-          <h3>Highlighter Set</h3>
-          <p>Highlight important points in your notes.</p>
-          <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
-        </div>
-      </div>
-    </div>
-  </main>
-
   <footer>
     <div>&copy; 2025 Ibrar Classes</div>
     <div id="visitor-info" aria-live="polite"></div>
@@ -510,7 +505,7 @@ async function loadProducts() {
       <h3>${p.title}</h3>
       <p>${p.desc}</p>
       <span class="price">${p.price}</span>
-      <a href="${p.link}" target="_blank" rel="noopener">Buy Now</a>
+        <a href="${product.link}" target="_blank" class="buy-btn">Buy Now</a>
     `;
     grid.appendChild(card);
   });
