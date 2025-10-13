@@ -1,83 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Stationery Mall | Ibrar Classes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    /* ====== BASIC / THEME ====== */
+    :root {
+      --primary: #3B82F6;
+      --accent: #10B981;
+      --nav: #2563EB;
+      --bg: #F0F4F8;
+      --card: #ffffff;
+      --text: #1F2937;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #F0F4F8;
-      color: #1F2937;
+      background-color: var(--bg);
+      background-image: url('background-edu.png');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center top;
+      background-repeat: no-repeat;
+      color: var(--text);
+      transition: background-color 0.4s, color 0.4s;
+      overflow-x: hidden;
     }
 
+    /* ====== HEADER ====== */
     header {
       text-align: center;
       padding: 2rem 1rem;
-      background: linear-gradient(135deg, #3B82F6, #10B981);
-      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+      position: relative;
+    }
+    header img {
+      width: 90px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    header p {
+      margin: 0.35rem 0;
+      font-style: italic;
+      font-weight: 500;
     }
 
+    /* ====== NAV BAR ====== */
     nav {
-      background: #2563EB;
+      background: var(--nav);
       display: flex;
-      justify-content: center;
-      padding: 0.7rem;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 1.5rem;
       position: sticky;
       top: 0;
       z-index: 1000;
+      flex-wrap: wrap;
     }
 
-    nav a {
+    nav .left-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    nav .left-links a {
       color: white;
-      margin: 0 12px;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s, transform 0.2s;
     }
 
-    nav a.stationery-link {
-      margin-left: auto;
-      background: #10B981;
-      padding: 8px 14px;
-      border-radius: 8px;
+    nav .left-links a:hover {
+      color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    /* Stationery Mall Button */
+    nav .stationery-link {
+      background: linear-gradient(135deg, #10B981, #3B82F6);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
       animation: pulse 2s infinite;
+      transition: all 0.3s;
+      white-space: nowrap;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
-      70% { box-shadow: 0 0 0 15px rgba(16,185,129,0); }
-      100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
-    }
-
-    nav a.stationery-link:hover {
+    nav .stationery-link:hover {
       background: #3B82F6;
       transform: scale(1.1);
     }
 
+    /* ====== LIVE DATETIME ====== */
+    #live-datetime {
+      position: fixed;
+      top: 12px;
+      right: 18px;
+      z-index: 1100;
+      background: rgba(255, 255, 255, 0.88);
+      color: #0b1220;
+      padding: 7px 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ====== STATUS BAR (hidden as optional) ====== */
+    #status-bar {
+      text-align: center;
+      font-weight: 600;
+      color: #064e3b;
+      background: rgba(16, 185, 129, 0.08);
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(16, 185, 129, 0.12);
+      font-size: 14px;
+      display: none;
+    }
+
+    /* ====== CONTAINER ====== */
     .container {
-      max-width: 1000px;
+      max-width: 980px;
       margin: 2rem auto;
       padding: 2rem;
-      background: rgba(255,255,255,0.95);
-      border-radius: 15px;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 14px;
+      box-shadow: 0 6px 22px rgba(6, 24, 44, 0.06);
     }
 
-    h1, h2 {
-      text-align: center;
-      color: #2563EB;
-    }
-
-    p {
-      text-align: center;
-      color: #4B5563;
-      font-size: 1rem;
-      margin-bottom: 2rem;
-    }
-
+    /* ====== PRODUCT GRID ====== */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -107,7 +178,7 @@
     }
 
     .product-card h3 {
-      color: #2563EB;
+      color: var(--primary);
       margin-bottom: 0.4rem;
     }
 
@@ -119,7 +190,7 @@
 
     .product-card a {
       display: inline-block;
-      background: #3B82F6;
+      background: var(--primary);
       color: white;
       padding: 8px 14px;
       border-radius: 6px;
@@ -129,62 +200,315 @@
     }
 
     .product-card a:hover {
-      background: #10B981;
+      background: var(--accent);
       transform: scale(1.05);
     }
 
+    /* ====== FOOTER ====== */
     footer {
-      background: #2563EB;
-      color: white;
+      background: var(--nav);
+      color: #fff;
       text-align: center;
-      padding: 1.5rem;
-      margin-top: 2rem;
+      padding: 16px 10px;
+      margin-top: 28px;
+      font-size: 14px;
+    }
+    #visitor-info {
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    /* ====== FLOATING UI ====== */
+    #molly-chat {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 2000;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 26px rgba(3, 10, 23, 0.18);
+      text-decoration: none;
+      animation: pulse 2.5s infinite;
+    }
+    .molly-avatar {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* ====== BACK TO TOP ====== */
+    #back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 108px;
+      display: none;
+      z-index: 1500;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      box-shadow: 0 6px 20px rgba(2, 6, 23, 0.16);
+      cursor: pointer;
+      font-weight: 700;
+    }
+    #back-to-top:hover {
+      background: var(--accent);
+    }
+
+    /* ====== DARK MODE ====== */
+    .dark-mode {
+      --primary: #60a5fa;
+      --accent: #34d399;
+      --nav: #0b1220;
+      --bg: #0b1220;
+      --card: #071129;
+      --text: #000000;
+    }
+
+    /* Dark mode button */
+    #darkModeToggle {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 1200;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--nav);
+      font-size: 18px;
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.12);
+    }
+
+    /* ====== MEDIA RESPONSIVE FIXES ====== */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.8rem 1rem;
+      }
+
+      nav .left-links {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      nav .stationery-link {
+        align-self: flex-end;
+        margin-top: 10px;
+      }
+
+      header img {
+        width: 80px;
+      }
+      header h1 {
+        font-size: 1.6rem;
+      }
+
+      #live-datetime {
+        font-size: 11px;
+        padding: 5px 8px;
+      }
+
+      .container {
+        margin: 1rem;
+        padding: 1rem;
+      }
+
+      #molly-chat {
+        width: 60px;
+        height: 60px;
+        bottom: 14px;
+        right: 14px;
+      }
+
+      #back-to-top {
+        right: 14px;
+        bottom: 90px;
+      }
+    }
+
+    /* ====== KEYFRAMES ====== */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.28);
+      }
+      70% {
+        box-shadow: 0 0 0 16px rgba(16, 185, 129, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Live date/time (top-right) -->
+  <div id="live-datetime" aria-hidden="false"></div>
+
+  <!-- Dark mode toggle (top-left) -->
+  <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
+
   <header>
-    <h1>Stationery Mall 🛒</h1>
-    <p>Here you'll find UPSC & other study essentials. These are affiliate links and we may earn a small referral fee when you purchase from here, at no extra cost to you ❤️!</p>
+    <img src="logo.png" alt="Ibrar Classes logo" />
+    <h1>Ibrar Classes</h1>
+    <p>Building concepts, one at a time</p>
   </header>
 
+  <!-- Status bar hidden (optional) -->
+  <div id="status-bar">🟢 Check Done! Website running smoothly</div>
+
   <nav>
-    <a href="index.html">Home</a>
-    <a href="stationery.html" class="stationery-link">Stationery Mall 🛒</a>
+    <div class="left-links">
+      <a href="index.html">Home</a>
+      <a href="#" aria-disabled="true">Stationery Mall</a>
+    </div>
+    <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
   </nav>
 
-  <div class="container">
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="images/notebook.jpg" alt="Notebook">
-        <h3>Premium Notebook</h3>
-        <p>Perfect for UPSC notes and daily planning.</p>
-        <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
+  <main>
+    <div class="container">
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="images/notebook.jpg" alt="Notebook" />
+          <h3>Premium Notebook</h3>
+          <p>Perfect for UPSC notes and daily planning.</p>
+          <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
+        </div>
+        <div class="product-card">
+          <img src="images/pen-set.jpg" alt="Pen Set" />
+          <h3>Gel Pen Set</h3>
+          <p>Smooth writing pens for long study sessions.</p>
+          <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
+        </div>
+        <div class="product-card">
+          <img src="images/calculator.jpg" alt="Calculator" />
+          <h3>Scientific Calculator</h3>
+          <p>Essential tool for Math preparation and calculations.</p>
+          <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
+        </div>
+        <div class="product-card">
+          <img src="images/highlighter.jpg" alt="Highlighter" />
+          <h3>Highlighter Set</h3>
+          <p>Highlight important points in your notes.</p>
+          <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
+        </div>
       </div>
-      <div class="product-card">
-        <img src="images/pen-set.jpg" alt="Pen Set">
-        <h3>Gel Pen Set</h3>
-        <p>Smooth writing pens for long study sessions.</p>
-        <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
-      </div>
-      <div class="product-card">
-        <img src="images/calculator.jpg" alt="Calculator">
-        <h3>Scientific Calculator</h3>
-        <p>Essential tool for Math preparation and calculations.</p>
-        <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
-      </div>
-      <div class="product-card">
-        <img src="images/highlighter.jpg" alt="Highlighter">
-        <h3>Highlighter Set</h3>
-        <p>Highlight important points in your notes.</p>
-        <a href="AFFILIATE_LINK_HERE" target="_blank">Buy Now</a>
-      </div>
-      <!-- Add more products as needed -->
     </div>
-  </div>
+  </main>
 
   <footer>
-    <p>&copy; 2025 Ibrar Classes</p>
+    <div>&copy; 2025 Ibrar Classes</div>
+    <div id="visitor-info" aria-live="polite"></div>
   </footer>
+
+  <!-- Miss Molly Telegram chat widget (bottom-right) -->
+  <a id="molly-chat" href="https://t.me/M1ssMolly_Bot" target="_blank" rel="noopener" title="Chat with our warden Miss Molly on Telegram">
+    <img src="images/miss-molly.jpg" alt="Miss Molly avatar" class="molly-avatar" />
+  </a>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Back to top">↑</button>
+
+  <script>
+    /* ===== LIVE DATETIME ===== */
+    function updateDateTime() {
+      const now = new Date();
+      const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+      const dateStr = now.toLocaleDateString('en-IN', options);
+      const timeStr = now.toLocaleTimeString('en-IN');
+      document.getElementById('live-datetime').textContent = `${dateStr} | ${timeStr}`;
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    /* ===== DARK MODE (top-left toggle) ===== */
+    const darkToggle = document.getElementById('darkModeToggle');
+    if (localStorage.getItem('ibrar-dark') === '1') {
+      document.documentElement.classList.add('dark-mode');
+      darkToggle.textContent = '☀️';
+    }
+    darkToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark-mode');
+      const isDark = document.documentElement.classList.contains('dark-mode');
+      localStorage.setItem('ibrar-dark', isDark ? '1' : '0');
+      darkToggle.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    /* ===== FAKE VISITOR COUNT (50-100) with reset after 30 days ===== */
+    (function visitorCounter() {
+      const KEY_COUNT = 'ibrar_visitors',
+        KEY_RESET = 'ibrar_visitors_reset';
+      const resetDays = 30;
+      const now = Date.now();
+      const lastReset = localStorage.getItem(KEY_RESET);
+      let count = parseInt(localStorage.getItem(KEY_COUNT), 10);
+
+      function randomInRange(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      if (!lastReset || now - lastReset > resetDays * 24 * 60 * 60 * 1000) {
+        count = randomInRange(51, 98);
+        localStorage.setItem(KEY_COUNT, count);
+        localStorage.setItem(KEY_RESET, now);
+      } else {
+        if (!count || isNaN(count)) {
+          count = randomInRange(51, 98);
+          localStorage.setItem(KEY_COUNT, count);
+        }
+        const inc = Math.random() < 0.35 ? 0 : Math.random() < 0.6 ? 1 : 2;
+        count = Math.min(98, count + inc);
+        localStorage.setItem(KEY_COUNT, count);
+      }
+
+      const getActiveUsers = () => randomInRange(5, 13);
+
+      function renderVisitor() {
+        const date = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+        const active = getActiveUsers();
+        document.getElementById('visitor-info').innerHTML =
+          `Visitors this month: <strong>${count}</strong> &nbsp; | &nbsp; Last updated: <strong>${date}</strong> &nbsp; | &nbsp; Active users: <strong>${active}</strong>`;
+      }
+      renderVisitor();
+      setInterval(() => {
+        if (Math.random() < 0.45) {
+          count = Math.min(98, count + (Math.random() < 0.6 ? 1 : 0));
+          localStorage.setItem(KEY_COUNT, count);
+        }
+        renderVisitor();
+      }, 8000);
+    })();
+
+    /* ===== BACK TO TOP BUTTON ===== */
+    const backBtn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      backBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ===== OPTIONAL: small animation to subtly highlight new visitors area ===== */
+    (function pulseVisitorArea() {
+      const v = document.getElementById('visitor-info');
+      if (!v) return;
+      setInterval(() => {
+        v.style.transform = 'translateY(-2px)';
+        v.style.transition = 'transform .18s';
+        setTimeout(() => v.style.transform = 'none', 200);
+      }, 9000);
+    })();
+  </script>
+
 </body>
 </html>
