@@ -95,6 +95,35 @@ nav .stationery-link:hover {
   transform: scale(1.1);
 }
 
+    nav .stationery-link {
+  position: relative;  /* needed for tooltip */
+}
+
+/* Tooltip text */
+nav .stationery-link::after {
+  content: "All your stationery needs at one place";
+  position: absolute;
+  bottom: 125%; /* above the button */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2563EB;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+
+/* Show tooltip on hover */
+nav .stationery-link:hover::after {
+  opacity: 1;
+}
+
 
     /* ====== LIVE DATETIME (top-right) ====== */
     #live-datetime{
