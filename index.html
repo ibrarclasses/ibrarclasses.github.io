@@ -45,17 +45,39 @@
     header h1{ margin:0; font-size:2rem; }
     header p{ margin:.35rem 0; font-style:italic; font-weight:500; }
 
-    nav{
-      background:var(--nav);
-      text-align:center;
-      padding:.65rem;
-      position:sticky; top:0; z-index:900;
-    }
-    nav a{
-      color:#fff; margin:0 12px; text-decoration:none; font-weight:600;
-      transition:color .25s, transform .18s; display:inline-block;
-    }
-    nav a:hover{ color:var(--accent); transform:scale(1.06); }
+nav {
+  background: #2563EB;
+  display: flex;            /* Flex layout */
+  justify-content: space-between;  /* Left items left, right item right */
+  align-items: center;
+  padding: 0.7rem 2rem;     /* Extra horizontal padding */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav .left-links {
+  display: flex;
+  gap: 20px;
+}
+
+nav .stationery-link {
+  background: linear-gradient(135deg, #10B981, #3B82F6);
+  box-shadow: 0 4px 15px rgba(16,185,129,0.4);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  animation: pulse 2s infinite;
+  transition: all 0.3s;
+}
+
+nav .stationery-link:hover {
+  background: #3B82F6;
+  transform: scale(1.1);
+}
+
 
     /* ====== LIVE DATETIME (top-right) ====== */
     #live-datetime{
@@ -167,28 +189,6 @@
     @keyframes bounceIn { 0%{transform:scale(.85);opacity:0} 60%{transform:scale(1.03);opacity:1} 100%{transform:none} }
     @keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(16,185,129,0.28);} 70% { box-shadow: 0 0 0 16px rgba(16,185,129,0);} 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0);} }
  
-  /* Stationery Mall special styling in navbar */
-nav a.stationery-link {
-  margin-left: auto; /* push to extreme right */
-  background: #10B981;
-  padding: 8px 14px;
-  border-radius: 8px;
-  animation: pulse 2s infinite;
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
-  70% { box-shadow: 0 0 0 15px rgba(16,185,129,0); }
-  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
-}
-
-nav a.stationery-link:hover {
-  background: #3B82F6;
-  transform: scale(1.1);
-}
   </style>
 </head>
 <body>
@@ -209,10 +209,12 @@ nav a.stationery-link:hover {
   <div id="status-bar">🟢 Check Done! Website running smoothly</div>
 
 <nav>
-  <a href="#pdfs">PDF Notes</a>
-  <a href="#blogs">Blogs</a>
-  <a href="#telegram">Telegram</a>
-  <a href="#contact">Contact</a>
+  <div class="left-links">
+    <a href="#pdfs">PDF Notes</a>
+    <a href="#blogs">Blogs</a>
+    <a href="#telegram">Telegram</a>
+    <a href="#contact">Contact</a>
+  </div>
   <a href="stationery.html" class="stationery-link">Stationery Mall 🛒</a>
 </nav>
 
