@@ -6,19 +6,21 @@
   <title>Ibrar Classes | Building concepts, one at a time</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* === BASIC PAGE STYLE === */
     body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #F0F4F8;
-  background-image: url('background-edu.png');
-  background-size: 100% 100%;
-  background-attachment: fixed;   /* 🔥 Makes the parallax effect */
-  background-position: center top;
-  background-repeat: no-repeat;
-  color: #1F2937;
-  overflow-x: hidden;
-}
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #F0F4F8;
+      background-image: url('background-edu.png');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center top;
+      background-repeat: no-repeat;
+      color: #1F2937;
+      overflow-x: hidden;
+      transition: background-color 0.5s, color 0.5s;
+    }
 
     header {
       text-align: center;
@@ -70,6 +72,21 @@
       transform: scale(1.1);
     }
 
+    /* === LIVE DATE TIME === */
+    #live-datetime {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      font-size: 14px;
+      color: #333;
+      background: rgba(255,255,255,0.85);
+      padding: 6px 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      z-index: 10000;
+    }
+
+    /* === MAIN CONTENT === */
     .container {
       max-width: 950px;
       margin: 2rem auto;
@@ -115,6 +132,7 @@
       border-left: 5px solid #3B82F6;
       border-radius: 8px;
       transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
     }
 
     .blog-post:hover {
@@ -125,6 +143,18 @@
     .blog-post h3 {
       margin-top: 0;
       color: #2563EB;
+    }
+
+    .update-badge {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: #10B981;
+      color: white;
+      font-size: 12px;
+      padding: 3px 7px;
+      border-radius: 5px;
+      animation: pulse 2s infinite;
     }
 
     .socials {
@@ -156,9 +186,100 @@
       animation: fadeInUp 1.5s ease;
     }
 
+    #visitor-info {
+      margin-top: 8px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* === BACK TO TOP === */
+    #back-to-top {
+      position: fixed;
+      bottom: 100px;
+      right: 25px;
+      background: #3B82F6;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    #back-to-top:hover { background: #10B981; }
+
+    /* === DARK MODE === */
+    .dark-mode {
+      background-color: #1E293B;
+      color: #F8FAFC;
+    }
+
+    .dark-mode header, .dark-mode nav, .dark-mode footer {
+      background: #0F172A;
+    }
+
+    #mode-toggle {
+      position: fixed;
+      bottom: 100px;
+      left: 25px;
+      background: #10B981;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 25px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    #mode-toggle:hover { background: #3B82F6; }
+
+    /* === MISS MOLLY === */
+    #molly-chat {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 9999;
+      animation: pulse 2.5s infinite;
+    }
+
+    #molly-chat:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+
+    .molly-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* === ANIMATIONS === */
     @keyframes fadeInUp { from {opacity:0; transform: translateY(30px);} to {opacity:1; transform: translateY(0);} }
     @keyframes fadeInDown { from {opacity:0; transform: translateY(-30px);} to {opacity:1; transform: translateY(0);} }
     @keyframes bounceIn { 0%{transform:scale(0.8);opacity:0;} 50%{transform:scale(1.05);opacity:1;} 100%{transform:scale(1);} }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
 
     @media (max-width: 768px) {
       header h1 { font-size: 1.8rem; }
@@ -168,6 +289,8 @@
   </style>
 </head>
 <body>
+
+  <div id="live-datetime"></div>
 
   <header>
     <img src="logo.png" alt="Ibrar Classes Logo">
@@ -192,9 +315,7 @@
 
   <div class="container" id="blogs">
     <h2>Our Blogs</h2>
-    <div class="blog-list" id="blog-list">
-      <!-- Blog posts will be loaded here automatically -->
-    </div>
+    <div class="blog-list" id="blog-list"></div>
   </div>
 
   <div class="container" id="telegram">
@@ -216,70 +337,68 @@
 
   <footer>
     <p>&copy; 2025 Ibrar Classes</p>
+    <div id="visitor-info"></div>
   </footer>
 
+  <!-- Back to Top Button -->
+  <button id="back-to-top">↑</button>
+
+  <!-- Light/Dark Mode Toggle -->
+  <button id="mode-toggle">🌙 Dark Mode</button>
+
+  <!-- Miss Molly Telegram Chat -->
+  <a href="https://t.me/M1ssMolly_Bot" target="_blank" id="molly-chat">
+    <img src="images/miss-molly.jpg" alt="Chat with Miss Molly" class="molly-avatar">
+  </a>
+
   <script>
-    // Automatically list all blog HTML files from 'blogs' folder
+    // === Live DateTime ===
+    function updateDateTime() {
+      const now = new Date();
+      const formatted = now.toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })
+                        + " | " + now.toLocaleTimeString('en-IN');
+      document.getElementById('live-datetime').innerText = formatted;
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // === Blog Auto-List ===
     const blogs = [
       {title: 'Understanding Polity for UPSC', file: 'blogs/polity.html', summary: 'Polity is one of the most scoring subjects in UPSC...'},
       {title: 'Mastering Algebra in Maths', file: 'blogs/algebra.html', summary: 'Algebra forms the foundation of higher mathematics...'}
     ];
-
     const blogList = document.getElementById('blog-list');
     blogs.forEach(blog => {
       const div = document.createElement('div');
       div.className = 'blog-post';
-      div.innerHTML = `<h3>${blog.title}</h3><p>${blog.summary}</p><a href='${blog.file}'>Read More</a>`;
+      div.innerHTML = `<div class='update-badge'>Updated</div><h3>${blog.title}</h3><p>${blog.summary}</p><a href='${blog.file}'>Read More</a>`;
       blogList.appendChild(div);
     });
+
+    // === Fake Visitor Count + Last Updated ===
+    function fakeVisitors() {
+      const base = 4000, range = 9000;
+      const count = base + Math.floor(Math.random() * range);
+      const date = new Date().toLocaleDateString('en-IN', {year: 'numeric', month: 'short', day: 'numeric'});
+      document.getElementById('visitor-info').innerHTML = `Visitors this month: <strong>${count}</strong> | Last updated: <strong>${date}</strong> | Active users: <strong>${Math.floor(Math.random()*20)+5}</strong>`;
+    }
+    fakeVisitors();
+
+    // === Back to Top ===
+    const backToTop = document.getElementById("back-to-top");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) backToTop.style.display = "block";
+      else backToTop.style.display = "none";
+    });
+    backToTop.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+
+    // === Dark Mode Toggle ===
+    const modeToggle = document.getElementById('mode-toggle');
+    modeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      modeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
   </script>
-<!-- Miss Molly Telegram Chat Widget -->
-<a href="https://t.me/M1ssMolly_Bot" target="_blank" id="molly-chat">
-  <img src="images/miss-molly.jpg" alt="Chat with Miss Molly" class="molly-avatar">
-</a>
 
-<style>
-  #molly-chat {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    z-index: 9999;
-  }
-
-  #molly-chat:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-  }
-
-  .molly-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  /* Optional glowing animation */
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(0, 150, 255, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(0, 150, 255, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 150, 255, 0); }
-  }
-
-  #molly-chat {
-    animation: pulse 2.5s infinite;
-  }
-</style>
-
-  
 </body>
 </html>
