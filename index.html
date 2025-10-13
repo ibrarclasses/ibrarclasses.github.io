@@ -166,6 +166,29 @@
     @keyframes fadeInDown { from{opacity:0; transform:translateY(-20px)} to{opacity:1; transform:none} }
     @keyframes bounceIn { 0%{transform:scale(.85);opacity:0} 60%{transform:scale(1.03);opacity:1} 100%{transform:none} }
     @keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(16,185,129,0.28);} 70% { box-shadow: 0 0 0 16px rgba(16,185,129,0);} 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0);} }
+ 
+  /* Stationery Mall special styling in navbar */
+nav a.stationery-link {
+  margin-left: auto; /* push to extreme right */
+  background: #10B981;
+  padding: 8px 14px;
+  border-radius: 8px;
+  animation: pulse 2s infinite;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+nav a.stationery-link:hover {
+  background: #3B82F6;
+  transform: scale(1.1);
+}
   </style>
 </head>
 <body>
@@ -185,12 +208,13 @@
   <!-- Status / Health bar -->
   <div id="status-bar">🟢 Check Done! Website running smoothly</div>
 
-  <nav>
-    <a href="#pdfs">PDF Notes</a>
-    <a href="#blogs">Blogs</a>
-    <a href="#telegram">Telegram</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<nav>
+  <a href="#pdfs">PDF Notes</a>
+  <a href="#blogs">Blogs</a>
+  <a href="#telegram">Telegram</a>
+  <a href="#contact">Contact</a>
+  <a href="stationery.html" class="stationery-link">Stationery Mall 🛒</a>
+</nav>
 
   <main>
     <section class="container" id="pdfs">
