@@ -233,6 +233,53 @@
       blogList.appendChild(div);
     });
   </script>
+<!-- Miss Molly Telegram Chat Widget -->
+<a href="https://t.me/M1ssMolly_Bot" target="_blank" id="molly-chat">
+  <img src="images/miss-molly.jpg" alt="Chat with Miss Molly" class="molly-avatar">
+</a>
 
+<style>
+  #molly-chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    z-index: 9999;
+  }
+
+  #molly-chat:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  }
+
+  .molly-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  /* Optional glowing animation */
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 150, 255, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(0, 150, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 150, 255, 0); }
+  }
+
+  #molly-chat {
+    animation: pulse 2.5s infinite;
+  }
+</style>
+
+  
 </body>
 </html>
