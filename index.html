@@ -183,7 +183,7 @@
   </header>
 
   <!-- Status / Health bar -->
-  <div id="status-bar">🟢 Website running smoothly — all systems operational</div>
+  <div id="status-bar">🟢 Check Done! Website running smoothly</div>
 
   <nav>
     <a href="#pdfs">PDF Notes</a>
@@ -339,6 +339,19 @@
       if(!v) return;
       setInterval(()=>{ v.style.transform='translateY(-2px)'; v.style.transition='transform .18s'; setTimeout(()=>v.style.transform='none',200); }, 9000);
     })();
+    
+    // Show status bar only for 5 seconds
+window.addEventListener('DOMContentLoaded', () => {
+  const statusBar = document.getElementById('status-bar');
+  if(statusBar){
+    statusBar.style.opacity = '1';         // ensure visible initially
+    setTimeout(() => {
+      statusBar.style.transition = 'opacity 0.8s ease';
+      statusBar.style.opacity = '0';
+      setTimeout(()=>statusBar.style.display='none', 800); // hide completely after fade out
+    }, 5000); // 5000ms = 5 seconds
+  }
+});
 
   </script>
 </body>
