@@ -275,7 +275,7 @@ nav .stationery-link:hover {
   </footer>
 
   <!-- Miss Molly Telegram chat widget (bottom-right) -->
-  <a id="molly-chat" href="https://t.me/M1ssMolly_Bot" target="_blank" rel="noopener" title="Chat with Miss Molly on Telegram">
+  <a id="molly-chat" href="https://t.me/M1ssMolly_Bot" target="_blank" rel="noopener" title="Chat with our warden Miss Molly on Telegram">
     <img src="images/miss-molly.jpg" alt="Miss Molly avatar" class="molly-avatar" />
   </a>
 
@@ -317,12 +317,12 @@ nav .stationery-link:hover {
 
       // Reset if not set or older than resetDays
       if(!lastReset || (now - lastReset) > resetDays*24*60*60*1000){
-        count = randomInRange(50,100);
+        count = randomInRange(51,98);
         localStorage.setItem(KEY_COUNT, count);
         localStorage.setItem(KEY_RESET, now);
       } else {
-        if(!count || isNaN(count)){ count = randomInRange(50,100); localStorage.setItem(KEY_COUNT, count); }
-        // gently increment by 0-2 (but cap at 100)
+        if(!count || isNaN(count)){ count = randomInRange(51,98); localStorage.setItem(KEY_COUNT, count); }
+        // gently increment by 0-2 (but cap at 98)
         const inc = Math.random() < 0.35 ? 0 : Math.random() < 0.6 ? 1 : 2;
         count = Math.min(100, count + inc);
         localStorage.setItem(KEY_COUNT, count);
@@ -383,7 +383,7 @@ nav .stationery-link:hover {
       setInterval(()=>{ v.style.transform='translateY(-2px)'; v.style.transition='transform .18s'; setTimeout(()=>v.style.transform='none',200); }, 9000);
     })();
     
-    // Show status bar only for 5 seconds
+    // Show status bar only for 3 seconds
 window.addEventListener('DOMContentLoaded', () => {
   const statusBar = document.getElementById('status-bar');
   if(statusBar){
@@ -392,7 +392,7 @@ window.addEventListener('DOMContentLoaded', () => {
       statusBar.style.transition = 'opacity 0.8s ease';
       statusBar.style.opacity = '0';
       setTimeout(()=>statusBar.style.display='none', 800); // hide completely after fade out
-    }, 5000); // 3000ms = 3 seconds
+    }, 3000); // 3000ms = 3 seconds
   }
 });
 
