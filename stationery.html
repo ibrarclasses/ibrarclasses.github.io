@@ -121,6 +121,24 @@
   animation-play-state: paused;
 }
 
+/* === Add this new block below === */
+@keyframes scrollText {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
     
     /* Stationery Mall Button */
     nav .stationery-link {
@@ -426,11 +444,7 @@
   </nav>
 
 <div class="ticker">
-  <div class="ticker__content">
-    🛒 These products are affiliate links from Flipkart, Amazon & Meesho. 
-    💡 We periodically update them for better prices, offers & deals. 
-    ✅ Every purchase helps support Ibrar Classes — at no extra cost to you!
-  </div>
+  <div class="ticker__content" id="tickerText"></div>
 </div>
 
   
@@ -583,6 +597,45 @@ async function loadProducts() {
 loadProducts();
 </script>
 
+<script>
+const messages = [
+  "🛒 These products are affiliate links from Flipkart, Amazon & Meesho.",
+  "💡 We periodically update them for better prices, offers & deals.",
+  "✅ Every purchase helps support Ibrar Classes — at no extra cost to you!",
+  "📦 Fresh stationery items added regularly — check back often!"
+];
+
+const tickerText = document.getElementById("tickerText");
+let current = 0;
+
+function showNextMessage() {
+  // Set new message text
+  tickerText.textContent = messages[current];
+
+  // Restart animation from left
+  tickerText.style.animation = "none";
+  void tickerText.offsetWidth; // trigger reflow
+  tickerText.style.animation = "scrollText 12s linear forwards";
+
+  // Move to next message
+  current = (current + 1) % messages.length;
+
+  // 5 sec gap between messages, 15 sec after full cycle
+  const delay = current === 0 ? 15000 : 5000;
+  setTimeout(showNextMessage, 12000 + delay); // 12s scroll + gap
+}
+
+// Start ticker
+showNextMessage();
+
+// Pause/resume on hover
+tickerText.parentElement.addEventListener("mouseenter", () => {
+  tickerText.style.animationPlayState = "paused";
+});
+tickerText.parentElement.addEventListener("mouseleave", () => {
+  tickerText.style.animationPlayState = "running";
+});
+</script>
 
 
 
