@@ -616,7 +616,7 @@ function showNextMessage() {
   // Restart animation from left
   tickerText.style.animation = "none";
   void tickerText.offsetWidth; // trigger reflow
-  tickerText.style.animation = "scrollText 20s ease-in-out";
+  tickerText.style.animation = "scrollText 20s linear forwards";
 
   // Move to next message
   current = (current + 1) % messages.length;
