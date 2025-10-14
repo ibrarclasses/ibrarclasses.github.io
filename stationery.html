@@ -124,7 +124,7 @@
 /* === Add this new block below === */
 @keyframes scrollText {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(100%);
     opacity: 0;
   }
   10% {
@@ -134,10 +134,11 @@
     opacity: 1;
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(-100%);
     opacity: 0;
   }
 }
+
 
     
     /* Stationery Mall Button */
@@ -615,14 +616,14 @@ function showNextMessage() {
   // Restart animation from left
   tickerText.style.animation = "none";
   void tickerText.offsetWidth; // trigger reflow
-  tickerText.style.animation = "scrollText 12s linear forwards";
+  tickerText.style.animation = "scrollText 20s ease-in-out";
 
   // Move to next message
   current = (current + 1) % messages.length;
 
   // 5 sec gap between messages, 15 sec after full cycle
   const delay = current === 0 ? 15000 : 5000;
-  setTimeout(showNextMessage, 12000 + delay); // 12s scroll + gap
+  setTimeout(showNextMessage, 20000 + delay); // 20s scroll + gap
 }
 
 // Start ticker
