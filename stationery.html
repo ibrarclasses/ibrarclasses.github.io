@@ -558,25 +558,46 @@
 <script>
 async function loadProducts() {
   try {
+    // 🟩 Prevent browser cache so updates reflect instantly
     const res = await fetch('products.json?v=' + new Date().getTime());
     const products = await res.json();
+
     const grid = document.querySelector('.product-grid');
     grid.innerHTML = '';
 
     products.forEach(p => {
       const card = document.createElement('div');
       card.className = 'product-card';
+
+      // 🟨 Use template literals for readability + improvements
       card.innerHTML = `
-        <img src="${p.image}" alt="${p.title}">
+        <img 
+          src="${p.image}" 
+          alt="${p.title || 'Stationery Product'}" 
+          loading="lazy" 
+          onerror="this.src='fallback.jpg'; this.alt='Image not available';"
+        >
         <h3>${p.title}</h3>
         <p>${p.desc}</p>
         <span class="price">${p.price}</span>
-        <a href="${p.link}" target="_blank" class="buy-btn">Buy Now</a>
+        <a 
+          href="${p.link}" 
+          target="_blank" 
+          class="buy-btn" 
+          rel="nofollow noopener noreferrer"
+        >
+          Buy Now
+        </a>
       `;
+
       grid.appendChild(card);
     });
+
   } catch (err) {
     console.error('Error loading products:', err);
+    document.querySelector('.product-grid').innerHTML = `
+      <p style="text-align:center; color:red;">⚠️ Failed to load products. Please refresh the page.</p>
+    `;
   }
 }
 
