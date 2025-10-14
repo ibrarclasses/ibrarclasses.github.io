@@ -516,7 +516,7 @@
 <script>
 async function loadProducts() {
   try {
-    const res = await fetch('products.json');
+    const res = await fetch('products.json?v=' + new Date().getTime());
     const products = await res.json();
     const grid = document.querySelector('.product-grid');
     grid.innerHTML = '';
