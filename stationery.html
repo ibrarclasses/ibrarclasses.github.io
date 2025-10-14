@@ -585,10 +585,10 @@ loadProducts();
 
 <script>
 const messages = [
-  "🛒 These products are affiliate links from Flipkart, Amazon & Meesho.",
-  "💡 We periodically update them for better prices, offers & deals.",
-  "✅ Every purchase helps support Ibrar Classes — at no extra cost to you!",
-  "📦 Fresh stationery items added regularly — check back often!"
+  "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
+  "📦 The products are updated regularly for better deals and prices.",
+  "❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐",
+  "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐"
 ];
 
 const tickerText = document.getElementById("tickerText");
@@ -612,9 +612,9 @@ function showNextMessage() {
     const containerW = container.clientWidth;
 
     // start position: just outside left of container (in px)
-    const startPx = -textW;             // start off-screen left
+    const startPx = containerW;             // start off-screen left
     // end position: just outside right of container (in px)
-    const endPx = containerW;
+    const endPx = -textW;
 
     // total distance to travel (pixels)
     const distance = Math.abs(endPx - startPx); // = textW + containerW
