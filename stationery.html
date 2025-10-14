@@ -108,37 +108,22 @@
 .ticker__content {
   display: inline-block;
   white-space: nowrap;
-  padding-left: 100%;
-  animation: tickerMove 28s linear infinite;
+  /* no padding-left here — JS positions it using CSS vars */
+  position: relative;
+  will-change: transform;
+  /* no default animation here — JS applies scroll dynamically */
 }
 
-@keyframes tickerMove {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-
-.ticker:hover .ticker__content {
-  animation-play-state: paused;
-}
-
-/* === Add this new block below === */
+/* Keyframes use CSS variables (pixel values set by JS) */
 @keyframes scrollText {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
+  from { transform: translateX(var(--start)); }
+  to   { transform: translateX(var(--end)); }
 }
 
+/* Pause on hover (keeps behavior you wanted) */
+.ticker:hover .ticker__content {
+  animation-play-state: paused !important;
+}
 
     
     /* Stationery Mall Button */
@@ -607,29 +592,62 @@ const messages = [
 ];
 
 const tickerText = document.getElementById("tickerText");
+const container = document.querySelector(".ticker");
 let current = 0;
+let timerId = null;
+
+// pixels per second speed (increase = faster, decrease = slower)
+const SPEED_PX_PER_SEC = 120; // change this to taste (e.g., 80 = slower, 200 = faster)
 
 function showNextMessage() {
-  // Set new message text
+  // clear any existing timer
+  if (timerId) { clearTimeout(timerId); timerId = null; }
+
+  // set text
   tickerText.textContent = messages[current];
 
-  // Restart animation from left
-  tickerText.style.animation = "none";
-  void tickerText.offsetWidth; // trigger reflow
-  tickerText.style.animation = "scrollText 20s linear forwards";
+  // ensure DOM has updated and we can measure
+  requestAnimationFrame(() => {
+    const textW = tickerText.offsetWidth;
+    const containerW = container.clientWidth;
 
-  // Move to next message
-  current = (current + 1) % messages.length;
+    // start position: just outside left of container (in px)
+    const startPx = -textW;             // start off-screen left
+    // end position: just outside right of container (in px)
+    const endPx = containerW;
 
-  // 5 sec gap between messages, 15 sec after full cycle
-  const delay = current === 0 ? 15000 : 5000;
-  setTimeout(showNextMessage, 20000 + delay); // 20s scroll + gap
+    // total distance to travel (pixels)
+    const distance = Math.abs(endPx - startPx); // = textW + containerW
+
+    // compute duration (ms) from chosen speed (px/sec)
+    const durationMs = Math.max(4000, Math.round((distance / SPEED_PX_PER_SEC) * 1000)); // min 4s
+
+    // set CSS vars on the element (pixel values)
+    tickerText.style.setProperty('--start', startPx + 'px');
+    tickerText.style.setProperty('--end', endPx + 'px');
+
+    // reset animation then apply with computed duration and linear timing
+    tickerText.style.animation = 'none';
+    void tickerText.offsetWidth; // reflow to reset animation
+    tickerText.style.animation = `scrollText ${durationMs}ms linear forwards`;
+
+    // compute gap (5s between messages, 15s after full cycle)
+    const gapAfter = ((current + 1) % messages.length === 0) ? 15000 : 5000;
+
+    // schedule next message after animation finishes plus gap
+    timerId = setTimeout(() => {
+      current = (current + 1) % messages.length;
+      showNextMessage();
+    }, durationMs + gapAfter);
+  });
 }
 
-// Start ticker
+// start
 showNextMessage();
 
-// Pause/resume on hover
+// Pause / resume UI: keep CSS hover pause (works visually).
+// (Note: JS timers still run while paused — if you hover for very long the message loop will continue timeouts.
+//  If you need exact pause (timeouts to also stop) I can add a robust pause/resume implementation.)
 tickerText.parentElement.addEventListener("mouseenter", () => {
   tickerText.style.animationPlayState = "paused";
 });
@@ -637,6 +655,7 @@ tickerText.parentElement.addEventListener("mouseleave", () => {
   tickerText.style.animationPlayState = "running";
 });
 </script>
+
 
 
 
