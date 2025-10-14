@@ -91,42 +91,62 @@
       transform: scale(1.1);
     }
 
-.subtle-scroller-container {
+/* 🌟 Ticker Wrapper */
+.premium-ticker-wrapper {
   position: relative;
-  width: 100vw;
-  max-width: 100%;
-  height: 54px;
   overflow: hidden;
-  background: #f5f7fa;
-  box-shadow: 0 2px 8px rgba(40,40,50,0.07);
+  background: linear-gradient(90deg, #ffffff, #f8f8f8);
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  height: 42px;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
+  padding-left: 10px;
+  z-index: 9999;
 }
 
-.subtle-scroller-text {
+/* 🌟 Text Style */
+.premium-ticker-text {
   position: absolute;
-  left: -100%;
   white-space: nowrap;
-  font-size: 1.6rem;
-  color: #333a45;
-  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 1rem;
   font-weight: 500;
-  letter-spacing: 1px;
-  padding: 0 24px;
-  background: none;
-  opacity: 0;
-  transition: none;
-  border-radius: 7px;
+  color: #333;
+  letter-spacing: 0.5px;
+  animation: scrollText 10s linear forwards;
+  will-change: transform;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-@media (max-width: 600px) {
-  .subtle-scroller-container {
-    height: 36px;
+/* ✨ Smooth scrolling animation */
+@keyframes scrollText {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
   }
-  .subtle-scroller-text {
-    font-size: 1.05rem;
-    padding: 0 12px;
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* 🖱️ Hover pauses scrolling */
+.premium-ticker-wrapper:hover .premium-ticker-text {
+  animation-play-state: paused;
+  cursor: pointer;
+}
+
+/* 📱 Responsive adjustments */
+@media (max-width: 600px) {
+  .premium-ticker-text {
+    font-size: 0.9rem;
   }
 }
 
@@ -434,9 +454,11 @@
     <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
   </nav>
 
-<div class="subtle-scroller-container">
-  <div id="scroller-text" class="subtle-scroller-text"></div>
+<!-- 🌟 Premium Scrolling Ticker -->
+<div class="premium-ticker-wrapper">
+  <div class="premium-ticker-text" id="premiumTickerText">🎉 Stationery Mall!</div>
 </div>
+
 
   
   <div class="container">
@@ -590,45 +612,42 @@ loadProducts();
 
 
 <script>
-const texts = [
-  "Your premium journey starts here.",
-  "Calm. Connected. Designed for you.",
-  "Innovation with sophistication.",
-  "Enjoy seamless experiences everywhere."
-];
+document.addEventListener("DOMContentLoaded", function() {
+  const ticker = document.getElementById("premiumTickerText");
+  const messages = [
+    "🎉 Welcome to Stationery Mall!",
+    "🛒 All products are affiliate links to Amazon, Flipkart or Meesho!",
+    "💸 Products are updated regularly for best prices and deals!",
+    "✨ Your trust is our top priority — shop smart, shop here!"
+  ];
 
-const scroller = document.getElementById('scroller-text');
-let textIndex = 0;
+  let index = 0;
+  let delayBetweenTexts = 5000; // 5 seconds between messages
+  let delayAfterCycle = 15000;  // 15 seconds after full cycle
 
-function scrollText() {
-  scroller.innerText = texts[textIndex];
-  scroller.style.transition = 'none';
-  scroller.style.opacity = '0';
-  scroller.style.transform = 'translateX(-100%)';
+  function playTicker() {
+    ticker.textContent = messages[index];
+    ticker.style.animation = "none";
+    void ticker.offsetWidth; // Restart animation
+    ticker.style.animation = "scrollText 10s linear forwards";
 
-  setTimeout(() => {
-    scroller.style.transition = 'opacity 0.7s cubic-bezier(.8,.06,.37,1), transform 8s linear';
-    scroller.style.opacity = '1';
-    const containerWidth = scroller.parentElement.offsetWidth;
-    // Scroll the text slower (8 seconds)
-    scroller.style.transform = `translateX(${containerWidth + scroller.offsetWidth}px)`;
-  }, 100);
+    // Move to next message after current + 5s pause
+    setTimeout(() => {
+      index++;
+      if (index < messages.length) {
+        playTicker();
+      } else {
+        // Restart after 15s gap
+        index = 0;
+        setTimeout(playTicker, delayAfterCycle);
+      }
+    }, 10000 + delayBetweenTexts);
+  }
 
-  scroller.addEventListener('transitionend', handleTransitionEnd, { once: true });
-}
-
-function handleTransitionEnd(event) {
-  if (event.propertyName !== 'transform') return;
-  scroller.style.opacity = '0';
-  setTimeout(() => {
-    textIndex = (textIndex + 1) % texts.length;
-    const delay = textIndex === 0 ? 15000 : 5000;
-    setTimeout(scrollText, delay);
-  }, 50);
-}
-
-window.addEventListener('DOMContentLoaded', scrollText);
+  playTicker();
+});
 </script>
+
 
 
  
