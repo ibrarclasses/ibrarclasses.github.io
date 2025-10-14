@@ -174,6 +174,37 @@
   color: #1a73e8;
   margin: 5px 0;
 }
+
+/* ====== TICKER / MOVING NOTICE ====== */
+.ticker {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #2563eb, #10b981);
+  color: white;
+  font-weight: 600;
+  padding: 8px 0;
+  position: relative;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ticker__content {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: tickerMove 28s linear infinite;
+}
+
+@keyframes tickerMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.ticker:hover .ticker__content {
+  animation-play-state: paused;
+}
+    
     /* === Buy Now Button === */
 .buy-btn {
   display: inline-block;
@@ -289,6 +320,11 @@
       --text: #000000;
     }
 
+    .dark-mode .ticker {
+  background: linear-gradient(90deg, #10b981, #2563eb);
+  color: #fff;
+}
+
     /* Dark mode button */
     #darkModeToggle {
       position: fixed;
@@ -391,6 +427,14 @@
       </div>
     <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
   </nav>
+
+  <div class="ticker">
+  <div class="ticker__content">
+    🛍️ These products are affiliate links from trusted sites like Flipkart, Amazon & Meesho. 
+    💡 The products are updated regularly to find better deals. 
+    ❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐. 
+  </div>
+</div>
 
   <div class="container">
   <div class="product-grid"></div>
