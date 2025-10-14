@@ -175,35 +175,36 @@
   margin: 5px 0;
 }
 
-    /* ====== Scroll Ticker ====== */
-    
-.scroll-ticker {
-  background: linear-gradient(90deg, #0d6efd, #6610f2);
+   /* ====== SCROLL TICKER ====== */
+.scroll-ticker{
+  background: linear-gradient(90deg, #2563EB, #10B981);
   color: white;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
   overflow: hidden;
   white-space: nowrap;
-  padding: 8px 0;
+  padding: 8px 12px;
   position: relative;
-  text-align: center;
+  text-align: left;
 }
 
-#ticker-text {
+/* The text node we animate. Note: no 'infinite' here. We add animation via JS per message. */
+#ticker-text{
   display: inline-block;
   white-space: nowrap;
-  animation: scrollText 10s linear infinite;
 }
 
 /* Pause animation on hover */
 .scroll-ticker:hover #ticker-text {
-  animation-play-state: paused;
+  animation-play-state: paused !important;
 }
 
+/* Keyframes: move from just outside right to just outside left, final state kept (forwards) */
 @keyframes scrollText {
-  0% { transform: translateX(100%); }
+  0%   { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
 }
+
     
     /* === Buy Now Button === */
 .buy-btn {
@@ -428,9 +429,11 @@
     <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
   </nav>
 
-<div class="scroll-ticker">
-  <div id="ticker-text"></div>
+<!-- SCROLLING TICKER (one-by-one, with gaps; pauses on hover) -->
+<div class="scroll-ticker" aria-live="polite" title="Site announcements">
+  <div id="ticker-text" role="status" aria-atomic="true"></div>
 </div>
+
 
   <div class="container">
   <div class="product-grid"></div>
@@ -583,38 +586,91 @@ async function loadProducts() {
 loadProducts();
 </script>
 
-// JS for scrolling text delays
-  
-  <script>
+<script>
+(function(){
   const tickerMessages = [
     "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
     "💰 The products are updated regularly for better deals and prices.",
     "❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐",
-    "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly"
+    "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐"
   ];
 
-  const ticker = document.getElementById("ticker-text");
+  const ticker = document.getElementById('ticker-text');
+  const container = document.querySelector('.scroll-ticker');
   let index = 0;
+  let timerId = null;
 
-  function showNextMessage() {
-    ticker.textContent = tickerMessages[index];
-    ticker.style.animation = "none";
-    void ticker.offsetWidth; // restart animation
-    ticker.style.animation = "scrollText 10s linear";
+  // pixels per second speed (adjust to taste)
+  const SPEED_PX_PER_SEC = 120; // 120 px/sec -> adjust slower/faster
 
-    index++;
+  function startMessage(msg, onComplete){
+    // set text
+    ticker.textContent = msg;
 
-    // Determine timing gap
-    const gap = (index < tickerMessages.length) ? 5000 : 10000; // 5s after each, 10s after full cycle
-    if (index >= tickerMessages.length) index = 0;
+    // need browser to render so we can measure widths
+    requestAnimationFrame(() => {
+      // measure widths
+      const textW = ticker.offsetWidth;
+      const containerW = container.offsetWidth;
+      const distance = textW + containerW; // total px to travel
 
-    setTimeout(showNextMessage, 10000 + gap); // 10s scroll + gap
+      // compute duration based on distance and speed
+      const durationMs = Math.max(2500, Math.round((distance / SPEED_PX_PER_SEC) * 1000)); // min 2.5s
+
+      // apply animation
+      ticker.style.animation = `scrollText ${durationMs}ms linear forwards`;
+      ticker.style.animationPlayState = 'running';
+
+      // after the animation completes, call onComplete
+      timerId = setTimeout(() => {
+        // clear animation (so CSS doesn't keep transform)
+        ticker.style.animation = 'none';
+        timerId = null;
+        if (typeof onComplete === 'function') onComplete();
+      }, durationMs);
+    });
   }
 
-  showNextMessage();
+  function scheduleNext(){
+    // Show current message, then schedule next according to rules:
+    // - 5s gap between messages
+    // - 10s gap after completing full cycle
+    const msg = tickerMessages[index];
+    startMessage(msg, () => {
+      // determine gap after this message
+      const isLast = (index === tickerMessages.length - 1);
+      const gapMs = isLast ? 10000 : 5000; // 10s after cycle, else 5s
+
+      // advance index for next time
+      index = (index + 1) % tickerMessages.length;
+
+      // schedule showing next message after gap
+      timerId = setTimeout(() => {
+        scheduleNext();
+      }, gapMs);
+    });
+  }
+
+  // start the loop
+  scheduleNext();
+
+  // cleanup if page is hidden/unloaded (prevent stray timers)
+  window.addEventListener('beforeunload', () => {
+    if (timerId) clearTimeout(timerId);
+  });
+
+  // Optional: if user switches tab and returns, restart measurements to handle layout changes
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      // cancel any running animation & restart the loop so measurements are fresh
+      ticker.style.animation = 'none';
+      if (timerId) clearTimeout(timerId);
+      setTimeout(()=> scheduleNext(), 300);
+    }
+  });
+})();
 </script>
 
-  
-  
+ 
 </body>
 </html>
