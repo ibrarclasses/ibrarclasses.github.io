@@ -91,6 +91,47 @@
       transform: scale(1.1);
     }
 
+.premium-scroller-container {
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  height: 60px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #232526 0%, #414345 100%);
+  box-shadow: 0 4px 20px rgba(30, 30, 30, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.premium-scroller-text {
+  position: absolute;
+  left: -100%;
+  white-space: nowrap;
+  font-size: 2rem;
+  color: #fff;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 0 30px;
+  background: linear-gradient(90deg, #fffc00 0%, #fc00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  will-change: transform;
+  transition: none;
+}
+
+@media (max-width: 600px) {
+  .premium-scroller-container {
+    height: 40px;
+  }
+  .premium-scroller-text {
+    font-size: 1.2rem;
+    padding: 0 15px;
+  }
+}
+
+    
     /* Stationery Mall Button */
     nav .stationery-link {
       background: linear-gradient(135deg, #10B981, #3B82F6);
@@ -394,6 +435,10 @@
     <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
   </nav>
 
+<div class="premium-scroller-container">
+  <div id="scroller-text" class="premium-scroller-text"></div>
+</div>
+  
   <div class="container">
   <div class="product-grid"></div>
 </div>
@@ -541,6 +586,49 @@ async function loadProducts() {
 }
 
 loadProducts();
+</script>
+
+
+  <script>
+const texts = [
+  "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
+  "💰 The products are updated regularly for better deals and prices.",
+  "❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐",
+  "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐"
+];
+
+const scroller = document.getElementById('scroller-text');
+let textIndex = 0;
+let scrolling = false;
+
+function scrollText() {
+  scrolling = true;
+  scroller.innerText = texts[textIndex];
+  scroller.style.transition = 'none';
+  scroller.style.transform = 'translateX(-100%)';
+  const containerWidth = scroller.parentElement.offsetWidth;
+  // Brief timeout for browser to register new starting position
+  setTimeout(() => {
+    scroller.style.transition = 'transform 4s cubic-bezier(.83,.01,.53,1)';
+    scroller.style.transform = `translateX(${containerWidth + scroller.offsetWidth}px)`;
+  }, 50);
+
+  scroller.addEventListener('transitionend', handleTransitionEnd, { once: true });
+}
+
+function handleTransitionEnd() {
+  scrolling = false;
+  setTimeout(() => {
+    textIndex = (textIndex + 1) % texts.length;
+    // If completed a cycle (first text about to start again), add 15s delay
+    const delay = textIndex === 0 ? 15000 : 5000;
+    setTimeout(scrollText, delay);
+  }, 0);
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  scrollText();
+});
 </script>
 
  
