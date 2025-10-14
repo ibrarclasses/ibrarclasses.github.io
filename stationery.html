@@ -91,63 +91,34 @@
       transform: scale(1.1);
     }
 
-/* 🌟 Ticker Wrapper */
-.premium-ticker-wrapper {
-  position: relative;
+/* ====== TICKER / MOVING NOTICE ====== */
+.ticker {
+  width: 100%;
   overflow: hidden;
-  background: linear-gradient(90deg, #ffffff, #f8f8f8);
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 10px;
-  z-index: 9999;
+  background: linear-gradient(90deg, #2563eb, #10b981);
+  color: white;
+  font-weight: 600;
+  padding: 8px 0;
+  position: relative;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 🌟 Text Style */
-.premium-ticker-text {
-  position: absolute;
+.ticker__content {
+  display: inline-block;
   white-space: nowrap;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #333;
-  letter-spacing: 0.5px;
-  animation: scrollText 10s linear forwards;
-  will-change: transform;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  padding-left: 100%;
+  animation: tickerMove 28s linear infinite;
 }
 
-/* ✨ Smooth scrolling animation */
-@keyframes scrollText {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
+@keyframes tickerMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
-/* 🖱️ Hover pauses scrolling */
-.premium-ticker-wrapper:hover .premium-ticker-text {
+.ticker:hover .ticker__content {
   animation-play-state: paused;
-  cursor: pointer;
-}
-
-/* 📱 Responsive adjustments */
-@media (max-width: 600px) {
-  .premium-ticker-text {
-    font-size: 0.9rem;
-  }
 }
 
     
@@ -454,11 +425,13 @@
     <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
   </nav>
 
-<!-- 🌟 Premium Scrolling Ticker -->
-<div class="premium-ticker-wrapper">
-  <div class="premium-ticker-text" id="premiumTickerText">🎉 Stationery Mall!</div>
+<div class="ticker">
+  <div class="ticker__content">
+    🛒 These products are affiliate links from Flipkart, Amazon & Meesho. 
+    💡 We periodically update them for better prices, offers & deals. 
+    ✅ Every purchase helps support Ibrar Classes — at no extra cost to you!
+  </div>
 </div>
-
 
   
   <div class="container">
@@ -610,43 +583,6 @@ async function loadProducts() {
 loadProducts();
 </script>
 
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const ticker = document.getElementById("premiumTickerText");
-  const messages = [
-    "🎉 Welcome to Stationery Mall!",
-    "🛒 All products are affiliate links to Amazon, Flipkart or Meesho!",
-    "💸 Products are updated regularly for best prices and deals!",
-    "✨ Your trust is our top priority — shop smart, shop here!"
-  ];
-
-  let index = 0;
-  let delayBetweenTexts = 5000; // 5 seconds between messages
-  let delayAfterCycle = 15000;  // 15 seconds after full cycle
-
-  function playTicker() {
-    ticker.textContent = messages[index];
-    ticker.style.animation = "none";
-    void ticker.offsetWidth; // Restart animation
-    ticker.style.animation = "scrollText 10s linear forwards";
-
-    // Move to next message after current + 5s pause
-    setTimeout(() => {
-      index++;
-      if (index < messages.length) {
-        playTicker();
-      } else {
-        // Restart after 15s gap
-        index = 0;
-        setTimeout(playTicker, delayAfterCycle);
-      }
-    }, 10000 + delayBetweenTexts);
-  }
-
-  playTicker();
-});
-</script>
 
 
 
