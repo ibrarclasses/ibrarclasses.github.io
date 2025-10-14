@@ -175,72 +175,6 @@
   margin: 5px 0;
 }
 
-   /* ====== SCROLL TICKER ====== */
-.ticker-wrapper {
-  position: relative;
-  overflow: hidden;
-  background-color: #f8f8f8;
-  border-top: 2px solid #ddd;
-  border-bottom: 2px solid #ddd;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  z-index: 9999;
-}
-
-.ticker {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.ticker-item {
-  display: inline-block;
-  position: absolute;
-  left: 100%;
-  font-size: 1rem;
-  color: #333;
-  padding: 0 2rem;
-  animation: slideItem 15s linear infinite;
-}
-
-/* Each message appears after a delay */
-.ticker-item:nth-child(1) { animation-delay: 0s; }
-.ticker-item:nth-child(2) { animation-delay: 5s; }
-.ticker-item:nth-child(3) { animation-delay: 10s; }
-.ticker-item:nth-child(4) { animation-delay: 15s; }
-
-/* Smooth slide animation */
-@keyframes slideItem {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  5% {
-    opacity: 1;
-  }
-  10% {
-    transform: translateX(-100%);
-    opacity: 1;
-  }
-  40% {
-    transform: translateX(-200%);
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(-200%);
-    opacity: 0;
-  }
-}
-
-/* Hover pauses all text animations */
-.ticker-wrapper:hover .ticker-item {
-  animation-play-state: paused;
-  cursor: pointer;
-}
-
     
     /* === Buy Now Button === */
 .buy-btn {
@@ -357,11 +291,6 @@
       --text: #000000;
     }
 
-    .dark-mode .ticker {
-  background: linear-gradient(90deg, #10b981, #2563eb);
-  color: #fff;
-}
-
     /* Dark mode button */
     #darkModeToggle {
       position: fixed;
@@ -464,17 +393,6 @@
       </div>
     <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
   </nav>
-
-<!-- SCROLLING TICKER (one-by-one, with gaps; pauses on hover) -->
-
-<div class="ticker-wrapper">
-  <div class="ticker">
-    <div class="ticker-item">🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.</div>
-    <div class="ticker-item">💰 The products are updated regularly for better deals and prices.</div>
-    <div class="ticker-item">❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐</div>
-    <div class="ticker-item">💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐</div>
-  </div>
-</div>
 
   <div class="container">
   <div class="product-grid"></div>
