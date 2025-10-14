@@ -176,33 +176,39 @@
 }
 
    /* ====== SCROLL TICKER ====== */
-.scroll-ticker{
-  background: linear-gradient(90deg, #2563EB, #10B981);
+.ticker-container {
+  width: 100%;
+  background: linear-gradient(90deg, #3B82F6, #10B981);
   color: white;
-  font-weight: 600;
-  font-size: 15px;
   overflow: hidden;
   white-space: nowrap;
-  padding: 8px 12px;
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 1rem;
   position: relative;
-  text-align: left;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* The text node we animate. Note: no 'infinite' here. We add animation via JS per message. */
-#ticker-text{
+.ticker-text {
   display: inline-block;
+  position: absolute;
   white-space: nowrap;
+  will-change: transform;
+  animation: ticker-scroll 12s linear forwards;
 }
 
-/* Pause animation on hover */
-.scroll-ticker:hover #ticker-text {
-  animation-play-state: paused !important;
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
-/* Keyframes: move from just outside right to just outside left, final state kept (forwards) */
-@keyframes scrollText {
-  0%   { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+/* Pause animation on hover (no tooltip) */
+.ticker-container:hover .ticker-text {
+  animation-play-state: paused;
 }
 
     
@@ -430,8 +436,8 @@
   </nav>
 
 <!-- SCROLLING TICKER (one-by-one, with gaps; pauses on hover) -->
-<div class="scroll-ticker" aria-live="polite" title="Site announcements">
-  <div id="ticker-text" role="status" aria-atomic="true"></div>
+<div class="ticker-container">
+  <div class="ticker-text" id="tickerText"></div>
 </div>
 
 
@@ -587,88 +593,28 @@ loadProducts();
 </script>
 
 <script>
-(function(){
-  const tickerMessages = [
+  const messages = [
     "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
     "💰 The products are updated regularly for better deals and prices.",
     "❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐",
     "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐"
   ];
 
-  const ticker = document.getElementById('ticker-text');
-  const container = document.querySelector('.scroll-ticker');
+  const ticker = document.getElementById("tickerText");
   let index = 0;
-  let timerId = null;
 
-  // pixels per second speed (adjust to taste)
-  const SPEED_PX_PER_SEC = 120; // 120 px/sec -> adjust slower/faster
+  function showMessage() {
+    ticker.textContent = messages[index];
+    ticker.style.animation = "none"; // reset animation
+    void ticker.offsetWidth;         // trigger reflow
+    ticker.style.animation = "ticker-scroll 12s linear forwards";
 
-  function startMessage(msg, onComplete){
-    // set text
-    ticker.textContent = msg;
-
-    // need browser to render so we can measure widths
-    requestAnimationFrame(() => {
-      // measure widths
-      const textW = ticker.offsetWidth;
-      const containerW = container.offsetWidth;
-      const distance = textW + containerW; // total px to travel
-
-      // compute duration based on distance and speed
-      const durationMs = Math.max(2500, Math.round((distance / SPEED_PX_PER_SEC) * 1000)); // min 2.5s
-
-      // apply animation
-      ticker.style.animation = `scrollText ${durationMs}ms linear forwards`;
-      ticker.style.animationPlayState = 'running';
-
-      // after the animation completes, call onComplete
-      timerId = setTimeout(() => {
-        // clear animation (so CSS doesn't keep transform)
-        ticker.style.animation = 'none';
-        timerId = null;
-        if (typeof onComplete === 'function') onComplete();
-      }, durationMs);
-    });
+    index = (index + 1) % messages.length;
+    const delay = (index === 0) ? 10000 : 5000; // 10s pause after a full cycle
+    setTimeout(showMessage, 12000 + delay); // 12s scroll + gap
   }
 
-  function scheduleNext(){
-    // Show current message, then schedule next according to rules:
-    // - 5s gap between messages
-    // - 10s gap after completing full cycle
-    const msg = tickerMessages[index];
-    startMessage(msg, () => {
-      // determine gap after this message
-      const isLast = (index === tickerMessages.length - 1);
-      const gapMs = isLast ? 10000 : 5000; // 10s after cycle, else 5s
-
-      // advance index for next time
-      index = (index + 1) % tickerMessages.length;
-
-      // schedule showing next message after gap
-      timerId = setTimeout(() => {
-        scheduleNext();
-      }, gapMs);
-    });
-  }
-
-  // start the loop
-  scheduleNext();
-
-  // cleanup if page is hidden/unloaded (prevent stray timers)
-  window.addEventListener('beforeunload', () => {
-    if (timerId) clearTimeout(timerId);
-  });
-
-  // Optional: if user switches tab and returns, restart measurements to handle layout changes
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
-      // cancel any running animation & restart the loop so measurements are fresh
-      ticker.style.animation = 'none';
-      if (timerId) clearTimeout(timerId);
-      setTimeout(()=> scheduleNext(), 300);
-    }
-  });
-})();
+  showMessage();
 </script>
 
  
