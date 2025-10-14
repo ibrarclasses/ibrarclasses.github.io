@@ -176,38 +176,69 @@
 }
 
    /* ====== SCROLL TICKER ====== */
-.ticker-container {
+.ticker-wrapper {
   position: relative;
-  width: 100%;
-  background: linear-gradient(90deg, #3B82F6, #10B981);
-  color: #fff;
-  padding: 14px 0;
-  font-weight: 600;
-  font-size: 1rem;
   overflow: hidden;
-  z-index: 100; /* Ensure it's above the product grid */
-  text-align: left;
+  background-color: #f8f8f8;
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  z-index: 9999;
 }
 
-.ticker-text {
+.ticker {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.ticker-item {
   display: inline-block;
   position: absolute;
-  white-space: nowrap;
-  will-change: transform;
-  top: 50%;
-  transform: translateY(-50%) translateX(100%);
-  animation: ticker-scroll 12s linear forwards;
+  left: 100%;
+  font-size: 1rem;
+  color: #333;
+  padding: 0 2rem;
+  animation: slideItem 15s linear infinite;
 }
 
-@keyframes ticker-scroll {
-  0% { transform: translateY(-50%) translateX(100%); }
-  100% { transform: translateY(-50%) translateX(-100%); }
+/* Each message appears after a delay */
+.ticker-item:nth-child(1) { animation-delay: 0s; }
+.ticker-item:nth-child(2) { animation-delay: 5s; }
+.ticker-item:nth-child(3) { animation-delay: 10s; }
+.ticker-item:nth-child(4) { animation-delay: 15s; }
+
+/* Smooth slide animation */
+@keyframes slideItem {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  10% {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+  40% {
+    transform: translateX(-200%);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-200%);
+    opacity: 0;
+  }
 }
 
-
-/* Pause animation on hover (no tooltip) */
-.ticker-container:hover .ticker-text {
+/* Hover pauses all text animations */
+.ticker-wrapper:hover .ticker-item {
   animation-play-state: paused;
+  cursor: pointer;
 }
 
     
@@ -436,8 +467,13 @@
 
 <!-- SCROLLING TICKER (one-by-one, with gaps; pauses on hover) -->
 
-  <div class="ticker-container">
-  <div class="ticker-text" id="tickerText"></div>
+<div class="ticker-wrapper">
+  <div class="ticker">
+    <div class="ticker-item">🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.</div>
+    <div class="ticker-item">💰 The products are updated regularly for better deals and prices.</div>
+    <div class="ticker-item">❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐</div>
+    <div class="ticker-item">💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐</div>
+  </div>
 </div>
 
   <div class="container">
@@ -560,9 +596,7 @@
        } 
       });
   </script>
-
-  // JS for fetching products dynamically
-  
+   
 <script>
 async function loadProducts() {
   try {
@@ -589,31 +623,6 @@ async function loadProducts() {
 }
 
 loadProducts();
-</script>
-
-<script>
-  const messages = [
-    "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
-    "💰 The products are updated regularly for better deals and prices.",
-    "❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐",
-    "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐"
-  ];
-
-  const ticker = document.getElementById("tickerText");
-  let index = 0;
-
-  function showMessage() {
-    ticker.textContent = messages[index];
-    ticker.style.animation = "none"; // reset animation
-    void ticker.offsetWidth;         // trigger reflow
-    ticker.style.animation = "ticker-scroll 12s linear forwards";
-
-    index = (index + 1) % messages.length;
-    const delay = (index === 0) ? 10000 : 5000; // 10s pause after a full cycle
-    setTimeout(showMessage, 12000 + delay); // 12s scroll + gap
-  }
-
-  showMessage();
 </script>
 
  
