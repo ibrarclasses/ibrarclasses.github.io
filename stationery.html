@@ -90,6 +90,12 @@
       color: var(--accent);
       transform: scale(1.05);
     }
+    nav .right-section {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
 
 /* ====== TICKER / MOVING NOTICE ====== */
 .ticker {
@@ -460,13 +466,16 @@
 
   <nav>
     <div class="left-links">
-      <a href="index.html">Home</a>
-          <div class="search-bar">
-  <input type="text" id="searchInput" placeholder="Search..." />
-  <button id="searchBtn">🔍</button>
-</div>
-      </div>
-          </nav>
+    <a href="index.html">Home</a>
+  </div>
+
+  <div class="right-section">
+    <div id="searchBarContainer">
+      <input type="text" id="searchInput" placeholder="Search products...">
+      <button id="searchBtn">🔍</button>
+    </div>
+  </div>
+</nav>
 
 <div class="ticker">
   <div class="ticker__content" id="tickerText"></div>
