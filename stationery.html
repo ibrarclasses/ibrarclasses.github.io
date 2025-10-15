@@ -170,28 +170,60 @@
      border-bottom: 1px solid rgba(16, 185, 129, 0.12); 
      font-size: 14px; }
 
-    /* ====== SEARCH BAR ====== */
- .search-container {
-  text-align: center;
-  margin: 30px 0;
+/* === Compact Search Bar === */
+.search-bar {
+  display: flex;
+  justify-content: flex-end;  /* move to right side */
+  margin: 10px 20px;
 }
 
-#searchInput {
-  width: 50%;
-  padding: 10px 15px;
-  border: 2px solid #3B82F6;
+.search-bar input {
+  width: 180px;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  border: 1.5px solid #10B981;
   border-radius: 8px;
-  font-size: 16px;
-  transition: all 0.3s ease;
+  background: #f9fafb;
+  transition: all 0.25s ease;
 }
 
-#searchInput:focus {
-  border-color: #10B981;
+.search-bar input:focus {
+  width: 220px;
+  background: white;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
   outline: none;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+/* On smaller screens, center it */
+@media (max-width: 600px) {
+  .search-bar {
+    justify-content: center;
+  }
+}
+
+    .search-bar button {
+  background: linear-gradient(135deg, #10B981, #3B82F6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-left: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.search-bar button:hover {
+  transform: scale(1.05);
+  background: #3B82F6;
+}
+
+.search-bar button:active {
+  transform: scale(0.95);
 }
 
     
+        
     /* ====== CONTAINER ====== */
     .container {
       max-width: 980px;
@@ -461,12 +493,12 @@
 <div class="ticker">
   <div class="ticker__content" id="tickerText"></div>
 </div>
-
-<div class="search-container">
-  <input type="text" id="searchInput" placeholder="Search for stationery items...">
-</div>
-  
+ 
   <div class="container">
+    <div class="search-bar">
+  <input type="text" id="searchInput" placeholder="Search..." />
+  <button id="searchBtn">🔍</button>
+</div>
   <div class="product-grid"></div>
 </div>
   
@@ -710,37 +742,71 @@ tickerText.parentElement.addEventListener("mouseleave", () => {
 </script>
 
 <script>
-  const searchInput = document.getElementById("searchInput");
-  const productCards = document.querySelectorAll(".product-card");
+async function loadProducts() {
+  try {
+    const res = await fetch('products.json?v=' + new Date().getTime());
+    const products = await res.json();
+    const grid = document.querySelector('.product-grid');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
 
-  searchInput.addEventListener("input", function() {
-    const query = searchInput.value.trim().toLowerCase();
-    let matchFound = false;
-
-    productCards.forEach(card => {
-      const title = card.querySelector(".product-title").textContent.toLowerCase();
-
-      if (title.includes(query)) {
-        card.style.display = "block";
-        matchFound = true;
-      } else {
-        card.style.display = "none";
+    function displayProducts(list) {
+      grid.innerHTML = '';
+      if (list.length === 0) {
+        grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">No items found.</p>';
+        return;
       }
+      list.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${p.image}" alt="${p.title}">
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+          <span class="price">${p.price}</span>
+          <a href="${p.link}" target="_blank" class="buy-btn" rel="nofollow noopener noreferrer">Buy Now</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Initial load
+    displayProducts(products);
+
+    // --- Search function ---
+    function searchProducts() {
+      const query = searchInput.value.toLowerCase().trim();
+      if (!query) {
+        // If input is empty, show all products
+        displayProducts(products);
+        return;
+      }
+      const filtered = products.filter(p =>
+        p.title.toLowerCase().includes(query) ||
+        p.desc.toLowerCase().includes(query)
+      );
+      displayProducts(filtered);
+    }
+
+    // --- Search on Enter ---
+    searchInput.addEventListener('keyup', (e) => {
+      searchProducts();
     });
 
-    // No items found message
-    let noResult = document.getElementById("noResult");
-    if (!noResult) {
-      noResult = document.createElement("p");
-      noResult.id = "noResult";
-      noResult.textContent = "No items found.";
-      noResult.style.textAlign = "center";
-      noResult.style.marginTop = "20px";
-      document.body.appendChild(noResult);
-    }
-    noResult.style.display = matchFound ? "none" : "block";
-  });
+    // --- Search on Button Click ---
+    searchBtn.addEventListener('click', searchProducts);
+
+    // --- Optional: live search while typing ---
+    searchInput.addEventListener('input', searchProducts);
+
+  } catch (err) {
+    console.error('Error loading products:', err);
+  }
+}
+
+loadProducts();
 </script>
+
 
  
 </body>
