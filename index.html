@@ -1,548 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ibrar Classes | Building concepts, one at a time</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    /* ====== BASIC / THEME ====== */
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ibrar Classes | Building Concepts, One at a Time</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
 :root {
   --primary: #3B82F6;
   --accent: #10B981;
   --nav: #2563EB;
   --bg: #F0F4F8;
-  --card: #ffffff;
   --text: #1F2937;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Poppins', sans-serif;
   margin: 0;
-  padding: 0;
-  background-color: var(--bg);
-  background-image: url('background-edu.png');
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center top;
-  background-repeat: no-repeat;
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg) url('background-edu.png') center top / cover no-repeat fixed;
   color: var(--text);
-  transition: background-color 0.4s, color 0.4s;
   overflow-x: hidden;
 }
 
-/* ====== HEADER ====== */
+/* Header */
 header {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1rem;
   background: linear-gradient(135deg, var(--primary), var(--accent));
   color: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
 }
 header img {
-  width: 90px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  object-fit: cover;
+  width: 90px; border-radius: 50%; margin-bottom: 10px;
 }
-header h1 {
-  margin: 0;
-  font-size: 2rem;
-}
-header p {
-  margin: 0.35rem 0;
-  font-style: italic;
-  font-weight: 500;
-}
+header h1 { margin: 0; font-size: 2rem; }
+header p { margin: 0.4rem 0; font-style: italic; }
 
-/* ====== NAV BAR ====== */
+/* Navbar */
 nav {
   background: var(--nav);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
   padding: 0.7rem 1.5rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  flex-wrap: wrap;
+  position: sticky; top: 0; z-index: 1000;
 }
-
-nav .left-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+nav .left-links { display: flex; gap: 18px; flex-wrap: wrap; }
+nav a {
+  color: white; text-decoration: none; font-weight: 600;
+  transition: color .3s, transform .2s;
 }
-
-nav .left-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: color 0.3s, transform 0.2s;
-}
-
-nav .left-links a:hover {
-  color: var(--accent);
-  transform: scale(1.1);
-}
-
-/* Stationery Mall Button */
+nav a:hover { color: var(--accent); transform: scale(1.08); }
 nav .stationery-link {
   background: linear-gradient(135deg, #10B981, #3B82F6);
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 10px;
-  font-weight: 700;
-  text-decoration: none;
-  animation: pulse 2s infinite;
-  transition: all 0.3s;
-  white-space: nowrap;
+  padding: 8px 16px; border-radius: 10px;
+  font-weight: 700; animation: pulse 2s infinite;
 }
+nav .stationery-link:hover { transform: scale(1.1); }
 
-nav .stationery-link:hover {
-  background: #3B82F6;
-  transform: scale(1.1);
-}
-
-/* ====== LIVE DATETIME ====== */
+/* Live DateTime */
 #live-datetime {
-  position: fixed;
-  top: 12px;
-  right: 18px;
-  z-index: 1100;
-  background: rgba(255, 255, 255, 0.88);
-  color: #0b1220;
-  padding: 7px 12px;
-  border-radius: 9px;
-  font-size: 13px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(4px);
+  position: fixed; top: 12px; right: 18px; z-index: 1100;
+  background: rgba(255,255,255,0.9); color: #0b1220;
+  padding: 7px 12px; border-radius: 9px; font-size: 13px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
 }
 
-/* ====== STATUS BAR ====== */
-#status-bar {
+/* Intro Section */
+.hero {
+  max-width: 880px; margin: 2.5rem auto;
+  background: rgba(255,255,255,0.96);
+  border-radius: 14px; box-shadow: 0 6px 22px rgba(6,24,44,0.06);
+  padding: 2.5rem;
   text-align: center;
-  font-weight: 600;
-  color: #064e3b;
-  background: rgba(16, 185, 129, 0.08);
-  padding: 8px 12px;
-  border-bottom: 1px solid rgba(16, 185, 129, 0.12);
-  font-size: 14px;
+  animation: fadeIn 1.2s ease;
 }
+.hero h2 { color: var(--primary); margin-bottom: 1rem; }
+.hero p { line-height: 1.6; font-size: 1.05rem; }
 
-/* ====== CONTAINER / CONTENT ====== */
-.container {
-  max-width: 980px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 14px;
-  box-shadow: 0 6px 22px rgba(6, 24, 44, 0.06);
+/* Feature Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
-h2 {
-  text-align: center;
-  color: var(--primary);
-  margin-bottom: 1rem;
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform 0.25s, box-shadow 0.25s;
 }
-
-/* PDF & Blog Section */
-.pdf-section a {
-  display: block;
-  text-align: center;
-  background: var(--primary);
-  color: #fff;
-  padding: 12px;
-  border-radius: 10px;
-  text-decoration: none;
-  margin: 8px 0;
-  font-weight: 600;
-  transition: transform 0.18s, background 0.18s;
-}
-.pdf-section a:hover {
-  background: var(--accent);
-  transform: scale(1.03);
-}
-
-/* Blog Layout */
-.blog-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.blog-post {
-  background: #F7F9FC;
-  padding: 12px;
-  border-left: 6px solid var(--primary);
-  border-radius: 10px;
-  transition: transform 0.22s, box-shadow 0.22s;
-  position: relative;
-}
-.blog-post h3 {
-  margin: 0 0 6px 0;
-  color: var(--nav);
-}
-.blog-post:hover {
+.card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 30px rgba(2, 6, 23, 0.06);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
 }
-.update-badge {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  background: var(--accent);
+.card h3 { color: var(--primary); }
+.card a {
+  display: inline-block;
+  margin-top: 10px;
   color: #fff;
-  font-size: 12px;
-  padding: 4px 8px;
+  background: var(--accent);
+  padding: 8px 16px;
   border-radius: 8px;
+  text-decoration: none;
   font-weight: 600;
+  transition: background 0.25s;
 }
+.card a:hover { background: var(--primary); }
 
-/* ====== FOOTER ====== */
+/* Footer */
 footer {
   background: var(--nav);
   color: #fff;
   text-align: center;
   padding: 16px 10px;
-  margin-top: 28px;
+  margin-top: 40px;
   font-size: 14px;
 }
-#visitor-info {
-  margin-top: 8px;
-  font-weight: 600;
-}
+#visitor-info { margin-top: 8px; font-weight: 600; }
 
-/* ====== FLOATING UI ====== */
+/* Floating elements */
+#molly-chat, #back-to-top, #darkModeToggle {
+  position: fixed; z-index: 2000;
+}
 #molly-chat {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  z-index: 2000;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 26px rgba(3, 10, 23, 0.18);
-  text-decoration: none;
+  bottom: 18px; right: 18px;
+  width: 70px; height: 70px; border-radius: 50%;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 26px rgba(3,10,23,0.18);
   animation: pulse 2.5s infinite;
 }
-.molly-avatar {
-  width: 66px;
-  height: 66px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* ====== BACK TO TOP ====== */
+#molly-chat img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
 #back-to-top {
-  position: fixed;
-  right: 18px;
-  bottom: 108px;
-  display: none;
-  z-index: 1500;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.16);
-  cursor: pointer;
-  font-weight: 700;
+  right: 18px; bottom: 108px;
+  display: none; background: var(--primary); color: #fff;
+  border: none; width: 46px; height: 46px; border-radius: 50%;
+  cursor: pointer; box-shadow: 0 6px 20px rgba(2,6,23,0.16);
 }
-#back-to-top:hover {
-  background: var(--accent);
-}
-
-/* ====== DARK MODE ====== */
-.dark-mode {
-  --primary: #60a5fa;
-  --accent: #34d399;
-  --nav: #0b1220;
-  --bg: #0b1220;
-  --card: #071129;
-  --text: #000000;
-}
-
-/* Dark mode button */
+#back-to-top:hover { background: var(--accent); }
 #darkModeToggle {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  z-index: 1200;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--nav);
-  font-size: 18px;
-  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.12);
+  top: 14px; left: 14px;
+  width: 46px; height: 46px;
+  border-radius: 50%; border: none; cursor: pointer;
+  background: rgba(255,255,255,0.9);
+  color: var(--nav); font-size: 18px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.12);
 }
 
-/* ====== MEDIA RESPONSIVE FIXES ====== */
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.8rem 1rem;
-  }
-
-  nav .left-links {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  nav .stationery-link {
-    align-self: flex-end;
-    margin-top: 10px;
-  }
-
-  header img {
-    width: 80px;
-  }
-  header h1 {
-    font-size: 1.6rem;
-  }
-
-  #live-datetime {
-    font-size: 11px;
-    padding: 5px 8px;
-  }
-
-  .container {
-    margin: 1rem;
-    padding: 1rem;
-  }
-
-  #molly-chat {
-    width: 60px;
-    height: 60px;
-    bottom: 14px;
-    right: 14px;
-  }
-
-  #back-to-top {
-    right: 14px;
-    bottom: 90px;
-  }
-}
-
-/* ====== KEYFRAMES ====== */
+/* Animations */
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.28);
-  }
-  70% {
-    box-shadow: 0 0 0 16px rgba(16, 185, 129, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-  }
+  0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.3); }
+  70% { box-shadow: 0 0 0 16px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
 }
- 
-  </style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header h1 { font-size: 1.6rem; }
+  .hero { margin: 1rem; padding: 1.5rem; }
+  #live-datetime { font-size: 11px; }
+}
+</style>
 </head>
+
 <body>
+<div id="live-datetime"></div>
+<button id="darkModeToggle">🌙</button>
 
-  <!-- Live date/time (top-right) -->
-  <div id="live-datetime" aria-hidden="false"></div>
-
-  <!-- Dark mode toggle (top-left) -->
-  <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
-
-  <header>
-    <img src="logo.png" alt="Ibrar Classes logo" />
-    <h1>Ibrar Classes</h1>
-    <p>Building concepts, one at a time</p>
-  </header>
-
-  <!-- Status / Health bar -->
-  <div id="status-bar">🟢 Check Done! Website running smoothly</div>
+<header>
+  <img src="logo.png" alt="Ibrar Classes Logo" loading="lazy">
+  <h1>Ibrar Classes</h1>
+  <p>Building Concepts, One at a Time</p>
+</header>
 
 <nav>
   <div class="left-links">
-    <a href="#pdfs">PDF Notes</a>
-    <a href="#blogs">Blogs</a>
-    <a href="#telegram">Telegram</a>
-    <a href="#answrit">Answer Writing</a>
-    <a href="#contact">Contact</a>
+    <a href="pdfs.html">PDF Notes</a>
+    <a href="blogs.html">Blogs</a>
+    <a href="telegram.html">Telegram</a>
+    <a href="answrit.html">Answer Writing</a>
+    <a href="contact.html">Contact</a>
   </div>
-  <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
+  <a href="stationery.html" class="stationery-link">Stationery Mall 🛒</a>
 </nav>
 
+<section class="hero">
+  <h2>Welcome to Ibrar Classes</h2>
+  <p>We believe in clarity over complexity. From UPSC to Mathematics, we help students strengthen their foundations with structured notes, conceptual videos, and regular guidance.</p>
 
-  <main>
-    <section class="container" id="pdfs">
-      <h2>Free PDF Notes</h2>
-      <p style="text-align:center">Download helpful UPSC & Mathematics notes prepared by Ibrar Classes.</p>
-      <div class="pdf-section">
-        <a href="pdfs/sample.pdf" download>📘 Download Sample UPSC Notes</a>
-      </div>
-    </section>
+  <div class="cards">
+    <div class="card">
+      <h3>📘 Free Notes</h3>
+      <p>Access high-quality PDF notes for UPSC & Maths prepared by our experts.</p>
+      <a href="pdfs.html">Explore Notes</a>
+    </div>
+    <div class="card">
+      <h3>📝 Blogs</h3>
+      <p>Read insightful posts on study strategies, current affairs, and subject tricks.</p>
+      <a href="blogs.html">Read Blogs</a>
+    </div>
+    <div class="card">
+      <h3>💬 Telegram</h3>
+      <p>Join our Telegram community for daily updates, quizzes, and guidance.</p>
+      <a href="telegram.html">Join Channel</a>
+    </div>
+  </div>
+</section>
 
-    <section class="container" id="blogs">
-      <h2>Our Blogs</h2>
-      <div class="blog-list" id="blog-list">
-        <!-- blog items injected by script -->
-      </div>
-    </section>
+<footer>
+  <div>&copy; 2025 Ibrar Classes</div>
+  <div id="visitor-info"></div>
+</footer>
 
-    <section class="container" id="telegram">
-      <h2>Join Our Telegram</h2>
-      <p style="text-align:center">Join our Telegram channel for daily UPSC updates, study materials, and newspaper summaries.</p>
-      <p style="text-align:center"><a href="https://t.me/IbrarClasses" target="_blank" rel="noopener">👉 Join Telegram Channel</a></p>
-    </section>
+<a id="molly-chat" href="https://t.me/M1ssMolly_Bot" target="_blank" title="Chat with Miss Molly">
+  <img src="images/miss-molly.jpg" alt="Miss Molly">
+</a>
+<button id="back-to-top">↑</button>
 
-    <section class="container" id="contact">
-      <h2>Contact</h2>
-      <p style="text-align:center">Have questions, collaborations, or suggestions?</p>
-      <p style="text-align:center">📧 <strong>ibrarclasses@gmail.com</strong></p>
-      <div class="socials">
-        <a href="https://www.youtube.com/@IbrarClasses" target="_blank" rel="noopener">YouTube</a> |
-        <a href="https://t.me/IbrarClasses" target="_blank" rel="noopener">Telegram</a> |
-        <a href="mailto:ibrarclasses@gmail.com">Email</a>
-      </div>
-    </section>
-  </main>
+<script>
+// Date & Time
+function updateDateTime() {
+  const now = new Date();
+  document.getElementById('live-datetime').textContent =
+    now.toLocaleDateString('en-IN', {weekday:'short', day:'numeric', month:'short', year:'numeric'}) +
+    ' | ' + now.toLocaleTimeString('en-IN');
+}
+setInterval(updateDateTime, 1000); updateDateTime();
 
-  <footer>
-    <div>&copy; 2025 Ibrar Classes</div>
-    <div id="visitor-info" aria-live="polite"></div>
-  </footer>
+// Dark Mode
+const darkToggle = document.getElementById('darkModeToggle');
+if(localStorage.getItem('dark')==='1'){document.body.classList.add('dark');darkToggle.textContent='☀️';}
+darkToggle.onclick=()=>{
+  document.body.classList.toggle('dark');
+  const d=document.body.classList.contains('dark');
+  localStorage.setItem('dark', d?'1':'0');
+  darkToggle.textContent=d?'☀️':'🌙';
+};
 
-  <!-- Miss Molly Telegram chat widget (bottom-right) -->
-  <a id="molly-chat" href="https://t.me/M1ssMolly_Bot" target="_blank" rel="noopener" title="Chat with our warden Miss Molly on Telegram">
-    <img src="images/miss-molly.jpg" alt="Miss Molly avatar" class="molly-avatar" />
-  </a>
+// Back to Top
+const backBtn=document.getElementById('back-to-top');
+window.addEventListener('scroll',()=>{backBtn.style.display=window.scrollY>300?'block':'none';});
+backBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 
-  <!-- Back to top -->
-  <button id="back-to-top" aria-label="Back to top">↑</button>
-
-  <script>
-    /* ===== LIVE DATETIME ===== */
-    function updateDateTime(){
-      const now = new Date();
-      const options = { weekday:'short', year:'numeric', month:'short', day:'numeric' };
-      const dateStr = now.toLocaleDateString('en-IN', options);
-      const timeStr = now.toLocaleTimeString('en-IN');
-      document.getElementById('live-datetime').textContent = `${dateStr} | ${timeStr}`;
-    }
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-
-    /* ===== DARK MODE (top-left toggle) ===== */
-    const darkToggle = document.getElementById('darkModeToggle');
-    // load preference
-    if(localStorage.getItem('ibrar-dark') === '1'){ document.documentElement.classList.add('dark-mode'); darkToggle.textContent='☀️'; }
-    darkToggle.addEventListener('click', ()=>{
-      document.documentElement.classList.toggle('dark-mode');
-      const isDark = document.documentElement.classList.contains('dark-mode');
-      localStorage.setItem('ibrar-dark', isDark? '1':'0');
-      darkToggle.textContent = isDark? '☀️' : '🌙';
-    });
-
-    /* ===== FAKE VISITOR COUNT (50-100) with reset after 30 days ===== */
-    (function visitorCounter(){
-      const KEY_COUNT='ibrar_visitors', KEY_RESET='ibrar_visitors_reset';
-      const resetDays = 30;
-      const now = Date.now();
-      const lastReset = localStorage.getItem(KEY_RESET);
-      let count = parseInt(localStorage.getItem(KEY_COUNT), 10);
-
-      function randomInRange(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
-
-      // Reset if not set or older than resetDays
-      if(!lastReset || (now - lastReset) > resetDays*24*60*60*1000){
-        count = randomInRange(51,98);
-        localStorage.setItem(KEY_COUNT, count);
-        localStorage.setItem(KEY_RESET, now);
-      } else {
-        if(!count || isNaN(count)){ count = randomInRange(51,98); localStorage.setItem(KEY_COUNT, count); }
-        // gently increment by 0-2 (but cap at 98)
-        const inc = Math.random() < 0.35 ? 0 : Math.random() < 0.6 ? 1 : 2;
-        count = Math.min(98, count + inc);
-        localStorage.setItem(KEY_COUNT, count);
-      }
-
-      // Active users 5-13, update every 8 seconds
-      const getActiveUsers = ()=> randomInRange(5,13);
-
-      function renderVisitor(){
-        const date = new Date().toLocaleDateString('en-IN', { year:'numeric', month:'short', day:'numeric' });
-        const active = getActiveUsers();
-        document.getElementById('visitor-info').innerHTML =
-          `Visitors this month: <strong>${count}</strong> &nbsp; | &nbsp; Last updated: <strong>${date}</strong> &nbsp; | &nbsp; Active users: <strong>${active}</strong>`;
-      }
-      renderVisitor();
-      setInterval(()=>{
-        // small chance to increment by 0-1 each interval, keep cap
-        if(Math.random() < 0.45){
-          count = Math.min(98, count + (Math.random()<0.6?1:0));
-          localStorage.setItem(KEY_COUNT, count);
-        }
-        renderVisitor();
-      }, 8000);
-    })();
-
-    /* ===== BACK TO TOP BUTTON ===== */
-    const backBtn = document.getElementById('back-to-top');
-    window.addEventListener('scroll', ()=>{
-      backBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
-    backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
-
-    /* ===== BLOG AUTO-LIST (simple: add blog entries into array) =====
-       If you want fully automatic listing from files later, we can use a small JSON manifest file (blogs/index.json)
-       and fetch it. For now, update this array when adding a blog (or I can make a generator).
-    */
-    const blogs = [
-      { title:'Understanding Polity for UPSC', file:'blogs/polity.html', summary:'Polity is one of the most scoring subjects in UPSC. Learn the smart approach to link current affairs with constitutional concepts.' },
-      { title:'Mastering Algebra in Maths', file:'blogs/algebra.html', summary:'Algebra forms the foundation of higher mathematics. Practical tricks and practice plan inside.' }
-    ];
-    const blogList = document.getElementById('blog-list');
-    const todayStr = new Date().toLocaleDateString('en-IN', { year:'numeric', month:'short', day:'numeric' });
-    blogs.forEach(b=>{
-      const el = document.createElement('div');
-      el.className = 'blog-post';
-      el.innerHTML = `<div class="update-badge">Updated</div>
-                      <h3>${b.title}</h3>
-                      <p>${b.summary}</p>
-                      <a href="${b.file}" aria-label="Read ${b.title}">Read More →</a>
-                      <div style="margin-top:8px;font-size:12px;color:#667085">Published: ${todayStr}</div>`;
-      blogList.appendChild(el);
-    });
-
-    /* ===== OPTIONAL: small animation to subtly highlight new visitors area ===== */
-    (function pulseVisitorArea(){
-      const v = document.getElementById('visitor-info');
-      if(!v) return;
-      setInterval(()=>{ v.style.transform='translateY(-2px)'; v.style.transition='transform .18s'; setTimeout(()=>v.style.transform='none',200); }, 9000);
-    })();
-    
-    // Show status bar only for 3 seconds
-window.addEventListener('DOMContentLoaded', () => {
-  const statusBar = document.getElementById('status-bar');
-  if(statusBar){
-    statusBar.style.opacity = '1';         // ensure visible initially
-    setTimeout(() => {
-      statusBar.style.transition = 'opacity 0.8s ease';
-      statusBar.style.opacity = '0';
-      setTimeout(()=>statusBar.style.display='none', 800); // hide completely after fade out
-    }, 3000); // 3000ms = 3 seconds
-  }
-});
-
-  </script>
+// Visitor Count (simple mock)
+document.getElementById('visitor-info').innerHTML='Visitors this month: <strong>92</strong> | Active users: <strong>8</strong>';
+</script>
 </body>
 </html>
