@@ -50,11 +50,23 @@ nav a {
 }
 nav a:hover { color: var(--accent); transform: scale(1.08); }
 nav .stationery-link {
-  background: linear-gradient(135deg, #10B981, #3B82F6);
-  padding: 8px 16px; border-radius: 10px;
-  font-weight: 700; animation: pulse 2s infinite;
-}
-nav .stationery-link:hover { transform: scale(1.1); }
+      background: linear-gradient(135deg, #10B981, #3B82F6);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      animation: pulse 2s infinite;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    nav .stationery-link:hover {
+      background: #3B82F6;
+      transform: scale(1.1);
+    }
+
 
 /* Live DateTime */
 #live-datetime {
@@ -185,7 +197,7 @@ footer {
     <a href="answrit.html">Answer Writing</a>
     <a href="contact.html">Contact</a>
   </div>
-  <a href="stationery.html" class="stationery-link">Stationery Mall 🛒</a>
+  <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
 </nav>
 
 <section class="hero">
