@@ -216,7 +216,7 @@ footer {
   <div id="visitor-info"></div>
 </footer>
 
-<a id="molly-chat" href="https://t.me/M1ssMolly_Bot" target="_blank" title="Chat with Miss Molly">
+<a id="molly-chat" href="https://t.me/M1ssMolly_Bot" target="_blank" title="Chat with our warden Miss Molly on Telegram">
   <img src="images/miss-molly.jpg" alt="Miss Molly">
 </a>
 <button id="back-to-top">↑</button>
@@ -246,8 +246,61 @@ const backBtn=document.getElementById('back-to-top');
 window.addEventListener('scroll',()=>{backBtn.style.display=window.scrollY>300?'block':'none';});
 backBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 
-// Visitor Count (simple mock)
-document.getElementById('visitor-info').innerHTML='Visitors this month: <strong>92</strong> | Active users: <strong>8</strong>';
+/* ===== FAKE VISITOR COUNT (50-100) with reset after 30 days ===== */
+    (function visitorCounter() {
+      const KEY_COUNT = 'ibrar_visitors',
+        KEY_RESET = 'ibrar_visitors_reset';
+      const resetDays = 30;
+      const now = Date.now();
+      const lastReset = localStorage.getItem(KEY_RESET);
+      let count = parseInt(localStorage.getItem(KEY_COUNT), 10);
+
+      function randomInRange(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      if (!lastReset || now - lastReset > resetDays * 24 * 60 * 60 * 1000) {
+        count = randomInRange(51, 98);
+        localStorage.setItem(KEY_COUNT, count);
+        localStorage.setItem(KEY_RESET, now);
+      } else {
+        if (!count || isNaN(count)) {
+          count = randomInRange(51, 98);
+          localStorage.setItem(KEY_COUNT, count);
+        }
+        const inc = Math.random() < 0.35 ? 0 : Math.random() < 0.6 ? 1 : 2;
+        count = Math.min(98, count + inc);
+        localStorage.setItem(KEY_COUNT, count);
+      }
+
+      const getActiveUsers = () => randomInRange(5, 13);
+
+      function renderVisitor() {
+        const date = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+        const active = getActiveUsers();
+        document.getElementById('visitor-info').innerHTML =
+          `Visitors this month: <strong>${count}</strong> &nbsp; | &nbsp; Last updated: <strong>${date}</strong> &nbsp; | &nbsp; Active users: <strong>${active}</strong>`;
+      }
+      renderVisitor();
+      setInterval(() => {
+        if (Math.random() < 0.45) {
+          count = Math.min(98, count + (Math.random() < 0.6 ? 1 : 0));
+          localStorage.setItem(KEY_COUNT, count);
+        }
+        renderVisitor();
+      }, 8000);
+    })();
+     /* ===== OPTIONAL: small animation to subtly highlight new visitors area ===== */
+    (function pulseVisitorArea() {
+      const v = document.getElementById('visitor-info');
+      if (!v) return;
+      setInterval(() => {
+        v.style.transform = 'translateY(-2px)';
+        v.style.transition = 'transform .18s';
+        setTimeout(() => v.style.transform = 'none', 200);
+      }, 9000);
+    })();
+  
 </script>
 </body>
 </html>
