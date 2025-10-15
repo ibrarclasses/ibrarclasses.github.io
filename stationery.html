@@ -96,6 +96,56 @@
   align-items: center;
 }
 
+    /* Premium gradient search bar styling */
+#searchBarContainer {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border-radius: 50px;
+  padding: 2px;
+  transition: all 0.3s ease;
+}
+
+#searchInput {
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  border-radius: 50px 0 0 50px;
+  width: 150px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+/* Expanding input when focused */
+#searchInput:focus {
+  width: 200px;
+  background: #fff;
+}
+
+/* Gradient search button */
+#searchBtn {
+  border: none;
+  padding: 8px 15px;
+  border-radius: 0 50px 50px 0;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  transition: all 0.3s ease;
+}
+
+/* Button hover glow */
+#searchBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
+}
+
+/* Smooth shadow around full bar */
+#searchBarContainer:focus-within {
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
+}
+
+    
 
 /* ====== TICKER / MOVING NOTICE ====== */
 .ticker {
