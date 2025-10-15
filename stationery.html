@@ -160,7 +160,8 @@
       backdrop-filter: blur(4px);
     }
 
-    /* ====== STATUS BAR ====== */ #status-bar 
+    /* ====== STATUS BAR ====== */ 
+    #status-bar 
     { text-align: center; 
      font-weight: 600; 
      color: #064e3b; 
@@ -168,6 +169,28 @@
      padding: 8px 12px; 
      border-bottom: 1px solid rgba(16, 185, 129, 0.12); 
      font-size: 14px; }
+
+    /* ====== SEARCH BAR ====== */
+ .search-container {
+  text-align: center;
+  margin: 30px 0;
+}
+
+#searchInput {
+  width: 50%;
+  padding: 10px 15px;
+  border: 2px solid #3B82F6;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+  border-color: #10B981;
+  outline: none;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
     
     /* ====== CONTAINER ====== */
     .container {
@@ -178,24 +201,7 @@
       border-radius: 14px;
       box-shadow: 0 6px 22px rgba(6, 24, 44, 0.06);
     }
-/* ====== Searach Bar ====== */
-.search-bar-container {
-  text-align: center;
-  margin: 20px auto 30px auto;
-  width: 90%;
-  max-width: 500px;
-}
 
-#productSearch {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 1rem;
-  border: 2px solid #d1d5db;
-  border-radius: 10px;
-  outline: none;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s;
-}
 
 #productSearch:focus {
   border-color: var(--primary);
@@ -456,13 +462,12 @@
   <div class="ticker__content" id="tickerText"></div>
 </div>
 
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search for stationery items...">
+</div>
   
   <div class="container">
-    <div class="search-bar-container">
-  <input type="text" id="productSearch" placeholder="🔍 Search stationery... (e.g., pen, notebook, marker)" />
-</div>
   <div class="product-grid"></div>
-    <p id="noResults" style="display:none; text-align:center; color:#888;">No matching products found 😔</p>
 </div>
   
   <footer>
@@ -704,31 +709,38 @@ tickerText.parentElement.addEventListener("mouseleave", () => {
 });
 </script>
 
-  <script>
-  // 🔍 Live product search filter
-  searchInput.addEventListener('keyup', function() {
-  const query = this.value.toLowerCase();
-  let anyVisible = false;
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const productCards = document.querySelectorAll(".product-card");
 
-  productCards.forEach(card => {
-    const title = card.querySelector('.product-title').textContent.toLowerCase();
-    const desc = card.querySelector('.product-desc') ? card.querySelector('.product-desc').textContent.toLowerCase() : '';
-    if (title.includes(query) || desc.includes(query)) {
-      card.style.display = 'block';
-      anyVisible = true;
-    } else {
-      card.style.display = 'none';
+  searchInput.addEventListener("input", function() {
+    const query = searchInput.value.trim().toLowerCase();
+    let matchFound = false;
+
+    productCards.forEach(card => {
+      const title = card.querySelector(".product-title").textContent.toLowerCase();
+
+      if (title.includes(query)) {
+        card.style.display = "block";
+        matchFound = true;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    // No items found message
+    let noResult = document.getElementById("noResult");
+    if (!noResult) {
+      noResult = document.createElement("p");
+      noResult.id = "noResult";
+      noResult.textContent = "No items found.";
+      noResult.style.textAlign = "center";
+      noResult.style.marginTop = "20px";
+      document.body.appendChild(noResult);
     }
+    noResult.style.display = matchFound ? "none" : "block";
   });
-
-  document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
-});
-
 </script>
-
-
-
-
 
  
 </body>
