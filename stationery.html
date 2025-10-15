@@ -196,16 +196,6 @@
       backdrop-filter: blur(4px);
     }
 
-    /* ====== STATUS BAR ====== */ 
-    #status-bar 
-    { text-align: center; 
-     font-weight: 600; 
-     color: #064e3b; 
-     background: rgba(16, 185, 129, 0.08); 
-     padding: 8px 12px; 
-     border-bottom: 1px solid rgba(16, 185, 129, 0.12); 
-     font-size: 14px; }
-
 /* === Compact Search Bar === */
 .search-bar {
   display: flex;
@@ -635,21 +625,7 @@
         setTimeout(() => v.style.transform = 'none', 200);
       }, 9000);
     })();
-
-    // Show status bar only for 3 seconds 
-    window.addEventListener('DOMContentLoaded', () => 
-      { const statusBar = document.getElementById('status-bar'); 
-       if(statusBar){ 
-         statusBar.style.opacity = '1'; 
-         // ensure visible initially 
-         setTimeout(() => { 
-           statusBar.style.transition = 'opacity 0.8s ease'; 
-           statusBar.style.opacity = '0'; 
-           setTimeout(()=>statusBar.style.display='none', 800); 
-           // hide completely after fade out 
-         }, 3000); // 3000ms = 3 seconds 
-       } 
-      });
+    
   </script>
    
 <script>
@@ -706,6 +682,7 @@ const messages = [
   "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
   "📦 The products are updated regularly for better deals and prices.",
   "❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐",
+  "🔍 Use the Search Bar to find the products quickly"
   "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐"
 ];
 
