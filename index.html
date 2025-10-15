@@ -150,6 +150,35 @@ footer {
 }
 #visitor-info { margin-top: 8px; font-weight: 600; }
 
+ /* ====== DARK MODE ====== */
+    .dark-mode {
+      --primary: #60a5fa;
+      --accent: #34d399;
+      --nav: #0b1220;
+      --bg: #0b1220;
+      --card: #071129;
+      --text: #000000;
+    }
+
+    /* Dark mode button */
+    #darkModeToggle {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 1200;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--nav);
+      font-size: 18px;
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.12);
+    }
+
+
+  
 /* Floating elements */
 #molly-chat, #back-to-top, #darkModeToggle {
   position: fixed; z-index: 2000;
@@ -200,7 +229,9 @@ footer {
 
 <body>
 <div id="live-datetime"></div>
-<button id="darkModeToggle">🌙</button>
+
+  <!-- Dark mode toggle (top-left) -->
+  <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
 
 <header>
   <img src="logo.png" alt="Ibrar Classes Logo" loading="lazy">
