@@ -753,22 +753,21 @@ async function loadProducts() {
 
           // Apply styling
           tag.style.cssText = `
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: ${colors[source] || '#444'};
-            color: ${colors[source] || '#fff'};
-            font-size: 12px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-            opacity: 0;
-            transform: translateY(-5px);
-            transition: all 0.4s ease;
-            animation: tagPulse 4s infinite ease-in-out;
-          `;
-
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: ${colors[source] || '#444'};
+          color: #fff; /* keep text white for visibility */
+          font-size: 12px;
+          font-weight: 600;
+          padding: 4px 10px;
+          border-radius: 14px;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+          opacity: 0;
+          transform: translateY(-5px);
+          transition: all 0.4s ease;
+          animation: tagPulse-${source.toLowerCase()} 4s infinite ease-in-out;
+`        ;
           // Animate in
           requestAnimationFrame(() => {
             setTimeout(() => {
@@ -784,21 +783,24 @@ async function loadProducts() {
       });
     }
 
-// --- Keyframes for live pulsing animation (color-matched) ---
+// --- Keyframes for live pulsing animation (per-platform) ---
 const style = document.createElement('style');
 style.innerHTML = `
-  @keyframes tagPulse {
-    0%, 100% { 
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25); 
-      transform: scale(1); 
-    }
-    50% { 
-      box-shadow: 0 0 14px 4px currentColor; 
-      transform: scale(1.05); 
-    }
+  @keyframes tagPulse-amazon {
+    0%, 100% { box-shadow: 0 2px 6px rgba(0,0,0,0.25); transform: scale(1); }
+    50% { box-shadow: 0 0 14px 4px rgba(255, 215, 0, 0.6); transform: scale(1.05); }
+  }
+  @keyframes tagPulse-flipkart {
+    0%, 100% { box-shadow: 0 2px 6px rgba(0,0,0,0.25); transform: scale(1); }
+    50% { box-shadow: 0 0 14px 4px rgba(40, 116, 240, 0.6); transform: scale(1.05); }
+  }
+  @keyframes tagPulse-meesho {
+    0%, 100% { box-shadow: 0 2px 6px rgba(0,0,0,0.25); transform: scale(1); }
+    50% { box-shadow: 0 0 14px 4px rgba(233, 30, 99, 0.6); transform: scale(1.05); }
   }
 `;
 document.head.appendChild(style);
+
 
     // --- Initial load ---
     displayProducts(products);
