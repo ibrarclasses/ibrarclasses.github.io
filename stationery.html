@@ -769,7 +769,7 @@ async function loadProducts() {
         let source = '';
         if (p.link) {
           const url = p.link.toLowerCase();
-          if (url.includes('amazon')) source = 'Amazon';
+          if (url.includes('amzn')) source = 'Amazon';
           else if (url.includes('flipkart')) source = 'Flipkart';
           else if (url.includes('meesho')) source = 'Meesho';
         }
