@@ -318,7 +318,7 @@
   opacity: 0.95;
 }
 
-/* Auto-color styles */
+/* 🔷 Auto-colored by source */
 .store-tag.amazon {
   background: linear-gradient(135deg, #ff9900, #ffb84d);
 }
@@ -331,7 +331,7 @@
   background: linear-gradient(135deg, #ff3f6c, #ff6f91);
 }
 
-/* Default fallback for any unknown source */
+/* Default fallback color */
 .store-tag:not(.amazon):not(.flipkart):not(.meesho) {
   background: linear-gradient(135deg, #10B981, #3B82F6);
 }
@@ -669,8 +669,8 @@
     })();
     
   </script>
-   
-<script>
+  
+   <script>
 async function loadProducts() {
   try {
     // 🟩 Prevent browser cache so updates reflect instantly
@@ -684,9 +684,13 @@ async function loadProducts() {
       const card = document.createElement('div');
       card.className = 'product-card';
 
-      // 🟨 Use template literals for readability + improvements
+      // 🟨 Create store tag only if "source" exists
+      const sourceTag = p.source
+        ? `<div class="store-tag ${p.source.toLowerCase()}">${p.source}</div>`
+        : '';
+
       card.innerHTML = `
-        <div class="store-tag ${p.source ? p.source.toLowerCase() : ''}">${p.source || ''}</div>
+        ${sourceTag}
         <img 
           src="${p.image}" 
           alt="${p.title || 'Stationery Product'}" 
@@ -719,6 +723,7 @@ async function loadProducts() {
 
 loadProducts();
 </script>
+
 
 <script>
 const messages = [
