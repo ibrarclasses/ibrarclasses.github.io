@@ -297,6 +297,51 @@
   margin: 5px 0;
 }
 
+/* ====== Store Tag ====== */    
+.product-card {
+  position: relative;
+}
+
+.store-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  opacity: 0.95;
+}
+
+/* Auto-color styles */
+.store-tag.amazon {
+  background: linear-gradient(135deg, #ff9900, #ffb84d);
+}
+
+.store-tag.flipkart {
+  background: linear-gradient(135deg, #2874f0, #5c9dfc);
+}
+
+.store-tag.meesho {
+  background: linear-gradient(135deg, #ff3f6c, #ff6f91);
+}
+
+/* Default fallback for any unknown source */
+.store-tag:not(.amazon):not(.flipkart):not(.meesho) {
+  background: linear-gradient(135deg, #10B981, #3B82F6);
+}
+
+    /* For Hover styles */
+.store-tag:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
     
     /* === Buy Now Button === */
 .buy-btn {
@@ -641,6 +686,7 @@ async function loadProducts() {
 
       // 🟨 Use template literals for readability + improvements
       card.innerHTML = `
+        <div class="store-tag ${p.source ? p.source.toLowerCase() : ''}">${p.source || ''}</div>
         <img 
           src="${p.image}" 
           alt="${p.title || 'Stationery Product'}" 
