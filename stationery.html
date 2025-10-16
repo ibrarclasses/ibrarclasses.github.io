@@ -669,62 +669,7 @@
     })();
     
   </script>
-  
-   <script>
-async function loadProducts() {
-  try {
-    // 🟩 Prevent browser cache so updates reflect instantly
-    const res = await fetch('products.json?v=' + new Date().getTime());
-    const products = await res.json();
-
-    const grid = document.querySelector('.product-grid');
-    grid.innerHTML = '';
-
-    products.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-
-      // 🟨 Create store tag only if "source" exists
-      const sourceTag = p.source
-        ? `<div class="store-tag ${p.source.toLowerCase()}">${p.source}</div>`
-        : '';
-
-      card.innerHTML = `
-        ${sourceTag}
-        <img 
-          src="${p.image}" 
-          alt="${p.title || 'Stationery Product'}" 
-          loading="lazy" 
-          onerror="this.src='fallback.jpg'; this.alt='Image not available';"
-        >
-        <h3>${p.title}</h3>
-        <p>${p.desc}</p>
-        <span class="price">${p.price}</span>
-        <a 
-          href="${p.link}" 
-          target="_blank" 
-          class="buy-btn" 
-          rel="nofollow noopener noreferrer"
-        >
-          Buy Now
-        </a>
-      `;
-
-      grid.appendChild(card);
-    });
-
-  } catch (err) {
-    console.error('Error loading products:', err);
-    document.querySelector('.product-grid').innerHTML = `
-      <p style="text-align:center; color:red;">⚠️ Failed to load products. Please refresh the page.</p>
-    `;
-  }
-}
-
-loadProducts();
-</script>
-
-
+     
 <script>
 const messages = [
   "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
@@ -814,9 +759,22 @@ async function loadProducts() {
         grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">No items found.</p>';
         return;
       }
+
       list.forEach(p => {
         const card = document.createElement('div');
         card.className = 'product-card';
+        card.style.position = 'relative';
+
+        // --- Auto-detect source from URL ---
+        let source = '';
+        if (p.link) {
+          const url = p.link.toLowerCase();
+          if (url.includes('amazon')) source = 'Amazon';
+          else if (url.includes('flipkart')) source = 'Flipkart';
+          else if (url.includes('meesho')) source = 'Meesho';
+        }
+
+        // --- Product card content ---
         card.innerHTML = `
           <img src="${p.image}" alt="${p.title}">
           <h3>${p.title}</h3>
@@ -824,18 +782,70 @@ async function loadProducts() {
           <span class="price">${p.price}</span>
           <a href="${p.link}" target="_blank" class="buy-btn" rel="nofollow noopener noreferrer">Buy Now</a>
         `;
+
+        // --- Add source tag if detected ---
+        if (source) {
+          const tag = document.createElement('div');
+          tag.className = 'source-tag';
+          tag.textContent = source;
+
+          // Define colors for each platform
+          const colors = {
+            Amazon: '#FFD700', // Gold
+            Flipkart: '#2874F0', // Blue
+            Meesho: '#E91E63' // Pink
+          };
+
+          // Apply styling
+          tag.style.cssText = `
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: ${colors[source] || '#444'};
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: all 0.4s ease;
+            animation: tagPulse 4s infinite ease-in-out;
+          `;
+
+          // Animate in
+          requestAnimationFrame(() => {
+            setTimeout(() => {
+              tag.style.opacity = '1';
+              tag.style.transform = 'translateY(0)';
+            }, 100);
+          });
+
+          card.appendChild(tag);
+        }
+
         grid.appendChild(card);
       });
     }
 
-    // Initial load
+    // --- Keyframes for live pulsing animation ---
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes tagPulse {
+        0%, 100% { box-shadow: 0 2px 6px rgba(0,0,0,0.25); transform: scale(1); }
+        50% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.6); transform: scale(1.05); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // --- Initial load ---
     displayProducts(products);
 
     // --- Search function ---
     function searchProducts() {
       const query = searchInput.value.toLowerCase().trim();
       if (!query) {
-        // If input is empty, show all products
         displayProducts(products);
         return;
       }
@@ -846,15 +856,9 @@ async function loadProducts() {
       displayProducts(filtered);
     }
 
-    // --- Search on Enter ---
-    searchInput.addEventListener('keyup', (e) => {
-      searchProducts();
-    });
-
-    // --- Search on Button Click ---
+    // --- Search events ---
+    searchInput.addEventListener('keyup', searchProducts);
     searchBtn.addEventListener('click', searchProducts);
-
-    // --- Optional: live search while typing ---
     searchInput.addEventListener('input', searchProducts);
 
   } catch (err) {
@@ -864,7 +868,6 @@ async function loadProducts() {
 
 loadProducts();
 </script>
-
 
  
 </body>
