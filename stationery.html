@@ -301,43 +301,38 @@
 .product-card {
   position: relative;
 }
-
+/* 🔷 Auto-colored by source */
 .store-tag {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  position: relative;
+  padding: 4px 10px;
+  border-radius: 6px;
   color: white;
   font-size: 0.8rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  z-index: 2;
-  opacity: 0.95;
+  font-weight: 600;
+  text-align: center;
+  animation: pulse 2s infinite ease-in-out;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* 🔷 Auto-colored by source */
-.store-tag.amazon {
-  background: #FF9900; /* gold background */
-}
-.store-tag.amazon::after {
-  box-shadow: 0 0 8px 2px rgba(255, 204, 0, 0.7);
+/* Platform backgrounds */
+.store-tag.amazon { background: #FF9900; color: #FFCC00; }   /* gold glow */
+.store-tag.flipkart { background: #2874F0; color: #4DA3FF; } /* blue glow */
+.store-tag.meesho { background: #FF4081; color: #FF80A0; }   /* pink glow */
+
+/* Soft, smooth glow animation */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2), 0 0 0 0 currentColor;
+  }
+  50% {
+    box-shadow: 0 0 15px 5px rgba(0,0,0,0.15), 0 0 20px 10px currentColor;
+  }
 }
 
-.store-tag.flipkart {
-  background: #2874F0; /* blue background */
-}
-.store-tag.flipkart::after {
-  box-shadow: 0 0 8px 2px rgba(40, 116, 240, 0.7);
-}
-
-.store-tag.meesho {
-  background: #FF4081; /* pink background */
-}
-.store-tag.meesho::after {
-  box-shadow: 0 0 8px 2px rgba(255, 64, 129, 0.7);
+/* Hover effect when card is hovered */
+.product-card:hover .store-tag {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px 12px currentColor, 0 0 10px 3px rgba(0,0,0,0.2);
 }
 
 /* Default fallback color */
