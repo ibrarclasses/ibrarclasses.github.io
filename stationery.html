@@ -320,28 +320,30 @@
 
 /* 🔷 Auto-colored by source */
 .store-tag.amazon {
-  background: linear-gradient(135deg, #ff9900, #ffb84d);
+  background: #FF9900; /* gold background */
+}
+.store-tag.amazon::after {
+  box-shadow: 0 0 8px 2px rgba(255, 204, 0, 0.7);
 }
 
 .store-tag.flipkart {
-  background: linear-gradient(135deg, #2874f0, #5c9dfc);
+  background: #2874F0; /* blue background */
+}
+.store-tag.flipkart::after {
+  box-shadow: 0 0 8px 2px rgba(40, 116, 240, 0.7);
 }
 
 .store-tag.meesho {
-  background: linear-gradient(135deg, #ff3f6c, #ff6f91);
+  background: #FF4081; /* pink background */
+}
+.store-tag.meesho::after {
+  box-shadow: 0 0 8px 2px rgba(255, 64, 129, 0.7);
 }
 
 /* Default fallback color */
 .store-tag:not(.amazon):not(.flipkart):not(.meesho) {
   background: linear-gradient(135deg, #10B981, #3B82F6);
 }
-
-    /* For Hover styles */
-.store-tag:hover {
-  transform: scale(1.05);
-  transition: transform 0.2s ease;
-}
-
     
     /* === Buy Now Button === */
 .buy-btn {
