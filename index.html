@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Stationery Mall | Ibrar Classes</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
@@ -14,6 +14,7 @@
       --bg: #F0F4F8;
       --card: #ffffff;
       --text: #1F2937;
+      --filter-width: 240px;
     }
 
     * { box-sizing: border-box; }
@@ -28,7 +29,7 @@
       background-position: center top;
       background-repeat: no-repeat;
       color: var(--text);
-      transition: background-color 0.4s, color 0.4s;
+      transition: background-color .4s, color .4s;
       overflow-x: hidden;
     }
 
@@ -38,12 +39,12 @@
       padding: 2rem 1rem;
       background: linear-gradient(135deg, var(--primary), var(--accent));
       color: #fff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
       position: relative;
     }
-    header img { width:90px; border-radius:50%; margin-bottom:10px; object-fit:cover; }
-    header h1 { margin:0; font-size:2rem; }
-    header p { margin:.35rem 0; font-weight:500; }
+    header img { width: 90px; border-radius: 50%; margin-bottom: 10px; object-fit: cover; }
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { margin: .35rem 0; font-weight: 500; }
 
     /* ====== NAV BAR ====== */
     nav {
@@ -57,114 +58,152 @@
       z-index: 1000;
       flex-wrap: wrap;
     }
-
-    nav .left-links { display:flex; flex-wrap:wrap; gap:15px; }
+    nav .left-links { display: flex; gap: 15px; align-items:center; }
     nav .left-links a {
-      color:white; text-decoration:none; font-weight:600; font-size:1rem;
+      color: white; text-decoration: none; font-weight: 600; font-size: 1rem;
       transition: color .3s, transform .2s;
     }
-    nav .left-links a:hover { color:var(--accent); transform:scale(1.05); }
-    nav .right-section { margin-left:auto; display:flex; align-items:center; }
+    nav .left-links a:hover { color: var(--accent); transform: scale(1.05); }
 
-    /* Premium gradient search bar styling (existing) */
-    #searchBarContainer { display:flex; align-items:center; background:linear-gradient(135deg,#00c6ff,#0072ff); border-radius:50px; padding:2px; transition: all .3s ease; }
-    #searchInput { border:none; outline:none; padding:8px 12px; border-radius:50px 0 0 50px; width:150px; transition: all .3s ease; font-size:.9rem; }
-    #searchInput:focus { width:200px; background:#fff; }
-    #searchBtn { border:none; padding:8px 15px; border-radius:0 50px 50px 0; cursor:pointer; color:white; font-weight:600; background:linear-gradient(135deg,#0072ff,#00c6ff); transition: all .3s ease; }
-    #searchBtn:hover { transform:scale(1.05); box-shadow:0 0 8px rgba(0,198,255,0.6); }
-    #searchBarContainer:focus-within { box-shadow:0 0 10px rgba(0,198,255,0.7); }
+    nav .right-section { margin-left: auto; display:flex; align-items:center; gap:12px; }
 
-    /* ====== TICKER / MOVING NOTICE ====== (existing) */
-    .ticker { width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:8px 0; position:relative; border-top:2px solid rgba(255,255,255,.2); border-bottom:2px solid rgba(255,255,255,.2); box-shadow: inset 0 -3px 6px rgba(0,0,0,.1); }
+    /* Stationery Mall Button */
+    nav .stationery-link {
+      background: linear-gradient(135deg, #10B981, #3B82F6);
+      box-shadow: 0 4px 15px rgba(16,185,129,0.4);
+      color: white; padding: 8px 16px; border-radius: 10px; font-weight:700;
+      text-decoration: none; animation: pulse 2s infinite; transition: all .3s; white-space: nowrap;
+    }
+    nav .stationery-link:hover { background: #3B82F6; transform: scale(1.1); }
+
+    /* ====== NAV SEARCH (same look as before) ====== */
+    #searchBarContainer { display:flex; align-items:center; background: linear-gradient(135deg,#00c6ff,#0072ff); border-radius:50px; padding:2px; transition:all .3s ease;}
+    #searchInput {
+      border:none; outline:none; padding:8px 12px; border-radius:50px 0 0 50px; width:150px; transition:all .3s; font-size:.9rem; background:transparent; color:white;
+    }
+    /* when focused show white background inside the rounded bar */
+    #searchInput:focus { width:200px; background:#fff; color:var(--text); }
+    #searchBtn {
+      border:none; padding:8px 15px; border-radius:0 50px 50px 0; cursor:pointer; color:white; font-weight:600;
+      background: linear-gradient(135deg,#0072ff,#00c6ff); transition:all .3s;
+    }
+    #searchBtn:hover { transform:scale(1.05); box-shadow:0 0 8px rgba(0,198,255,.6); }
+    #searchBarContainer:focus-within { box-shadow:0 0 10px rgba(0,198,255,.7); }
+
+    /* ====== TICKER / MOVING NOTICE (keeps your style) ====== */
+    .ticker { width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:8px 0; position:relative;
+      border-top:2px solid rgba(255,255,255,.2); border-bottom:2px solid rgba(255,255,255,.2); box-shadow:inset 0 -3px 6px rgba(0,0,0,.1);
+    }
     .ticker__content { display:inline-block; white-space:nowrap; position:relative; will-change:transform; }
-    @keyframes scrollText { from{ transform:translateX(var(--start)); } to{ transform:translateX(var(--end)); } }
+    @keyframes scrollText { from { transform: translateX(var(--start)); } to { transform: translateX(var(--end)); } }
     .ticker:hover .ticker__content { animation-play-state: paused !important; }
 
-    /* ====== LIVE DATETIME ====== (existing) */
-    #live-datetime { position: fixed; top:12px; right:18px; z-index:1100; background:rgba(255,255,255,.88); color:#0b1220; padding:7px 12px; border-radius:9px; font-size:13px; box-shadow:0 3px 8px rgba(0,0,0,.12); backdrop-filter: blur(4px); }
-
-    /* === Compact Search Bar (fallback existing) === */
-    .search-bar { display:flex; justify-content:flex-end; margin:10px 20px; }
-    .search-bar input { width:180px; padding:6px 10px; font-size:.9rem; border:1.5px solid #10B981; border-radius:8px; background:#f9fafb; transition:all .25s ease; }
-    .search-bar input:focus { width:220px; background:white; box-shadow:0 0 6px rgba(16,185,129,.4); outline:none; }
-    @media (max-width:600px) { .search-bar { justify-content:center; } }
-    .search-bar button { background: linear-gradient(135deg,#10B981,#3B82F6); color:white; border:none; border-radius:8px; padding:6px 10px; margin-left:6px; font-size:1rem; cursor:pointer; transition: transform .2s, background .3s; }
-    .search-bar button:hover { transform:scale(1.05); background:#3B82F6; }
-
-    /* ====== CONTAINER ====== (existing) */
-    .container { max-width:980px; margin:2rem auto; padding:2rem; background:rgba(255,255,255,.96); border-radius:14px; box-shadow:0 6px 22px rgba(6,24,44,.06); }
-
-    /* ====== FEATURED CAROUSEL & CATEGORIES (ADDED) ====== */
-    .featured { max-width:980px; margin: 1rem auto; padding: 0 1rem; }
-    .cat-row { display:flex; gap:8px; align-items:center; margin-bottom:10px; flex-wrap:wrap; }
-    .cat-pill {
-      background: rgba(255,255,255,.92);
-      border: 1px solid rgba(0,0,0,.06);
-      padding:6px 10px; border-radius:999px; font-weight:600; cursor:pointer;
-      box-shadow: 0 2px 8px rgba(6,24,44,.04); transition: all .22s ease;
+    /* ====== LAYOUT: filters (left) + main (right) ====== */
+    .layout {
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      display: grid;
+      grid-template-columns: var(--filter-width) 1fr;
+      gap: 1.5rem;
+      padding: 0 1rem;
     }
-    .cat-pill.active { background: linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6,24,44,.08); }
 
-    .carousel {
-      position:relative; overflow:hidden; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.75));
-      box-shadow: 0 8px 30px rgba(6,24,44,.06); display:flex; align-items:center; padding:12px;
+    /* Filter panel */
+    .filters {
+      background: rgba(255,255,255,0.96);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 6px 22px rgba(6,24,44,0.06);
+      position: sticky;
+      top: 84px; /* under nav/header */
+      height: fit-content;
+      align-self: start;
     }
-    .carousel-track { display:flex; gap:12px; transition: transform .6s cubic-bezier(.22,.9,.29,1); will-change:transform; }
-    .carousel-item { min-width: 240px; max-width: 260px; background: #fff; border-radius:10px; padding:10px; box-shadow:0 4px 12px rgba(0,0,0,.06); text-align:center; }
-    .carousel-item img { width:100%; height:120px; object-fit:contain; border-radius:8px; margin-bottom:8px; }
-    .carousel-controls { position:absolute; left:8px; right:8px; top:0; bottom:0; pointer-events:none; display:flex; justify-content:space-between; align-items:center; }
-    .carousel-controls button { pointer-events:auto; background:rgba(0,0,0,.08); border:none; color:#fff; width:40px; height:40px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:transform .18s; }
-    .carousel-controls button:hover { transform: scale(1.07); background: rgba(0,0,0,.12); }
-    .carousel-footer { margin-top:8px; font-size:13px; color:#334155; text-align:center; }
+    .filters h3 { margin: 0 0 8px 0; color: var(--nav); font-size: 1rem; }
+    .filter-list { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+    .filter-item { display:flex; align-items:center; gap:8px; }
+    .filter-item input[type="checkbox"] { width:16px; height:16px; }
+    .filter-actions { margin-top:10px; display:flex; gap:8px; }
+    .filter-actions button { padding:6px 10px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--accent),var(--primary)); color:#fff; cursor:pointer; }
 
-    /* ====== PRODUCT GRID (existing) ====== */
-    .product-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; }
+    /* Main column keeps product grid and other content */
+    .main {
+      display:flex; flex-direction:column; gap:1.5rem;
+    }
+
+    .container {
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.96);
+      border-radius: 14px;
+      box-shadow: 0 6px 22px rgba(6,24,44,0.06);
+    }
+
+    h2 { text-align:center; color:var(--primary); margin-bottom:1rem; }
+
+    /* Product grid & cards (kept same look) */
+    .product-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; }
     .product-card { background:white; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.1); padding:15px; text-align:center; transition:transform .2s ease; position:relative; }
     .product-card:hover { transform: translateY(-5px); }
     .product-card img { width:100%; height:180px; object-fit:contain; border-radius:10px; }
-    .price { display:block; font-weight:bold; color:#1a73e8; margin:5px 0; }
+    .price { display:block; font-weight:bold; color:#1a73e8; margin: 6px 0; }
 
-    /* === Buy Now Button (existing) === */
-    .buy-btn { display:inline-block; background: linear-gradient(135deg,#2563eb,#3b82f6); color:#fff; font-weight:600; text-decoration:none; padding:10px 18px; border-radius:10px; box-shadow:0 4px 10px rgba(37,99,235,.3); transition: all .3s ease; text-align:center; margin-top:10px; position:relative; overflow:hidden; }
-    .buy-btn:hover { background: linear-gradient(135deg,#1d4ed8,#60a5fa); transform:translateY(-3px); box-shadow:0 6px 15px rgba(37,99,235,.5); }
+    .buy-btn { display:inline-block; background:linear-gradient(135deg,#2563eb,#3b82f6); color:#fff; font-weight:600; text-decoration:none; padding:10px 18px; border-radius:10px; box-shadow:0 4px 10px rgba(37,99,235,.3); transition:all .3s; margin-top:10px; position:relative; overflow:hidden; }
+    .buy-btn:hover { background:linear-gradient(135deg,#1d4ed8,#60a5fa); transform:translateY(-3px); box-shadow:0 6px 15px rgba(37,99,235,.5); }
     .buy-btn::after { content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; background:rgba(255,255,255,.3); transform:skewX(-20deg); transition:.5s; }
     .buy-btn:hover::after { left:100%; }
 
-    /* Source tag style (kept simple; animated pulses defined by JS keyframes injection) */
-    .source-tag { position:absolute; top:10px; right:10px; color:#fff; font-weight:600; font-size:12px; padding:4px 10px; border-radius:14px; }
+    /* Source tag basic style (we animate and color in JS) */
+    .source-tag { position:absolute; top:10px; right:10px; color:#fff; font-size:12px; font-weight:600; padding:4px 10px; border-radius:14px; }
 
-    /* ====== FOOTER & FLOATING UI (existing) ====== */
+    /* ====== FOOTER ====== */
     footer { background:var(--nav); color:#fff; text-align:center; padding:16px 10px; margin-top:28px; font-size:14px; }
     #visitor-info { margin-top:8px; font-weight:600; }
-    #molly-chat { position:fixed; bottom:18px; right:18px; z-index:2000; width:72px; height:72px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 26px rgba(3,10,23,.18); text-decoration:none; animation:pulse 2.5s infinite; }
-    .molly-avatar { width:66px; height:66px; border-radius:50%; object-fit:cover; }
+
+    /* ====== FLOATING UI ====== */
+    #molly-chat { position: fixed; bottom: 18px; right: 18px; z-index: 2000; width:72px; height:72px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 26px rgba(3,10,23,.18); text-decoration:none; animation:pulse 2.5s infinite; }
+    .molly-avatar{ width:66px; height:66px; border-radius:50%; object-fit:cover; }
+
+    /* Back to top */
     #back-to-top { position:fixed; right:18px; bottom:108px; display:none; z-index:1500; background:var(--primary); color:#fff; border:none; width:46px; height:46px; border-radius:50%; box-shadow:0 6px 20px rgba(2,6,23,.16); cursor:pointer; font-weight:700; }
     #back-to-top:hover { background:var(--accent); }
 
-    /* ====== DARK MODE ====== (existing) */
+    /* Dark mode (preserves your variables) */
     .dark-mode { --primary:#60a5fa; --accent:#34d399; --nav:#0b1220; --bg:#0b1220; --card:#071129; --text:#000000; }
+    /* ensure dark mode content readability for elements using hard-coded colors */
+    .dark-mode header, .dark-mode nav { filter: none; }
+    .dark-mode .container, .dark-mode .filters, .dark-mode .main { background: rgba(6,10,20,0.85); color: #e6eefc; }
+    .dark-mode .product-card { background: rgba(10,14,25,0.8); color: #e6eefc; }
+    .dark-mode .buy-btn::after { background: rgba(255,255,255,.06); }
 
-    /* ====== MEDIA RESPONSIVE FIXES ====== */
-    @media (max-width:768px){
-      nav { flex-direction:column; align-items:flex-start; padding:.8rem 1rem; }
-      nav .left-links { flex-direction:column; width:100%; }
-      header img { width:80px; } header h1 { font-size:1.6rem; }
-      #live-datetime{ font-size:11px; padding:5px 8px; }
-      .container { margin:1rem; padding:1rem; }
-      .carousel-item { min-width: 180px; max-width: 220px; }
+    /* Make sure the dark-mode toggle stays visible and above header */
+    #darkModeToggle {
+      position: fixed; top: 14px; left: 14px; z-index: 2001; width:46px; height:46px; border-radius:50%; border:none; cursor:pointer;
+      background: rgba(255,255,255,0.92); color:var(--nav); font-size:18px; box-shadow:0 6px 18px rgba(2,6,23,.12);
+    }
+    #darkModeToggle:hover { transform: scale(1.06); }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; padding: 0 12px; }
+      .filters { position: relative; top: auto; display:none; } /* hide side filters on tablet by default */
+      .filters.open { display:block; margin-bottom: 12px; } /* when toggled open */
+    }
+    @media (max-width: 420px) {
+      #searchInput { display: none; } /* keep nav tidy on very small screens - only search icon shows */
+      #searchBarContainer { padding:4px; }
+      #searchBtn { padding:8px; }
     }
 
-    /* ====== KEYFRAMES ====== */
-    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(16,185,129,.28);} 70%{box-shadow:0 0 0 16px rgba(16,185,129,0);} 100%{box-shadow:0 0 0 0 rgba(16,185,129,0);} }
-
+    /* keyframes */
+    @keyframes pulse { 0%{ box-shadow:0 0 0 0 rgba(16,185,129,.28);} 70% { box-shadow:0 0 0 16px rgba(16,185,129,0);} 100%{ box-shadow:0 0 0 0 rgba(16,185,129,0); } }
   </style>
 </head>
 <body>
 
-  <!-- Live date/time (top-right) -->
+  <!-- Live date/time -->
   <div id="live-datetime" aria-hidden="false"></div>
 
-  <!-- Dark mode toggle (top-left) -->
+  <!-- Dark mode toggle -->
   <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
 
   <header>
@@ -173,43 +212,59 @@
     <p>Here you'll find UPSC & other study essentials. These are affiliate links and we may earn a small referral fee when you purchase from here, at no extra cost to you ❤️!</p>
   </header>
 
+  <!-- Status / Health bar -->
+  <div id="status-bar">🟢 Check Done! Website running smoothly</div>
+
   <nav>
     <div class="left-links">
       <a href="index.html">Home</a>
     </div>
 
     <div class="right-section">
-      <div id="searchBarContainer">
-        <input type="text" id="searchInput" placeholder="Search products...">
-        <button id="searchBtn">🔍</button>
+      <!-- keep search bar in nav with same look; note: not prefilled -->
+      <div id="searchBarContainer" style="color:transparent;">
+        <input id="searchInput" type="text" placeholder="Search products..." aria-label="Search products" />
+        <button id="searchBtn" aria-label="Search">🔍</button>
       </div>
+
+      <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
     </div>
   </nav>
 
+  <!-- Ticker -->
   <div class="ticker">
     <div class="ticker__content" id="tickerText"></div>
   </div>
 
-  <!-- ====== FEATURED + CATEGORY (ADDED) ====== -->
-  <div class="featured" aria-hidden="false">
-    <div class="cat-row" id="categoryRow" aria-label="Product categories">
-      <!-- category pills inserted here by JS -->
-    </div>
+  <!-- Layout: left filters + main -->
+  <div class="layout">
 
-    <div class="carousel" id="featuredCarousel" aria-live="polite" aria-atomic="true" role="region">
-      <div class="carousel-track" id="carouselTrack">
-        <!-- carousel items inserted here by JS -->
+    <!-- Filters column (left) -->
+    <aside class="filters" id="filtersPanel" aria-hidden="false">
+      <h3>Filters</h3>
+      <div class="filter-list" id="filterList">
+        <!-- checkboxes injected by JS (demo categories used) -->
       </div>
-      <div class="carousel-controls">
-        <button id="carouselPrev" aria-label="Previous">‹</button>
-        <button id="carouselNext" aria-label="Next">›</button>
+      <div class="filter-actions">
+        <button id="clearFilters">Clear</button>
+        <button id="saveFiltersBtn">Save</button>
+      </div>
+      <hr style="margin:12px 0;border:none;border-top:1px solid #eef2f7;">
+      <div style="font-size:0.9rem;color:#556074">Other tools</div>
+      <ul style="padding-left:16px;margin-top:8px;color:#334155">
+        <li>Sort: (coming soon)</li>
+        <li>Price range: (coming soon)</li>
+      </ul>
+    </aside>
+
+    <!-- Main column (right) -->
+    <div class="main">
+      <div class="container" aria-live="polite">
+        <h2>Featured Stationery</h2>
+        <p style="text-align:center;color:#475569">Use the filters on the left or the search box in the header to find products quickly.</p>
+        <div class="product-grid" id="productGrid"></div>
       </div>
     </div>
-    <div class="carousel-footer" id="carouselFooter">Featured products — auto-rotating</div>
-  </div>
-
-  <div class="container">
-    <div class="product-grid" aria-live="polite" aria-atomic="true"></div>
   </div>
 
   <footer>
@@ -217,389 +272,348 @@
     <div id="visitor-info" aria-live="polite"></div>
   </footer>
 
-  <!-- Miss Molly Telegram chat widget (bottom-right) -->
-  <a id="molly-chat" href="https://t.me/M1ssMolly_Bot" target="_blank" rel="noopener" title="Chat with our warden Miss Molly on Telegram">
-    <img src="images/miss-molly.jpg" alt="Miss Molly avatar" class="molly-avatar" />
+  <!-- Miss Molly chat -->
+  <a id="molly-chat" href="https://t.me/M1ssMolly_Bot" target="_blank" rel="noopener" title="Chat with Miss Molly">
+    <img src="images/miss-molly.jpg" alt="Miss Molly" class="molly-avatar" />
   </a>
 
   <!-- Back to top -->
   <button id="back-to-top" aria-label="Back to top">↑</button>
 
-  <!-- ====== EXISTING SCRIPTS (unchanged) ====== -->
+  <!-- ========== SCRIPTS ========== -->
   <script>
     /* ===== LIVE DATETIME ===== */
-    function updateDateTime() {
+    function updateDateTime(){
       const now = new Date();
-      const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { weekday:'short', year:'numeric', month:'short', day:'numeric' };
       const dateStr = now.toLocaleDateString('en-IN', options);
       const timeStr = now.toLocaleTimeString('en-IN');
       document.getElementById('live-datetime').textContent = `${dateStr} | ${timeStr}`;
     }
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
+    updateDateTime(); setInterval(updateDateTime, 1000);
 
-    /* ===== DARK MODE (top-left toggle) ===== */
+    /* ===== DARK MODE ===== */
     const darkToggle = document.getElementById('darkModeToggle');
-    if (localStorage.getItem('ibrar-dark') === '1') { document.documentElement.classList.add('dark-mode'); darkToggle.textContent='☀️'; }
-    darkToggle.addEventListener('click', ()=> {
+    if(localStorage.getItem('ibrar-dark') === '1'){ document.documentElement.classList.add('dark-mode'); darkToggle.textContent='☀️'; }
+    darkToggle.addEventListener('click', ()=>{
       document.documentElement.classList.toggle('dark-mode');
       const isDark = document.documentElement.classList.contains('dark-mode');
-      localStorage.setItem('ibrar-dark', isDark ? '1' : '0');
-      darkToggle.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('ibrar-dark', isDark? '1':'0');
+      darkToggle.textContent = isDark? '☀️' : '🌙';
     });
 
-    /* ===== FAKE VISITOR COUNT (50-100) with reset after 30 days ===== */
-    (function visitorCounter() {
-      const KEY_COUNT = 'ibrar_visitors', KEY_RESET = 'ibrar_visitors_reset';
-      const resetDays = 30;
-      const now = Date.now();
-      const lastReset = localStorage.getItem(KEY_RESET);
-      let count = parseInt(localStorage.getItem(KEY_COUNT), 10);
-      function randomInRange(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-      if (!lastReset || now - lastReset > resetDays * 24 * 60 * 60 * 1000) {
-        count = randomInRange(51,98);
-        localStorage.setItem(KEY_COUNT, count);
-        localStorage.setItem(KEY_RESET, now);
-      } else {
-        if (!count || isNaN(count)) { count = randomInRange(51,98); localStorage.setItem(KEY_COUNT, count); }
-        const inc = Math.random() < 0.35 ? 0 : Math.random() < 0.6 ? 1 : 2;
-        count = Math.min(98, count + inc);
-        localStorage.setItem(KEY_COUNT, count);
+    /* ===== STATUS BAR SHOW for 3s ===== */
+    window.addEventListener('DOMContentLoaded', () => {
+      const statusBar = document.getElementById('status-bar');
+      if(statusBar){
+        statusBar.style.opacity = '1';
+        setTimeout(() => { statusBar.style.transition='opacity .8s ease'; statusBar.style.opacity='0'; setTimeout(()=>statusBar.style.display='none',800); }, 3000);
       }
-      const getActiveUsers = () => randomInRange(5,13);
-      function renderVisitor() {
-        const date = new Date().toLocaleDateString('en-IN', { year:'numeric', month:'short', day:'numeric' });
+    });
+
+    /* ===== FAKE VISITOR COUNT (50-100) ===== */
+    (function visitorCounter(){
+      const KEY_COUNT='ibrar_visitors', KEY_RESET='ibrar_visitors_reset';
+      const resetDays = 30; const now = Date.now();
+      const lastReset = localStorage.getItem(KEY_RESET);
+      let count = parseInt(localStorage.getItem(KEY_COUNT),10);
+      function randomInRange(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+      if(!lastReset || (now - lastReset) > resetDays*24*60*60*1000){
+        count = randomInRange(51,98); localStorage.setItem(KEY_COUNT,count); localStorage.setItem(KEY_RESET,now);
+      } else {
+        if(!count || isNaN(count)){ count = randomInRange(51,98); localStorage.setItem(KEY_COUNT,count); }
+        const inc = Math.random()<0.35?0:Math.random()<0.6?1:2; count = Math.min(98,count+inc); localStorage.setItem(KEY_COUNT,count);
+      }
+      const getActiveUsers = ()=> randomInRange(5,13);
+      function renderVisitor(){
+        const date = new Date().toLocaleDateString('en-IN',{year:'numeric',month:'short',day:'numeric'});
         const active = getActiveUsers();
-        document.getElementById('visitor-info').innerHTML =
-          `Visitors this month: <strong>${count}</strong> &nbsp; | &nbsp; Last updated: <strong>${date}</strong> &nbsp; | &nbsp; Active users: <strong>${active}</strong>`;
+        document.getElementById('visitor-info').innerHTML = `Visitors this month: <strong>${count}</strong> &nbsp; | &nbsp; Last updated: <strong>${date}</strong> &nbsp; | &nbsp; Active users: <strong>${active}</strong>`;
       }
       renderVisitor();
-      setInterval(()=> {
-        if (Math.random() < 0.45) {
-          count = Math.min(98, count + (Math.random() < 0.6 ? 1 : 0));
-          localStorage.setItem(KEY_COUNT, count);
-        }
+      setInterval(()=>{
+        if(Math.random() < 0.45){ count = Math.min(98, count + (Math.random()<0.6?1:0)); localStorage.setItem(KEY_COUNT,count); }
         renderVisitor();
-      }, 8000);
+      },8000);
     })();
 
-    /* ===== BACK TO TOP BUTTON ===== */
+    /* ===== BACK TO TOP ===== */
     const backBtn = document.getElementById('back-to-top');
-    window.addEventListener('scroll', ()=> { backBtn.style.display = window.scrollY > 300 ? 'block' : 'none'; });
-    backBtn.addEventListener('click', ()=> window.scrollTo({ top:0, behavior:'smooth' }));
+    window.addEventListener('scroll', ()=>{ backBtn.style.display = window.scrollY > 300 ? 'block' : 'none'; });
+    backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-    /* ===== OPTIONAL: small animation to subtly highlight new visitors area ===== */
-    (function pulseVisitorArea(){ const v = document.getElementById('visitor-info'); if(!v) return; setInterval(()=>{ v.style.transform='translateY(-2px)'; v.style.transition='transform .18s'; setTimeout(()=>v.style.transform='none',200); }, 9000); })();
-  </script>
+    /* ===== TICKER (keeps your working implementation) ===== */
+    (function initTicker(){
+      const messages = [
+        "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
+        "📦 The products are updated regularly for better deals and prices.",
+        "❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐",
+        "🔍 Use the Search Bar to find the products quickly",
+        "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐",
+      ];
+      const tickerText = document.getElementById("tickerText");
+      const container = document.querySelector(".ticker");
+      let current = 0; let timerId = null;
+      const SPEED_PX_PER_SEC = 120;
 
-  <!-- ====== TICKER SCRIPT (existing) ====== -->
-  <script>
-    const messages = [
-      "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
-      "📦 The products are updated regularly for better deals and prices.",
-      "❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐",
-      "🔍 Use the Search Bar to find the products quickly",
-      "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐",
-    ];
-    const tickerText = document.getElementById("tickerText");
-    const container = document.querySelector(".ticker");
-    let current = 0;
-    let timerId = null;
-    const SPEED_PX_PER_SEC = 120;
-    function showNextMessage() {
-      if (timerId) { clearTimeout(timerId); timerId = null; }
-      tickerText.textContent = messages[current];
-      requestAnimationFrame(() => {
-        const textW = tickerText.offsetWidth;
-        const containerW = container.clientWidth;
-        const startPx = containerW;
-        const endPx = -textW;
-        const distance = Math.abs(endPx - startPx);
-        const durationMs = Math.max(4000, Math.round((distance / SPEED_PX_PER_SEC) * 1000));
-        tickerText.style.setProperty('--start', startPx + 'px');
-        tickerText.style.setProperty('--end', endPx + 'px');
-        tickerText.style.animation = 'none';
-        void tickerText.offsetWidth;
-        tickerText.style.animation = `scrollText ${durationMs}ms linear forwards`;
-        const gapAfter = ((current + 1) % messages.length === 0) ? 15000 : 5000;
-        timerId = setTimeout(()=>{ current = (current + 1) % messages.length; showNextMessage(); }, durationMs + gapAfter);
-      });
-    }
-    showNextMessage();
-    tickerText.parentElement.addEventListener("mouseenter", () => { tickerText.style.animationPlayState = "paused"; });
-    tickerText.parentElement.addEventListener("mouseleave", () => { tickerText.style.animationPlayState = "running"; });
-  </script>
+      function showNextMessage(){
+        if(timerId){ clearTimeout(timerId); timerId = null; }
+        tickerText.textContent = messages[current];
+        requestAnimationFrame(()=>{
+          const textW = tickerText.offsetWidth, containerW = container.clientWidth;
+          const startPx = containerW; const endPx = -textW;
+          const distance = Math.abs(endPx - startPx);
+          const durationMs = Math.max(4000, Math.round((distance / SPEED_PX_PER_SEC) * 1000));
+          tickerText.style.setProperty('--start', startPx + 'px');
+          tickerText.style.setProperty('--end', endPx + 'px');
+          tickerText.style.animation = 'none'; void tickerText.offsetWidth;
+          tickerText.style.animation = `scrollText ${durationMs}ms linear forwards`;
+          const gapAfter = ((current+1) % messages.length === 0) ? 15000 : 5000;
+          timerId = setTimeout(()=>{ current = (current+1)%messages.length; showNextMessage(); }, durationMs + gapAfter);
+        });
+      }
+      showNextMessage();
+      tickerText.parentElement.addEventListener('mouseenter', ()=> { tickerText.style.animationPlayState='paused'; });
+      tickerText.parentElement.addEventListener('mouseleave', ()=> { tickerText.style.animationPlayState='running'; });
+    })();
 
-  <!-- ====== PRODUCT LOADER (existing) ====== -->
-  <script>
-  async function loadProducts() {
-    try {
-      const res = await fetch('products.json?v=' + new Date().getTime());
-      const products = await res.json();
-      const grid = document.querySelector('.product-grid');
+    /* ====== PRODUCT LOADING, SEARCH, FILTERS (single combined robust script) ====== */
+    (function productModule(){
+      const PRODUCTS_JSON = 'products.json?v=' + new Date().getTime();
+      const grid = document.getElementById('productGrid');
       const searchInput = document.getElementById('searchInput');
       const searchBtn = document.getElementById('searchBtn');
+      const filterListEl = document.getElementById('filterList');
+      const filtersPanel = document.getElementById('filtersPanel');
+      const clearBtn = document.getElementById('clearFilters');
+      const saveBtn = document.getElementById('saveFiltersBtn');
 
-      function displayProducts(list) {
+      // demo categories (you can edit later). We'll also add any categories found in products.
+      const demoCategories = ['Pens','Notebooks','Books','Accessories','Calculators','Highlighters'];
+      let products = [];      // full list
+      let activeFilters = JSON.parse(localStorage.getItem('ibrar_filters') || '[]'); // array of selected category names
+
+      // Utility: extract source from URL
+      function detectSource(url){
+        if(!url) return '';
+        const u = url.toLowerCase();
+        if(u.includes('amzn') || u.includes('amazon')) return 'Amazon';
+        if(u.includes('flipkart')) return 'Flipkart';
+        if(u.includes('meesho')) return 'Meesho';
+        return '';
+      }
+
+      // Build filter UI (prefers categories found in products, else demo)
+      function buildFilterUI(categories){
+        filterListEl.innerHTML = '';
+        categories.forEach(cat=>{
+          const id = 'filter_' + cat.replace(/\s+/g,'_').toLowerCase();
+          const wrapper = document.createElement('label');
+          wrapper.className = 'filter-item';
+          wrapper.innerHTML = `<input type="checkbox" id="${id}" value="${cat}" ${activeFilters.includes(cat) ? 'checked' : ''} /> <span>${cat}</span>`;
+          filterListEl.appendChild(wrapper);
+          wrapper.querySelector('input').addEventListener('change', () => {
+            syncFiltersFromUI();
+            applyFiltersAndSearch();
+          });
+        });
+      }
+
+      function syncFiltersFromUI(){
+        const checked = Array.from(filterListEl.querySelectorAll('input[type="checkbox"]:checked')).map(i=>i.value);
+        activeFilters = checked;
+        localStorage.setItem('ibrar_filters', JSON.stringify(activeFilters));
+      }
+
+      // display products (list = filtered list)
+      function displayProducts(list){
         grid.innerHTML = '';
-        if (list.length === 0) {
-          grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">No items found.</p>';
+        if(!list || list.length === 0){
+          grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#475569">No items found.</p>';
           return;
         }
-        list.forEach(p => {
-          const card = document.createElement('div');
-          card.className = 'product-card';
+        list.forEach(p=>{
+          const card = document.createElement('div'); card.className = 'product-card';
           card.style.position = 'relative';
-          let source = '';
-          if (p.link) {
-            const url = p.link.toLowerCase();
-            if (url.includes('amzn')) source = 'Amazon';
-            else if (url.includes('flipkart')) source = 'Flipkart';
-            else if (url.includes('meesho')) source = 'Meesho';
-          }
+
+          const source = detectSource(p.link) || (p.source || '');
+          // image with lazy loading and fallback
+          const safeImage = p.image ? p.image : 'fallback.jpg';
           card.innerHTML = `
-            <img src="${p.image}" alt="${p.title}">
-            <h3>${p.title}</h3>
-            <p>${p.desc}</p>
-            <span class="price">${p.price}</span>
-            <a href="${p.link}" target="_blank" class="buy-btn" rel="nofollow noopener noreferrer">Buy Now</a>
+            <img src="${safeImage}" alt="${(p.title||'Stationery Product')}" loading="lazy" onerror="this.src='fallback.jpg';this.alt='Image not available';">
+            <h3>${p.title || ''}</h3>
+            <p style="color:#475569">${p.desc || ''}</p>
+            <span class="price">${p.price || ''}</span>
+            <a href="${p.link || '#'}" target="_blank" class="buy-btn" rel="nofollow noopener noreferrer">Buy Now</a>
           `;
-          if (source) {
-            const tag = document.createElement('div');
-            tag.className = 'source-tag';
-            tag.textContent = source;
-            const colors = { Amazon: '#FFD700', Flipkart: '#2874F0', Meesho: '#E91E63' };
-            tag.style.cssText = `
-              position:absolute; top:10px; right:10px;
-              background: ${colors[source] || '#444'};
-              color: #fff; font-size:12px; font-weight:600; padding:4px 10px;
-              border-radius:14px; box-shadow:0 2px 6px rgba(0,0,0,.25);
-              opacity:0; transform:translateY(-5px); transition:all .4s ease;
-              animation: tagPulse-${source.toLowerCase()} 4s infinite ease-in-out;
-            `;
-            requestAnimationFrame(()=> { setTimeout(()=>{ tag.style.opacity='1'; tag.style.transform='translateY(0)'; }, 100); });
+
+          // Add source tag if available (animated & colored)
+          if(source){
+            const tag = document.createElement('div'); tag.className = 'source-tag'; tag.textContent = source;
+            // color map
+            const colors = { Amazon: '#FFD700', Flipkart:'#2874F0', Meesho:'#E91E63' };
+            const col = colors[source] || '#444';
+            // tag base style — keep text white for visibility
+            tag.style.background = col;
+            tag.style.color = '#fff';
+            tag.style.fontSize = '12px';
+            tag.style.fontWeight = '600';
+            tag.style.padding = '4px 10px';
+            tag.style.borderRadius = '14px';
+            tag.style.boxShadow = '0 2px 6px rgba(0,0,0,0.25)';
+            tag.style.opacity = '0';
+            tag.style.transform = 'translateY(-6px)';
+            tag.style.transition = 'all .35s ease';
+            tag.style.pointerEvents = 'none';
+
+            // add per-platform pulse via dynamic style (uses colored glow)
+            const keyframesName = 'tagPulse_' + source.toLowerCase();
+            // if the keyframe does not exist yet, add it
+            if(!document.getElementById('kf_' + keyframesName)){
+              const styleEl = document.createElement('style');
+              styleEl.id = 'kf_' + keyframesName;
+              const rgba = hexToRgba(col, 0.6);
+              styleEl.innerHTML = `
+                @keyframes ${keyframesName} {
+                  0%,100%{ box-shadow: 0 2px 6px rgba(0,0,0,0.25); transform: scale(1); }
+                  50% { box-shadow: 0 0 14px 4px ${rgba}; transform: scale(1.05); }
+                }
+              `;
+              document.head.appendChild(styleEl);
+            }
+            tag.style.animation = keyframesName + ' 4s infinite ease-in-out';
             card.appendChild(tag);
+            // animate in
+            requestAnimationFrame(()=> setTimeout(()=>{ tag.style.opacity='1'; tag.style.transform='translateY(0)'; },120));
           }
+
           grid.appendChild(card);
         });
       }
 
-      // inject keyframes for tag pulses per platform (kept here so existing loadProducts can add them)
-      const style = document.createElement('style');
-      style.innerHTML = `
-        @keyframes tagPulse-amazon { 0%,100%{ box-shadow:0 2px 6px rgba(0,0,0,.25); transform:scale(1);} 50%{ box-shadow:0 0 14px 4px rgba(255,215,0,.6); transform:scale(1.05);} }
-        @keyframes tagPulse-flipkart { 0%,100%{ box-shadow:0 2px 6px rgba(0,0,0,.25); transform:scale(1);} 50%{ box-shadow:0 0 14px 4px rgba(40,116,240,.6); transform:scale(1.05);} }
-        @keyframes tagPulse-meesho { 0%,100%{ box-shadow:0 2px 6px rgba(0,0,0,.25); transform:scale(1);} 50%{ box-shadow:0 0 14px 4px rgba(233,30,99,.6); transform:scale(1.05);} }
-      `;
-      document.head.appendChild(style);
-
-      // Initial load
-      displayProducts(products);
-
-      // --- Search function ---
-      function searchProducts() {
-        const query = searchInput.value.toLowerCase().trim();
-        if (!query) { displayProducts(products); return; }
-        const filtered = products.filter(p =>
-          p.title.toLowerCase().includes(query) ||
-          p.desc.toLowerCase().includes(query)
-        );
-        displayProducts(filtered);
+      // helper: hex to rgba
+      function hexToRgba(hex, a){
+        hex = hex.replace('#','');
+        if(hex.length === 3) hex = hex.split('').map(h=>h+h).join('');
+        const r = parseInt(hex.slice(0,2),16), g = parseInt(hex.slice(2,4),16), b = parseInt(hex.slice(4,6),16);
+        return `rgba(${r},${g},${b},${a})`;
       }
 
-      // --- Search events ---
-      searchInput.addEventListener('keyup', searchProducts);
-      searchBtn.addEventListener('click', searchProducts);
-      searchInput.addEventListener('input', searchProducts);
+      // apply the filters + search
+      function applyFiltersAndSearch(){
+        const q = (searchInput.value || '').toLowerCase().trim();
+        let list = products.slice(); // copy
 
-      // Restore category from localStorage if exists (this triggers the search events above because we set value + dispatch input)
-      const savedCategory = localStorage.getItem('ibrar_selected_category');
-      if (savedCategory) {
-        // set into searchInput and trigger input event after a small delay so other init code runs
-        setTimeout(()=> {
-          searchInput.value = savedCategory;
-          searchInput.dispatchEvent(new Event('input', { bubbles:true }));
-        }, 250);
+        // filter by categories if any selected (assume product.category or product.tags contains)
+        if(activeFilters && activeFilters.length){
+          list = list.filter(p => {
+            // prefer explicit p.category
+            if(p.category){
+              return activeFilters.includes(p.category);
+            }
+            // fallback: check tags array or title/desc for category words
+            if(Array.isArray(p.tags)){
+              return p.tags.some(t => activeFilters.includes(t));
+            }
+            // last fallback: check title/desc contains any filter word
+            return activeFilters.some(f => {
+              const fl = f.toLowerCase();
+              return (p.title && p.title.toLowerCase().includes(fl)) || (p.desc && p.desc.toLowerCase().includes(fl));
+            });
+          });
+        }
+
+        // apply search query
+        if(q){
+          list = list.filter(p => (p.title && p.title.toLowerCase().includes(q)) || (p.desc && p.desc.toLowerCase().includes(q)));
+        }
+
+        displayProducts(list);
       }
 
-    } catch (err) {
-      console.error('Error loading products:', err);
-      document.querySelector('.product-grid').innerHTML = `<p style="text-align:center; color:red;">⚠️ Failed to load products. Please refresh the page.</p>`;
-    }
-  }
-
-  loadProducts();
-  </script>
-
-  <!-- ====== NEW: Featured Carousel + Category Pills script (ADDED, non-invasive) ====== -->
-  <script>
-  (function(){
-    // This script is added on top of your page (does NOT alter your existing loadProducts),
-    // it fetches products.json and builds:
-    //  - category pills (auto-detected)
-    //  - a small featured carousel (auto-rotating)
-    // Interaction with your existing search is done by setting searchInput.value and dispatching input events.
-
-    const PRODUCTS_JSON = 'products.json?v=' + new Date().getTime();
-    const categoryRow = document.getElementById('categoryRow');
-    const carouselTrack = document.getElementById('carouselTrack');
-    const carouselPrev = document.getElementById('carouselPrev');
-    const carouselNext = document.getElementById('carouselNext');
-    const carouselFooter = document.getElementById('carouselFooter');
-    const searchInput = document.getElementById('searchInput');
-
-    let productsCache = [];
-    let categories = new Set();
-    let carouselIndex = parseInt(localStorage.getItem('ibrar_carousel_index') || '0', 10);
-    const CAROUSEL_VISIBLE = 3; // how many small cards visible (responsive)
-    let autoRotateId = null;
-    const ROTATE_MS = 3500; // auto rotate interval
-
-    // Utility to dispatch search input event so existing search logic handles filtering
-    function triggerSearchWith(term) {
-      if (!searchInput) return;
-      searchInput.value = term || '';
-      searchInput.dispatchEvent(new Event('input', { bubbles:true }));
-      // persist category choice locally
-      if (term) localStorage.setItem('ibrar_selected_category', term);
-      else localStorage.removeItem('ibrar_selected_category');
-    }
-
-    // Build category pills using product domain or a provided p.category (if you plan to add)
-    function buildCategories(products) {
-      categories.clear();
-      products.forEach(p => {
-        // prefer explicit p.category if present, otherwise infer from link host or fallback to 'All'
-        let cat = (p.category && p.category.trim()) || detectCategoryFrom(p) || 'All';
-        categories.add(cat);
+      // Search events (live)
+      searchInput.addEventListener('input', () => {
+        // if user clears input, show all (and keep filters applied)
+        applyFiltersAndSearch();
       });
-      // ensure 'All' first
-      const ordered = Array.from(categories).sort((a,b)=> a==='All'? -1 : (b==='All'?1: a.localeCompare(b)));
-      categoryRow.innerHTML = '';
-      ordered.forEach(cat => {
-        const pill = document.createElement('button');
-        pill.className = 'cat-pill';
-        pill.type = 'button';
-        pill.textContent = cat;
-        pill.addEventListener('click', ()=> {
-          // mark active
-          document.querySelectorAll('.cat-pill').forEach(x=>x.classList.remove('active'));
-          pill.classList.add('active');
-          // trigger existing search using category (we use searchInput so existing code shows products)
-          triggerSearchWith(cat === 'All' ? '' : cat);
+      searchInput.addEventListener('keyup', (e)=>{
+        if(e.key === 'Enter') applyFiltersAndSearch();
+      });
+      searchBtn.addEventListener('click', applyFiltersAndSearch);
+
+      // clear & save filter buttons
+      clearBtn.addEventListener('click', ()=>{
+        activeFilters = []; localStorage.removeItem('ibrar_filters');
+        const boxes = filterListEl.querySelectorAll('input[type="checkbox"]'); boxes.forEach(b=>b.checked=false);
+        applyFiltersAndSearch();
+      });
+      saveBtn.addEventListener('click', ()=> { localStorage.setItem('ibrar_filters', JSON.stringify(activeFilters)); alert('Filters saved locally.'); });
+
+      // Build filters from demo + product categories (if any)
+      function computeCategoriesFromProducts(prodList){
+        const set = new Set(demoCategories);
+        prodList.forEach(p=>{
+          if(p.category) set.add(p.category);
+          if(Array.isArray(p.tags)) p.tags.forEach(t => set.add(t));
         });
-        categoryRow.appendChild(pill);
-      });
-
-      // if stored category exists, activate it (or All)
-      const saved = localStorage.getItem('ibrar_selected_category');
-      if (saved) {
-        const match = Array.from(categoryRow.children).find(c => c.textContent === saved);
-        if (match) match.click();
-      } else {
-        // default select All
-        const first = categoryRow.querySelector('.cat-pill');
-        if (first) first.classList.add('active');
+        return Array.from(set);
       }
-    }
 
-    // simple category detection: prefer p.category, else look at link host or title/desc tokens
-    function detectCategoryFrom(p) {
-      if (!p) return '';
-      if (p.category && p.category.trim()) return p.category.trim();
-      if (p.link) {
-        const url = p.link.toLowerCase();
-        if (url.includes('amzn') || url.includes('amazon')) return 'Amazon';
-        if (url.includes('flipkart')) return 'Flipkart';
-        if (url.includes('meesho')) return 'Meesho';
+      // fetch products.json and initialize UI
+      async function init(){
+        try {
+          const res = await fetch(PRODUCTS_JSON);
+          products = await res.json();
+          // compute categories
+          const cats = computeCategoriesFromProducts(products);
+          buildFilterUI(cats);
+          // initial display uses saved filters and blank search
+          applyFiltersAndSearch();
+        } catch(err){
+          console.error('Error loading products:', err);
+          grid.innerHTML = `<p style="text-align:center;color:red">⚠️ Failed to load products, please refresh the page.</p>`;
+        }
       }
-      // fallback: try to extract a useful word from title/desc
-      const word = (p.title || p.desc || '').split(/\W+/).find(w => w && w.length>3);
-      return word ? word : 'All';
-    }
 
-    // Build small carousel of featured products
-    function buildCarousel(products) {
-      // Put newest or first 12 products into carousel (you can tune)
-      const items = products.slice(0, 12);
-      carouselTrack.innerHTML = '';
-      items.forEach(p => {
-        const item = document.createElement('div');
-        item.className = 'carousel-item';
-        item.innerHTML = `
-          <a href="${p.link}" target="_blank" rel="nofollow noopener noreferrer" style="text-decoration:none;color:inherit;">
-            <img src="${p.image}" alt="${p.title}" loading="lazy" />
-            <div style="font-weight:600; font-size:14px; margin-bottom:6px;">${p.title}</div>
-            <div style="font-size:13px; color:#475569;">${p.price || ''}</div>
-          </a>
-        `;
-        carouselTrack.appendChild(item);
-      });
+      init();
 
-      // adjust track position to saved index
-      setCarouselIndex(carouselIndex);
-      startAutoRotate();
-    }
+      // expose small helper for other scripts if needed
+      window.ibrarProductsRefresh = applyFiltersAndSearch;
 
-    // set carousel sliding by index (we shift by item width)
-    function setCarouselIndex(idx) {
-      const items = carouselTrack.children;
-      if (!items.length) return;
-      const item = items[0];
-      const itemWidth = item.getBoundingClientRect().width + parseFloat(getComputedStyle(item).marginRight || 12);
-      const maxIndex = Math.max(0, items.length - Math.floor((carouselTrack.parentElement.clientWidth) / itemWidth));
-      carouselIndex = Math.max(0, Math.min(idx, maxIndex));
-      const x = -carouselIndex * itemWidth;
-      carouselTrack.style.transform = `translateX(${x}px)`;
-      // save
-      localStorage.setItem('ibrar_carousel_index', String(carouselIndex));
-      // update footer
-      carouselFooter.textContent = `Featured products — ${carouselIndex+1}/${items.length}`;
-    }
+    })();
 
-    function prevCarousel(){ setCarouselIndex(carouselIndex - 1); restartAutoRotate(); }
-    function nextCarousel(){ setCarouselIndex(carouselIndex + 1); restartAutoRotate(); }
+    /* ====== FILTERS PANEL TOGGLE ON MOBILE ====== */
+    (function mobileFilterToggle(){
+      // add a small toggle button to show/hide filters on small screens
+      const btn = document.createElement('button');
+      btn.id = 'filtersToggle';
+      btn.innerHTML = 'Filters ⤓';
+      btn.style.border = 'none';
+      btn.style.padding = '8px 12px';
+      btn.style.borderRadius = '8px';
+      btn.style.background = 'linear-gradient(135deg,var(--accent),var(--primary))';
+      btn.style.color = '#fff';
+      btn.style.cursor = 'pointer';
+      btn.style.marginLeft = '8px';
+      btn.style.display = 'none';
+      btn.style.zIndex = 1200;
+      document.querySelector('nav .right-section').insertBefore(btn, document.querySelector('nav .right-section').children[0]);
 
-    function startAutoRotate() {
-      stopAutoRotate();
-      autoRotateId = setInterval(()=> {
-        setCarouselIndex(carouselIndex + 1);
-      }, ROTATE_MS);
-    }
-    function stopAutoRotate(){ if (autoRotateId) { clearInterval(autoRotateId); autoRotateId = null; } }
-    function restartAutoRotate(){ stopAutoRotate(); startAutoRotate(); }
+      const filtersPanel = document.getElementById('filtersPanel');
+      function updateDisplay(){
+        if(window.innerWidth <= 960){
+          btn.style.display = 'inline-block';
+          filtersPanel.classList.remove('open');
+        } else {
+          btn.style.display = 'none';
+          filtersPanel.classList.remove('open');
+        }
+      }
+      btn.addEventListener('click', ()=> filtersPanel.classList.toggle('open'));
+      window.addEventListener('resize', updateDisplay);
+      updateDisplay();
+    })();
 
-    // fetch products and build
-    fetch(PRODUCTS_JSON).then(r => r.json()).then(list => {
-      productsCache = list || [];
-      // build categories & carousel
-      buildCategories(productsCache);
-      buildCarousel(productsCache);
-    }).catch(err => {
-      console.error('Carousel/Category fetch error', err);
-    });
-
-    // controls
-    carouselPrev.addEventListener('click', prevCarousel);
-    carouselNext.addEventListener('click', nextCarousel);
-
-    // pause auto-rotate on hover
-    const featured = document.getElementById('featuredCarousel');
-    featured.addEventListener('mouseenter', ()=> stopAutoRotate());
-    featured.addEventListener('mouseleave', ()=> startAutoRotate());
-
-    // respond to window resize (recompute visible / reposition)
-    let resizeTimeout = null;
-    window.addEventListener('resize', ()=> {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(()=> setCarouselIndex(carouselIndex), 150);
-    });
-
-    // expose a small API (optional) for debugging
-    window.__ibrarFeatured = { setIndex: setCarouselIndex, next: nextCarousel, prev: prevCarousel };
-
-  })();
   </script>
-
 </body>
 </html>
