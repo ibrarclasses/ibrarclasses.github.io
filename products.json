@@ -5,8 +5,7 @@
         "price": "₹139",
         "image": "https://images.meesho.com/images/products/442704344/icilp_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:865345?p_id=442704344&ext_id=7bkouw&utm_source=instagram_stories",
-        "category": "Notebooks",
-        "tags": "Notebooks, Notebook, Copy, Copies, notebook, register"
+        "category": "Notebooks"
     },
     {
         "title": "31 Years UPSC Prelims PYQs Book",
@@ -14,7 +13,7 @@
         "price": "₹350",
         "image": "https://images.meesho.com/images/products/552983970/1f4qn_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:870851?p_id=552983970&ext_id=958d5u&utm_source=instagram_stories",
-        "source": "Amazon"
+        "category": "Books"
     },
     {
         "title": "Geography by G C Leong Latest Edition",
@@ -22,7 +21,7 @@
         "price": "₹115",
         "image": "https://images.meesho.com/images/products/514646708/xtwua_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:877683?p_id=514646708&ext_id=8ienxw&utm_source=instagram_stories",
-        "source": "Amazon"
+        "category": "Books"
     },
     {
         "title": "Environment by Shankar Latest Edition",
@@ -30,7 +29,7 @@
         "price": "₹587",
         "image": "https://m.media-amazon.com/images/I/81QDvvYdNdL._SL1500_.jpg",
         "link": "https://amzn.to/47bKubM",
-        "source": "Amazon"
+        "category": "Books"
     },
     {
         "title": "Spectrum Modern History Latest Edition",
@@ -38,7 +37,7 @@
         "price": "₹220",
         "image": "https://images.meesho.com/images/products/516471223/ogjbt_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:877761?p_id=516471223&ext_id=8jhrqv&utm_source=instagram_stories",
-        "source": "Amazon"
+        "category": "Books"
     },
     {
         "title": "Spectrum HINDI Modern History Latest Edition",
@@ -46,7 +45,7 @@
         "price": "₹250",
         "image": "https://images.meesho.com/images/products/517553035/5dmcq_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:877807?p_id=517553035&ext_id=8k4yh7&utm_source=instagram_stories",
-        "source": "Amazon"
+        "category": "Books"
     },
     {
         "title": "Oxford Student Atlas for India",
@@ -54,7 +53,7 @@
         "price": "₹234",
         "image": "https://m.media-amazon.com/images/I/71b+cxzHonL._SL1425_.jpg",
         "link": "https://amzn.to/3KRpsYQ",
-        "source": "Amazon"
+        "category": "Books"
     },
     {
         "title": "Indian Economy by Vivek Singh",
@@ -62,7 +61,7 @@
         "price": "₹415",
         "image": "https://m.media-amazon.com/images/I/71Repk+uUDL._SL1500_.jpg",
         "link": "https://amzn.to/4nYDK8G",
-        "source": "Amazon"
+        "category": "Books"
     },
     {
         "title": "Indian Polity by Laxmikanth",
@@ -70,7 +69,7 @@
         "price": "₹748",
         "image": "https://m.media-amazon.com/images/I/81lErh+IhdL._SL1500_.jpg",
         "link": "https://amzn.to/4h7VUSw",
-        "source": "Amazon"
+        "category": "Books"
     },
     {
         "title": "Hard bound Notebook Diary",
@@ -78,7 +77,7 @@
         "price": "₹120",
         "image": "https://images.meesho.com/images/products/296941516/kvzho_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:877928?p_id=296941516&ext_id=4wshjg&utm_source=instagram_stories",
-        "source": "Amazon"
+        "category": "Notebooks"
     },
     {
         "title": "Vintage Journal Diary",
@@ -86,7 +85,7 @@
         "price": "₹150",
         "image": "https://images.meesho.com/images/products/599991900/mqjiw_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:877972?p_id=599991900&ext_id=9x7wpo&utm_source=instagram_stories",
-        "source": "Amazon"
+        "category": "Notebooks"
     },
     {
         "title": "FLAIR Blue Gel Pen Set",
@@ -94,7 +93,7 @@
         "price": "₹82",
         "image": "https://m.media-amazon.com/images/I/51GIeLAOF1L.jpg",
         "link": "https://amzn.to/495PTnl",
-        "source": "Amazon"
+        "category": "Pens"
     },
     {
         "title": "Cello Finegrip Ball Pen Set",
@@ -102,7 +101,7 @@
         "price": "₹119",
         "image": "https://m.media-amazon.com/images/I/61-ys2hFFhS._SL1500_.jpg",
         "link": "https://amzn.to/4n4ISGR",
-        "source": "Amazon"
+        "category": "Pens"
     },
     {
         "title": "Cello Technotip Ball Pen Set",
@@ -110,7 +109,7 @@
         "price": "₹90",
         "image": "https://m.media-amazon.com/images/I/91dgnb70QIL._SL1500_.jpg",
         "link": "https://amzn.to/46VhciT",
-        "source": "Amazon"
+        "category": "Pens"
     },
     {
         "title": "Linc Swype Highlighters",
@@ -118,7 +117,7 @@
         "price": "₹118",
         "image": "https://m.media-amazon.com/images/I/61JkzSqWxyL._SL1500_.jpg",
         "link": "https://amzn.to/47s8kBs",
-        "source": "Amazon"
+        "category": "Accessories"
     },
      {
         "title": "Faber Castell Highlighters",
@@ -126,7 +125,7 @@
         "price": "₹121",
         "image": "https://m.media-amazon.com/images/I/7122BryXkJL._SL1500_.jpg",
         "link": "https://amzn.to/4qjPh42",
-        "source": "Amazon"
+        "category": "Accessories"
     },
     {
         "title": "Sticky Notes",
@@ -134,7 +133,7 @@
         "price": "₹90",
         "image": "https://m.media-amazon.com/images/I/51I1nBnQBOL._SL1500_.jpg",
         "link": "https://amzn.to/4hfeQPf",
-        "source": "Amazon"
+        "category": "Accessories"
     },
     {
         "title": "Set of 7 Maps & Charts",
@@ -142,7 +141,7 @@
         "price": "₹157",
         "image": "https://m.media-amazon.com/images/I/71ZHVWqirzL._SL1417_.jpg",
         "link": "https://amzn.to/493mGJS",
-        "source": "Amazon"
+        "category": "Accessories"
     },
     {
         "title": "Gold Globe for Study table",
@@ -150,7 +149,7 @@
         "price": "₹390",
         "image": "https://images.meesho.com/images/products/63498381/aoz8r_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:878044?p_id=63498381&ext_id=11sznx&utm_source=instagram_stories",
-        "source": "Amazon"
+        "category": "Table Decors"
     },
     {
         "title": "Calender for Study table",
@@ -158,6 +157,6 @@
         "price": "₹200",
         "image": "https://images.meesho.com/images/products/464992907/t2uzv_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:878077?p_id=464992907&ext_id=7ouetn&utm_source=instagram_stories",
-        "source": "Amazon"
+        "category": "Table Decors"
     }
 ]
