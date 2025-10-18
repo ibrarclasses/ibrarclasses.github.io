@@ -8,6 +8,14 @@
         "category": "Notebooks"
     },
     {
+        "title": "NCERT 40 Books Set",
+        "desc": "All old NCERTs, Must for beginners seeking solid foundation",
+        "price": "₹2766",
+        "image": "https://m.media-amazon.com/images/I/918Uej-a+aL._SL1500_.jpg",
+        "link": "https://amzn.to/3KXC8x9",
+        "category": "Books"
+    },
+    {
         "title": "NCERT Summary Class 6 -12 by Disha Publication",
         "desc": "Great for quick revision, covers each and every fact in one liners",
         "price": "₹339",
@@ -69,6 +77,14 @@
         "price": "₹748",
         "image": "https://m.media-amazon.com/images/I/81lErh+IhdL._SL1500_.jpg",
         "link": "https://amzn.to/4h7VUSw",
+        "category": "Books"
+    },
+    {
+        "title": "30 Years UPSC Prelims solved PYQs by Disha Publication",
+        "desc": "Makes covering all the PYQs pretty easy",
+        "price": "₹531",
+        "image": "https://m.media-amazon.com/images/I/81cwXLLqQNL._SL1500_.jpg",
+        "link": "https://amzn.to/3LhOCQd",
         "category": "Books"
     },
     {
