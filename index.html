@@ -46,7 +46,7 @@
     header h1 { margin: 0; font-size: 2rem; }
     header p { margin: .35rem 0; font-weight: 500; }
 
-    /* ====== NAV BAR ====== */
+        /* ====== NAV BAR ====== */
     nav {
       background: var(--nav);
       display: flex;
@@ -58,37 +58,79 @@
       z-index: 1000;
       flex-wrap: wrap;
     }
-    nav .left-links { display: flex; gap: 15px; align-items:center; }
+
+    nav .left-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
     nav .left-links a {
-      color: white; text-decoration: none; font-weight: 600; font-size: 1rem;
-      transition: color .3s, transform .2s;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s, transform 0.2s;
     }
-    nav .left-links a:hover { color: var(--accent); transform: scale(1.05); }
 
-    nav .right-section { margin-left: auto; display:flex; align-items:center; gap:12px; }
+    nav .left-links a:hover {
+      color: var(--accent);
+      transform: scale(1.05);
+    }
+    nav .right-section {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
 
-    /* Stationery Mall Button */
-    nav .stationery-link {
-      background: linear-gradient(135deg, #10B981, #3B82F6);
-      box-shadow: 0 4px 15px rgba(16,185,129,0.4);
-      color: white; padding: 8px 16px; border-radius: 10px; font-weight:700;
-      text-decoration: none; animation: pulse 2s infinite; transition: all .3s; white-space: nowrap;
-    }
-    nav .stationery-link:hover { background: #3B82F6; transform: scale(1.1); }
+    /* Premium gradient search bar styling */
+#searchBarContainer {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border-radius: 50px;
+  padding: 2px;
+  transition: all 0.3s ease;
+}
 
-    /* ====== NAV SEARCH (same look as before) ====== */
-    #searchBarContainer { display:flex; align-items:center; background: linear-gradient(135deg,#00c6ff,#0072ff); border-radius:50px; padding:2px; transition:all .3s ease;}
-    #searchInput {
-      border:none; outline:none; padding:8px 12px; border-radius:50px 0 0 50px; width:150px; transition:all .3s; font-size:.9rem; background:transparent; color:white;
-    }
-    /* when focused show white background inside the rounded bar */
-    #searchInput:focus { width:200px; background:#fff; color:var(--text); }
-    #searchBtn {
-      border:none; padding:8px 15px; border-radius:0 50px 50px 0; cursor:pointer; color:white; font-weight:600;
-      background: linear-gradient(135deg,#0072ff,#00c6ff); transition:all .3s;
-    }
-    #searchBtn:hover { transform:scale(1.05); box-shadow:0 0 8px rgba(0,198,255,.6); }
-    #searchBarContainer:focus-within { box-shadow:0 0 10px rgba(0,198,255,.7); }
+#searchInput {
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  border-radius: 50px 0 0 50px;
+  width: 150px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+/* Expanding input when focused */
+#searchInput:focus {
+  width: 200px;
+  background: #fff;
+}
+
+/* Gradient search button */
+#searchBtn {
+  border: none;
+  padding: 8px 15px;
+  border-radius: 0 50px 50px 0;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  transition: all 0.3s ease;
+}
+
+/* Button hover glow */
+#searchBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
+}
+
+/* Smooth shadow around full bar */
+#searchBarContainer:focus-within {
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
+}
 
     /* ====== TICKER / MOVING NOTICE (keeps your style) ====== */
     .ticker { width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:8px 0; position:relative;
@@ -98,6 +140,21 @@
     @keyframes scrollText { from { transform: translateX(var(--start)); } to { transform: translateX(var(--end)); } }
     .ticker:hover .ticker__content { animation-play-state: paused !important; }
 
+   /* ====== LIVE DATETIME ====== */
+    #live-datetime {
+      position: fixed;
+      top: 12px;
+      right: 18px;
+      z-index: 1100;
+      background: rgba(255, 255, 255, 0.88);
+      color: #0b1220;
+      padding: 7px 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(4px);
+    }
+    
     /* ====== LAYOUT: filters (left) + main (right) ====== */
     .layout {
       max-width: 1200px;
@@ -226,8 +283,6 @@
         <input id="searchInput" type="text" placeholder="Search products..." aria-label="Search products" />
         <button id="searchBtn" aria-label="Search">🔍</button>
       </div>
-
-      <a href="stationery.html" class="stationery-link" title="All your stationery needs at one place">Stationery Mall 🛒</a>
     </div>
   </nav>
 
@@ -252,16 +307,12 @@
       <hr style="margin:12px 0;border:none;border-top:1px solid #eef2f7;">
       <div style="font-size:0.9rem;color:#556074">Other tools</div>
       <ul style="padding-left:16px;margin-top:8px;color:#334155">
-        <li>Sort: (coming soon)</li>
-        <li>Price range: (coming soon)</li>
       </ul>
     </aside>
 
     <!-- Main column (right) -->
     <div class="main">
       <div class="container" aria-live="polite">
-        <h2>Featured Stationery</h2>
-        <p style="text-align:center;color:#475569">Use the filters on the left or the search box in the header to find products quickly.</p>
         <div class="product-grid" id="productGrid"></div>
       </div>
     </div>
@@ -302,14 +353,6 @@
       darkToggle.textContent = isDark? '☀️' : '🌙';
     });
 
-    /* ===== STATUS BAR SHOW for 3s ===== */
-    window.addEventListener('DOMContentLoaded', () => {
-      const statusBar = document.getElementById('status-bar');
-      if(statusBar){
-        statusBar.style.opacity = '1';
-        setTimeout(() => { statusBar.style.transition='opacity .8s ease'; statusBar.style.opacity='0'; setTimeout(()=>statusBar.style.display='none',800); }, 3000);
-      }
-    });
 
     /* ===== FAKE VISITOR COUNT (50-100) ===== */
     (function visitorCounter(){
