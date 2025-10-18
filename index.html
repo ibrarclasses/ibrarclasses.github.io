@@ -48,61 +48,62 @@ header {
   overflow: hidden;
 }
 
+/* 🧩 Container for logo + title side by side */
+header .brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
 /* 🛍️ Logo Styling */
 header img {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
-  margin-bottom: 12px;
   object-fit: cover;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   animation: logoPulse 3s infinite ease-in-out;
 }
 
-/* 🌈 Website Title */
+/* 🏷️ Website Title */
 header h1 {
   margin: 0;
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: 800;
+  color: #ffffff;
   letter-spacing: 1px;
-  background: linear-gradient(90deg, #FFFFFF, #87CEFA);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: textGlow 4s infinite alternate;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 /* 💬 Tagline */
 header p {
-  margin-top: 0.8rem;
+  margin-top: 1rem;
   font-weight: 500;
   font-size: 1.05rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 750px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 780px;
 }
 
-/* ✨ Animations */
+/* ✨ Logo Pulse Animation */
 @keyframes logoPulse {
   0%, 100% {
     transform: scale(1);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.08);
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
   }
 }
 
-@keyframes textGlow {
-  0%, 100% { text-shadow: 0 0 8px rgba(16, 185, 129, 0.7); }
-  50% { text-shadow: 0 0 15px rgba(59, 130, 246, 0.9); }
-}
-
 /* 📱 Responsive Design */
 @media (max-width: 768px) {
-  header img { width: 90px; height: 90px; }
-  header h1 { font-size: 2.1rem; }
-  header p { font-size: 0.95rem; padding: 0 10px; }
+  header img { width: 95px; height: 95px; }
+  header h1 { font-size: 2.2rem; }
+  header p { font-size: 0.95rem; padding: 0 12px; }
 }
 
 
@@ -324,9 +325,13 @@ header p {
   <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
 
   <header>
+    <div class="brand-row">
     <img src="logost.png" alt="Stationery logo" />
     <h1>Stationery Mall 🛒</h1>
-    <p>Here you'll find UPSC & other study essentials. These are affiliate links and we may earn a small referral fee when you purchase from here, at no extra cost to you ❤️!</p>
+      </div>
+    <p>"Welcome to Stationery Mall — your one-stop destination for all your books and stationery needs.
+No more endless browsing for the perfect deal — every product here is handpicked after comparing across trusted sites,
+so you save your time, your money, and your precious peace of mind ❤️” .</p>
   </header>
 
   <nav>
