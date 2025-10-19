@@ -128,15 +128,16 @@ header p {
     transition: width 280ms ease, height 280ms ease;
   }
   header.shrink h1 { font-size: 1.05rem !important; transition: font-size 280ms ease; }
-  /* mobile search bar will show below header when shrink is active */
-  #mobileSearchBar { display: none; }
-  body.header-shrunk #mobileSearchBar { display: block; position: fixed; top: calc(var(--header-height, 64px)); left: 0; right: 0; z-index: 1199; padding: 8px 12px; background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(16,185,129,0.04)); }
-  /* adjust nav to sit below the mobile search area */
-  nav { position: relative; }
 }
 
-/* compute header height dynamically (JS will set --header-height) */
-#mobileSearchBar .search-inner { max-width: 1200px; margin: 0 auto; }
+/* mobileSearchBar default hidden (prevents duplicate showing on desktop) */
+#mobileSearchBar { display: none; }
+
+/* show mobileSearchBar only when header is shrunk on mobile */
+@media (max-width: 768px) {
+  body.header-shrunk #mobileSearchBar { display: block; position: fixed; top: calc(var(--header-height, 64px)); left: 0; right: 0; z-index: 1199; padding: 8px 12px; background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(16,185,129,0.04)); }
+  #mobileSearchBar .search-inner { max-width: 1200px; margin: 0 auto; }
+}
 
 /* ====== NAV BAR ====== */
 nav {
@@ -173,6 +174,7 @@ nav .right-section {
   margin-left: auto;
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 /* hamburger button - hidden on desktop */
@@ -283,12 +285,11 @@ nav .right-section {
 /* hide desktop items on mobile and show hamburger */
 @media (max-width: 768px) {
   nav .left-links { display: none; }
-  nav .right-section { display: none; }
+  /* hide the big search in nav on mobile, hamburger stays visible */
+  #searchBarContainer { display: none; }
   #hamburger { display: inline-flex; }
   /* hide desktop dark toggle and live datetime on mobile (they will be placed in menu) */
   #darkModeToggle, #live-datetime { display: none; }
-  /* adjust search inside menu / mobile search below header will appear after first scroll */
-  #mobileSearchBar { display: none; }
 }
 
 /* ====== TICKER / MOVING NOTICE (keeps your style) ====== */
@@ -566,6 +567,9 @@ so you get bang for your buck - everytime ❤️</p>
   </div>
 
   <nav>
+    <!-- moved hamburger outside the right-section so it remains visible on mobile even when we hide the big right-section -->
+    <button id="hamburger" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">☰</button>
+
     <div class="left-links">
       <a href="index.html">Home</a>
       <a href="#about">About</a>
@@ -574,9 +578,6 @@ so you get bang for your buck - everytime ❤️</p>
     </div>
 
     <div class="right-section">
-      <!-- hamburger (mobile only) -->
-      <button id="hamburger" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">☰</button>
-
       <!-- keep search bar in nav with same look; note: not prefilled (desktop) -->
       <div id="searchBarContainer" style="color:transparent;">
         <input id="searchInput" type="text" placeholder="Search products..." aria-label="Search products" />
@@ -1034,27 +1035,19 @@ so you get bang for your buck - everytime ❤️</p>
 
     /* ====== FILTERS PANEL TOGGLE ON MOBILE ====== */
     (function mobileFilterToggle(){
-      // The site originally created a filtersToggle in nav. To follow the new UX,
-      // we keep that behaviour for larger screens but provide a menu filter button for mobile.
       const filtersPanel = document.getElementById('filtersPanel');
       const mobileFilterBtn = document.getElementById('mobileFilterBtn');
 
       if(mobileFilterBtn){
         mobileFilterBtn.addEventListener('click', ()=>{
-          // close mobile menu and open filters in page
-          // On mobile we toggle the filters panel display (so it appears above product grid)
           if(window.innerWidth <= 960){
             filtersPanel.classList.toggle('open');
-            // also close the menu for better UX
             closeMobileMenu();
           } else {
             filtersPanel.classList.toggle('open');
           }
         });
       }
-
-      // there was a desktop filtersToggle created programmatically previously;
-      // leave that code as-is (it will show/hide on tablet). Nothing else required here.
     })();
 
     /* ===== MOBILE MENU OPEN/CLOSE & FIRST-SCROLL HEADER SHRINK ===== */
@@ -1070,9 +1063,7 @@ so you get bang for your buck - everytime ❤️</p>
         mobileMenu.classList.add('open');
         mobileMenu.setAttribute('aria-hidden','false');
         if(hamburger) hamburger.setAttribute('aria-expanded','true');
-        // move focus to close button for accessibility
         setTimeout(()=> mobileClose && mobileClose.focus(), 150);
-        // trap scrolling behind menu
         document.documentElement.style.overflow = 'hidden';
       }
       function closeMobileMenu(){
@@ -1094,8 +1085,7 @@ so you get bang for your buck - everytime ❤️</p>
         }
       });
 
-      // when clicking outside menu (on overlay) - here menu covers whole screen so not needed
-      // wire the quick search inside menu to use the main search input (avoid duplicating filtering code)
+      // wire the quick search inside menu to use the main search input
       const mainSearchInput = document.getElementById('searchInput');
       const mainSearchBtn = document.getElementById('searchBtn');
       if(menuSearchInput && mainSearchInput){
@@ -1106,21 +1096,17 @@ so you get bang for your buck - everytime ❤️</p>
         menuSearchInput.addEventListener('keyup', (e)=> {
           if(e.key === 'Enter') {
             mainSearchBtn && mainSearchBtn.click();
-            // optionally close the menu to show results
-            //closeMobileMenu();
           }
         });
       }
       if(menuSearchBtn && mainSearchBtn){
         menuSearchBtn.addEventListener('click', ()=> {
-          // copy value and trigger desktop search
           mainSearchInput.value = menuSearchInput.value;
           mainSearchBtn.click();
-          // optionally keep menu open for further actions
         });
       }
 
-      // Also wire the mobile top mini-search (menuSearchInput) to the simple mobile search bar (searchInputMobile)
+      // wire mobile inline search bar
       const searchInputMobile = document.getElementById('searchInputMobile');
       const searchBtnMobile = document.getElementById('searchBtnMobile');
       if(searchInputMobile && mainSearchInput){
@@ -1139,38 +1125,43 @@ so you get bang for your buck - everytime ❤️</p>
         });
       }
 
-      // first-scroll shrink behaviour (mobile only)
+      // first-scroll shrink behaviour (mobile only) - improved: trigger when user scrolls past half the header
       let shrunk = false;
       const header = document.getElementById('siteHeader');
       const mobileSearchBar = document.getElementById('mobileSearchBar');
-      function onFirstScroll(){
+
+      function tryShrink(){
         if(shrunk) return;
         if(window.innerWidth > 768) return; // mobile-only
-        if(window.scrollY > 20){
+        const triggerY = Math.round(header.getBoundingClientRect().height * 0.5);
+        if(window.scrollY > triggerY){
           shrunk = true;
-          // compute header height after shrink (approx) and set custom property for search placement
           header.classList.add('shrink');
-          // set body marker so CSS can show mobileSearchBar
           document.body.classList.add('header-shrunk');
-          // compute the header computed height to place mobileSearchBar correctly
-          setTimeout(()=> {
-            const h = header.getBoundingClientRect().height;
-            document.body.style.setProperty('--header-height', h + 'px');
-            if(mobileSearchBar) mobileSearchBar.setAttribute('aria-hidden','false');
-          }, 280);
-          // we *do not* remove page scroll; header is fixed so push content down by adding top padding to main layout
-          const layout = document.querySelector('.layout');
-          if(layout) layout.style.paddingTop = (header.getBoundingClientRect().height + (mobileSearchBar ? mobileSearchBar.getBoundingClientRect().height : 0)) + 'px';
-          // detach this handler — it's only on first scroll
-          window.removeEventListener('scroll', onFirstScroll);
+
+          // let CSS apply, then compute actual header height for correct placement
+          requestAnimationFrame(()=> {
+            requestAnimationFrame(()=> {
+              const h = header.getBoundingClientRect().height;
+              document.body.style.setProperty('--header-height', h + 'px');
+              if(mobileSearchBar) mobileSearchBar.setAttribute('aria-hidden','false');
+              // push the layout content down to avoid overlap
+              const layout = document.querySelector('.layout');
+              if(layout) layout.style.paddingTop = (h + (mobileSearchBar ? mobileSearchBar.getBoundingClientRect().height : 0)) + 'px';
+            });
+          });
+
+          // remove listener: we only want it to happen once per page load as requested
+          window.removeEventListener('scroll', tryShrink);
         }
       }
-      window.addEventListener('scroll', onFirstScroll, { passive: true });
 
-      // on resize revert layout adjustments for desktop
+      // attach as non-passive since we may remove it quickly (still lightweight)
+      window.addEventListener('scroll', tryShrink, { passive: true });
+
+      // ensure reset on resize to desktop
       window.addEventListener('resize', ()=>{
         if(window.innerWidth > 768){
-          // reset
           shrunk = false;
           if(header) header.classList.remove('shrink');
           document.body.classList.remove('header-shrunk');
@@ -1178,18 +1169,16 @@ so you get bang for your buck - everytime ❤️</p>
           const layout = document.querySelector('.layout');
           if(layout) layout.style.paddingTop = '';
           if(mobileSearchBar) mobileSearchBar.setAttribute('aria-hidden','true');
-          // ensure mobile menu closed
           closeMobileMenu();
         }
       });
 
-      // small helper to allow other functions to close menu
+      // expose closeMobileMenu
       window.closeMobileMenu = closeMobileMenu;
     })();
 
-    /* ====== existing productModule may create a filters toggle in nav; if it does, hide it on mobile */
+    /* ====== misc placement helper (if any programmatic toggle was added earlier) ====== */
     (function ensureFilterTogglePlacement(){
-      // If a programmatic #filtersToggle exists (created by old script), hide it on mobile.
       const ft = document.getElementById('filtersToggle');
       function update(){
         if(!ft) return;
