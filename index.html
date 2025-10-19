@@ -367,7 +367,129 @@ html {
   color: #e6eefc;
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
 }
-   
+
+/* ====== MOBILE PREMIUM MODE ====== */
+@media (max-width: 768px) {
+  /* Compact header like app top bar */
+  header {
+    padding: 1.5rem 0.6rem;
+    text-align: center;
+  }
+  header .brand-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  header img {
+    width: 80px;
+    height: 80px;
+    animation: none;
+    box-shadow: 0 0 8px rgba(255,255,255,0.4);
+  }
+  header h1 {
+    font-size: 1.6rem;
+    text-shadow: none;
+  }
+  header p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.88);
+  }
+
+  /* App-like sticky nav */
+  nav {
+    position: sticky;
+    top: 0;
+    background: #0b1220;
+    padding: 0.6rem 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  nav .left-links a {
+    font-size: 0.9rem;
+    padding: 6px 8px;
+  }
+
+  /* Product grid app compact style */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 8px;
+  }
+  .product-card {
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .product-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+  .product-card img {
+    height: 140px;
+    object-fit: contain;
+  }
+  .product-card h3 {
+    font-size: 0.92rem;
+    margin: 6px 0;
+  }
+  .product-card p {
+    font-size: 0.78rem;
+  }
+  .price {
+    font-size: 0.9rem;
+  }
+  .buy-btn {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 9px 0;
+    border-radius: 8px;
+  }
+
+  /* Filters panel as full-width dropdown */
+  .filters {
+    display: none;
+    position: relative;
+    width: 100%;
+  }
+  .filters.open {
+    display: block;
+    margin: 0.5rem 0;
+  }
+
+  /* Info sections compact */
+  .info-box {
+    padding: 1.2rem;
+    font-size: 0.9rem;
+  }
+  .info-box h2 {
+    font-size: 1.1rem;
+  }
+
+  footer {
+    font-size: 0.85rem;
+    padding: 12px;
+  }
+
+  /* Better tap area for back-to-top and chat */
+  #molly-chat {
+    width: 60px;
+    height: 60px;
+  }
+  #back-to-top {
+    width: 42px;
+    height: 42px;
+    bottom: 90px;
+  }
+
+  /* Smooth in-app feel */
+  body {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+    
   </style>
 </head>
 <body>
