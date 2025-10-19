@@ -426,164 +426,140 @@ header p {
   }
 }
 
-/* ------------------------------------
-   SAFE RESPONSIVE FIX – NON-DESTRUCTIVE
-   (Preserves your current look & feel)
--------------------------------------- */
+/* ------------------------------------------
+   Sticky + Smooth Shrinking Responsive Header
+   Safe for Stationery Mall Website
+------------------------------------------- */
 
-/* Ensure proper scaling */
-html {
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-/* Prevent overlap issues */
-body {
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-/* Header and logo stay visible & aligned */
 header {
-  position: relative;
+  position: sticky;
+  top: 0;
   width: 100%;
-  z-index: 10;
   background: inherit;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 15px;
+  text-align: center;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  z-index: 1000;
+  backdrop-filter: blur(6px); /* subtle glassy effect */
   transition: all 0.3s ease-in-out;
 }
 
-/* Logo and title */
-header .logo,
-header img,
-header h1,
-header .site-name {
-  max-width: 100%;
-  height: auto;
-  flex-shrink: 1;
-}
-
-/* Tagline stays below logo and doesn’t overlap */
-header .tagline {
-  width: 100%;
-  text-align: center;
-  margin-top: 5px;
-  font-size: 0.9em;
-  position: relative;
-  z-index: 5;
-}
-
-/* Search bar responsiveness */
-.search-bar {
-  flex: 1 1 100%;
-  margin-top: 10px;
-}
-
-.search-bar input {
-  width: 100%;
-  max-width: 100%;
-  padding: 8px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-/* Navigation layout adjusts safely */
-nav {
-  width: 100%;
+/* Brand row layout (logo + title) */
+header .brand-row {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-nav a {
-  display: block;
-  padding: 8px 12px;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-
-/* Buttons & top controls */
-.top-controls, .filter-btn, .dark-mode-toggle {
-  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-/* ---------- MOBILE OPTIMIZATION ---------- */
+/* Logo */
+header .brand-row img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Title */
+header .brand-row h1 {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 700;
+  color: inherit;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Tagline */
+header p {
+  max-width: 800px;
+  margin: 10px auto 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: inherit;
+  padding: 0 10px;
+}
+
+/* Avoid content hiding behind sticky header */
+body {
+  padding-top: 120px; /* matches header height */
+}
+
+/* Shrink state when user scrolls down */
+header.shrink {
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header.shrink .brand-row img {
+  height: 40px;
+}
+
+header.shrink .brand-row h1 {
+  font-size: 1.4rem;
+}
+
+header.shrink p {
+  opacity: 0.95;
+  font-size: 0.9rem;
+}
+
+/* ---------------------
+   Responsive Adjustments
+---------------------- */
+
 @media (max-width: 768px) {
   header {
+    padding: 12px 8px;
+  }
+
+  header .brand-row {
     flex-direction: column;
-    align-items: center;
   }
 
-  .logo img {
-    max-width: 70%;
+  header .brand-row img {
+    height: 50px;
   }
 
-  .tagline {
-    font-size: 0.85em;
-    margin-top: 3px;
+  header .brand-row h1 {
+    font-size: 1.6rem;
   }
 
-  nav {
-    margin-top: 8px;
+  header p {
+    font-size: 0.95rem;
   }
 
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .search-bar {
-    order: 3;
-    margin: 8px 0;
-  }
-
-  .search-bar input {
-    font-size: 0.9em;
-    padding: 6px;
+  body {
+    padding-top: 130px; /* adjusted for sticky header height */
   }
 }
 
 @media (max-width: 480px) {
-  .logo img {
-    max-width: 60%;
-  }
-
   header {
-    padding: 8px;
+    padding: 10px 6px;
   }
 
-  .tagline {
-    font-size: 0.8em;
+  header .brand-row img {
+    height: 45px;
   }
 
-  nav a {
-    font-size: 14px;
+  header .brand-row h1 {
+    font-size: 1.4rem;
+  }
+
+  header p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  body {
+    padding-top: 140px;
   }
 }
+
+
 
     
   </style>
@@ -1040,6 +1016,18 @@ so you get bang for your buck - everytime ❤️</p>
       updateDisplay();
     })();
     </script>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 60) {
+      header.classList.add('shrink');
+    } else {
+      header.classList.remove('shrink');
+    }
+  });
+</script>
+
 
   </script>
   
