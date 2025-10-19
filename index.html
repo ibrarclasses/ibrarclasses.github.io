@@ -314,6 +314,57 @@ header p {
 
     /* keyframes */
     @keyframes pulse { 0%{ box-shadow:0 0 0 0 rgba(16,185,129,.28);} 70% { box-shadow:0 0 0 16px rgba(16,185,129,0);} 100%{ box-shadow:0 0 0 0 rgba(16,185,129,0); } }
+  
+  /* ====== INFO SECTIONS ====== */
+.info-sections {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+.info-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.info-box {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 14px;
+  padding: 1.8rem;
+  box-shadow: 0 6px 22px rgba(6, 24, 44, 0.06);
+}
+
+.info-box h2 {
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.info-box p, .info-box details {
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.info-box details summary {
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--accent);
+  margin: 0.6rem 0;
+}
+
+.info-box details p {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.dark-mode .info-box {
+  background: rgba(10, 14, 25, 0.8);
+  color: #e6eefc;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
+}
+  
   </style>
 </head>
 <body>
@@ -378,6 +429,49 @@ so you get bang for your buck - everytime ❤️</p>
   </div>
 
   <footer>
+    <!-- ====== INFO SECTIONS ====== -->
+<section class="info-sections">
+  <div class="info-container">
+    <!-- ABOUT -->
+    <div class="info-box" id="about">
+      <h2>About Us</h2>
+      <p>
+        Stationery Mall is your trusted online destination for stationery and learning essentials.
+        Every product listed here is carefully curated from verified e-commerce sites to ensure
+        quality, affordability, and convenience — all in one place.
+      </p>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="info-box" id="disclaimer">
+      <h2>Disclaimer</h2>
+      <p>
+        Stationery Mall participates in affiliate programs from platforms such as Flipkart, Amazon, 
+        and Meesho. We may earn a small referral commission when you make a purchase using our links.
+        Prices and availability are subject to change without notice. All product images and 
+        trademarks belong to their respective owners.
+      </p>
+    </div>
+
+    <!-- FAQ -->
+    <div class="info-box" id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>Are these products directly sold by Stationery Mall?</summary>
+        <p>No. All purchases are made through trusted e-commerce sites such as Amazon, Flipkart, or Meesho.</p>
+      </details>
+      <details>
+        <summary>Do I pay extra using affiliate links?</summary>
+        <p>Not at all! You pay the same price as you would normally — we simply earn a small referral commission.</p>
+      </details>
+      <details>
+        <summary>How often are the product listings updated?</summary>
+        <p>Products and prices are reviewed and updated regularly to ensure you get the best available deals.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
     <div>&copy; 2025 Ibrar Classes</div>
     <div id="visitor-info" aria-live="polite"></div>
   </footer>
