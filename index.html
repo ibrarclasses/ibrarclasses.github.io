@@ -440,11 +440,165 @@ html {
   }
 }
 
+    
+/* === Basic Header === */
+#mainHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  transition: all 0.3s ease;
+  z-index: 999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 16px;
+  transition: padding 0.3s ease;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px 16px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* === Shrink on scroll === */
+#mainHeader.shrink .top-bar {
+  padding: 6px 12px;
+}
+
+#mainHeader.shrink .logo {
+  font-size: 1.1rem;
+}
+
+#mainHeader.shrink .search-bar {
+  padding: 6px 12px;
+}
+
+/* === Mobile Menu === */
+#mobileMenu {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: top 0.4s ease;
+  z-index: 998;
+}
+
+#mobileMenu.open {
+  top: 0;
+}
+
+#mobileMenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+}
+
+#mobileMenu li {
+  margin: 12px 0;
+}
+
+#mobileMenu a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+#mobileMenu button {
+  width: 100%;
+  padding: 8px;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* === Responsive === */
+@media (min-width: 768px) {
+  .menu-toggle { display: none; }
+  #mobileMenu { display: none; }
+}
+
+ body.dark {
+  background: #121212;
+  color: #eee;
+}
+
+body.dark #mainHeader,
+body.dark #mobileMenu {
+  background: #1e1e1e;
+}
+
+body.dark input {
+  background: #222;
+  color: #fff;
+  border-color: #444;
+}
+   
      
   </style>
 </head>
 <body>
+  
+<!-- ===== HEADER START ===== -->
+<header id="mainHeader">
+  <div class="top-bar">
+    <div class="logo">📚 StationeryMall</div>
+    <button class="menu-toggle" id="menuBtn">&#9776;</button>
+  </div>
 
+  <div class="search-bar">
+    <input type="text" placeholder="Search stationery, books...">
+  </div>
+</header>
+<!-- ===== HEADER END ===== -->
+
+<!-- ===== MOBILE MENU START ===== -->
+<nav id="mobileMenu">
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <hr>
+    <li><button id="darkModeBtn">🌙 Dark Mode</button></li>
+    <li><button id="filterBtn">🔍 Filters</button></li>
+    <li id="liveDateTime"></li>
+  </ul>
+</nav>
+<!-- ===== MOBILE MENU END ===== -->
+
+  
   <!-- Live date/time -->
   <div id="live-datetime" aria-hidden="false"></div>
 
@@ -894,7 +1048,42 @@ so you get bang for your buck - everytime ❤️</p>
       window.addEventListener('resize', updateDisplay);
       updateDisplay();
     })();
+<script>
+// ===== Shrink Header on Scroll =====
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('mainHeader');
+  if (window.scrollY > 50) {
+    header.classList.add('shrink');
+  } else {
+    header.classList.remove('shrink');
+  }
+});
 
+// ===== Hamburger Menu Toggle =====
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+});
+
+// ===== Dark Mode Toggle (Optional) =====
+const darkBtn = document.getElementById('darkModeBtn');
+darkBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+});
+
+// ===== Live Date & Time =====
+function updateDateTime() {
+  const now = new Date();
+  const formatted = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+  document.getElementById('liveDateTime').textContent = formatted;
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+</script>
+
+    
   </script>
   
 </body>
