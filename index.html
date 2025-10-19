@@ -369,46 +369,8 @@ html {
 }
 
 /* ====== MOBILE PREMIUM MODE ====== */
-@media (max-width: 768px) {
-  /* Compact header like app top bar */
-  header {
-    padding: 1.5rem 0.6rem;
-    text-align: center;
-  }
-  header .brand-row {
-    flex-direction: column;
-    gap: 8px;
-  }
-  header img {
-    width: 80px;
-    height: 80px;
-    animation: none;
-    box-shadow: 0 0 8px rgba(255,255,255,0.4);
-  }
-  header h1 {
-    font-size: 1.6rem;
-    text-shadow: none;
-  }
-  header p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: rgba(255,255,255,0.88);
-  }
 
-  /* App-like sticky nav */
-  nav {
-    position: sticky;
-    top: 0;
-    background: #0b1220;
-    padding: 0.6rem 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-  nav .left-links a {
-    font-size: 0.9rem;
-    padding: 6px 8px;
-  }
-
-  /* Product grid app compact style */
+    /* Product grid app compact style */
   .product-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -446,18 +408,7 @@ html {
     border-radius: 8px;
   }
 
-  /* Filters panel as full-width dropdown */
-  .filters {
-    display: none;
-    position: relative;
-    width: 100%;
-  }
-  .filters.open {
-    display: block;
-    margin: 0.5rem 0;
-  }
-
-  /* Info sections compact */
+   /* Info sections compact */
   .info-box {
     padding: 1.2rem;
     font-size: 0.9rem;
@@ -489,169 +440,7 @@ html {
   }
 }
 
-    /* ====== MOBILE STICKY HEADER TRANSITION ====== */
-@media (max-width: 768px) {
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 1200;
-    transition: all 0.35s ease;
-  }
-
-  header.expanded {
-    padding: 2rem 1rem;
-  }
-
-  header.shrunk {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    padding: 0.5rem 1rem;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-
-  header.shrunk img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    box-shadow: none;
-  }
-
-  header.shrunk h1 {
-    font-size: 1.2rem;
-    margin-left: 10px;
-  }
-
-  header.shrunk p {
-    display: none;
-  }
-
-  /* Search bar below the top bar */
-  #mobileSearchBar {
-    display: none;
-    background: #fff;
-    padding: 6px 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  header.shrunk + #mobileSearchBar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  #mobileSearchBar input {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    outline: none;
-  }
-  #mobileSearchBar button {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  /* Hamburger icon */
-  #menuToggle {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1.6rem;
-    cursor: pointer;
-  }
-
-  /* Dropdown menu */
-  #mobileMenu {
-    display: none;
-    position: absolute;
-    top: 60px;
-    left: 10px;
-    right: 10px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    flex-direction: column;
-    z-index: 1300;
-    overflow: hidden;
-  }
-  #mobileMenu.open { display: flex; }
-  #mobileMenu a {
-    padding: 12px 16px;
-    text-decoration: none;
-    color: var(--text);
-    border-bottom: 1px solid #eee;
-  }
-  #mobileMenu a:last-child { border-bottom: none; }
-  #mobileMenu a:hover {
-    background: var(--bg);
-  }
-}
-/* ====== PREMIUM SLIDING MENU & BLUR BACKDROP ====== */
-@media (max-width: 768px) {
-
-  /* Add blur background overlay when menu opens */
-  #menuBackdrop {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(3px);
-    z-index: 1250;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  #menuBackdrop.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Sliding dropdown menu */
-  #mobileMenu {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    border-radius: 12px 12px 0 0;
-    box-shadow: 0 -2px 20px rgba(0,0,0,0.25);
-    transform: translateY(-20px);
-    opacity: 0;
-    transition: all 0.35s ease;
-    z-index: 1300;
-  }
-  #mobileMenu.open {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  #mobileMenu a {
-    padding: 14px 18px;
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
-    border-bottom: 1px solid #eee;
-  }
-  #mobileMenu a:hover {
-    background: var(--bg);
-  }
-
-  /* Prevent scroll behind the menu when open */
-  body.menu-open {
-    overflow: hidden;
-  }
-}
-
-    
+     
   </style>
 </head>
 <body>
@@ -672,22 +461,7 @@ No more endless browsing for that perfect deal — every product here is handpic
 so you get bang for your buck - everytime ❤️</p>
   </header>
 
-  <!-- Mobile Search Bar (appears when header shrinks) -->
-<div id="mobileSearchBar">
-  <input type="text" id="mobileSearchInput" placeholder="Search products...">
-  <button id="mobileSearchBtn">🔍</button>
-</div>
-
-<!-- Mobile Dropdown Menu -->
-<div id="mobileMenu">
-  <a href="index.html">Home</a>
-  <a href="#about">About</a>
-  <a href="#faq">FAQ</a>
-  <a href="#disclaimer">Disclaimer</a>
-  <a href="#" id="mobileFilterLink">Filters</a>
-</div>
-
-
+ 
   <nav>
     <div class="left-links">
       <a href="index.html">Home</a>
@@ -1122,63 +896,6 @@ so you get bang for your buck - everytime ❤️</p>
     })();
 
   </script>
-
-  <script>
-  /* ===== Sticky Header Shrink Effect ===== */
-  const header = document.querySelector('header');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
-      header.classList.add('shrunk');
-      header.classList.remove('expanded');
-    } else {
-      header.classList.remove('shrunk');
-      header.classList.add('expanded');
-    }
-  });
-
-  /* ===== Hamburger Menu with Blur Backdrop ===== */
-  const menuBtn = document.createElement('button');
-  menuBtn.id = 'menuToggle';
-  menuBtn.innerHTML = '☰';
-  header.prepend(menuBtn);
-
-  const mobileMenu = document.getElementById('mobileMenu');
-  const backdrop = document.getElementById('menuBackdrop');
-
-  menuBtn.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    backdrop.classList.toggle('active', isOpen);
-    document.body.classList.toggle('menu-open', isOpen);
-  });
-
-  backdrop.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
-    backdrop.classList.remove('active');
-    document.body.classList.remove('menu-open');
-  });
-
-  /* ===== Link Filters Button ===== */
-  const mobileFilterLink = document.getElementById('mobileFilterLink');
-  const filtersPanel = document.getElementById('filtersPanel');
-  mobileFilterLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    mobileMenu.classList.remove('open');
-    backdrop.classList.remove('active');
-    document.body.classList.remove('menu-open');
-    filtersPanel.classList.toggle('open');
-    window.scrollTo({ top: filtersPanel.offsetTop - 60, behavior: 'smooth' });
-  });
-
-  /* ===== Mobile Search (syncs with desktop search) ===== */
-  const mSearchInput = document.getElementById('mobileSearchInput');
-  const mSearchBtn = document.getElementById('mobileSearchBtn');
-  mSearchBtn.addEventListener('click', () => {
-    document.getElementById('searchInput').value = mSearchInput.value;
-    document.getElementById('searchBtn').click();
-  });
-</script>
-<!-- Backdrop for blur effect -->
-<div id="menuBackdrop"></div>
   
 </body>
 </html>
