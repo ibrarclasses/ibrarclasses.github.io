@@ -426,97 +426,165 @@ header p {
   }
 }
 
-/* --------------------------
-   Universal Responsive Optimizer
-   Safe to add — no layout breaking
---------------------------- */
-:root {
-  --shrink-scale: 0.85;
-  --transition-speed: 0.3s;
+/* ------------------------------------
+   SAFE RESPONSIVE FIX – NON-DESTRUCTIVE
+   (Preserves your current look & feel)
+-------------------------------------- */
+
+/* Ensure proper scaling */
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-/* Smooth transitions for all shrinkable elements */
-header, nav, .logo, .search-bar, .top-bar {
-  transition: all var(--transition-speed) ease-in-out;
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
-/* Smooth shrinking header on scroll */
+/* Prevent overlap issues */
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header and logo stay visible & aligned */
+header {
+  position: relative;
+  width: 100%;
+  z-index: 10;
+  background: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Logo and title */
+header .logo,
+header img,
+header h1,
+header .site-name {
+  max-width: 100%;
+  height: auto;
+  flex-shrink: 1;
+}
+
+/* Tagline stays below logo and doesn’t overlap */
+header .tagline {
+  width: 100%;
+  text-align: center;
+  margin-top: 5px;
+  font-size: 0.9em;
+  position: relative;
+  z-index: 5;
+}
+
+/* Search bar responsiveness */
+.search-bar {
+  flex: 1 1 100%;
+  margin-top: 10px;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 100%;
+  padding: 8px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Navigation layout adjusts safely */
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+/* Buttons & top controls */
+.top-controls, .filter-btn, .dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ---------- MOBILE OPTIMIZATION ---------- */
 @media (max-width: 768px) {
   header {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    background: inherit;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-    transition: all var(--transition-speed) ease-in-out;
+    flex-direction: column;
+    align-items: center;
   }
 
-  header.shrink {
-    transform: scale(var(--shrink-scale));
-    transform-origin: top center;
-  }
-
-  /* Logo & search bar resize gracefully */
-  .logo img, .logo {
+  .logo img {
     max-width: 70%;
-    height: auto;
+  }
+
+  .tagline {
+    font-size: 0.85em;
+    margin-top: 3px;
+  }
+
+  nav {
+    margin-top: 8px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
   }
 
   .search-bar {
-    width: 100%;
-    margin-top: 5px;
+    order: 3;
+    margin: 8px 0;
   }
 
-  /* NAV menu turns flexible & vertical */
-  nav ul {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    width: 100%;
-  }
-
-  nav a {
-    display: block;
-    width: 100%;
-    padding: 8px 0;
-    text-align: left;
-  }
-
-  /* Any buttons (dark mode, filter, etc.) align properly */
-  .top-controls, .filter-btn, .dark-mode-toggle {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
+  .search-bar input {
+    font-size: 0.9em;
+    padding: 6px;
   }
 }
 
-/* Tiny screens (<480px): stack everything neatly */
 @media (max-width: 480px) {
   .logo img {
     max-width: 60%;
   }
 
   header {
-    padding: 6px 10px;
+    padding: 8px;
+  }
+
+  .tagline {
+    font-size: 0.8em;
   }
 
   nav a {
     font-size: 14px;
   }
-
-  .search-bar input {
-    font-size: 14px;
-    padding: 6px;
-  }
 }
 
-/* Optional smooth scroll effect for better UX */
-html {
-  scroll-behavior: smooth;
-}
     
   </style>
 </head>
