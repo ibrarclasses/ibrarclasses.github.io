@@ -67,7 +67,14 @@
   opacity: 1;
   pointer-events: all;
 }
-   
+
+    .fixed-header-wrap {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
 
 /* 🧩 Container for logo + title side by side */
 header .brand-row {
@@ -122,7 +129,7 @@ header p {
 
     
     /* ====== NAV BAR ====== */
-    nav {
+    #mainNav {
       background: var(--nav);
       display: flex;
       justify-content: space-between;
@@ -544,8 +551,12 @@ so you get bang for your buck - everytime ❤️</p>
 No more endless browsing for that perfect deal — every product here is handpicked after comparing across trusted sites,
 so you get bang for your buck - everytime ❤️</p>
   </header>
- 
-  <nav>
+<div class="fixed-header-wrap">
+  <header id="scrollHeader"> ... </header>
+  <nav id="mainNav"> ... </nav>
+</div>
+
+    <nav id="mainNav">
     <div class="left-links">
       <a href="index.html">Home</a>
       <a href="#about">About</a>
