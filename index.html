@@ -488,50 +488,57 @@ nav ul::-webkit-scrollbar {
   }
 }
 
-/* Make entire header sticky */
+/* Main header and brand row */
 #main-header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: linear-gradient(90deg, #1f2937, #111827);
-  transition: height 0.3s ease;
-  padding: 10px 20px;
-  display: flex;
-  flex-direction: column;
+  background: #111827; /* original header background */
+  padding: 20px 30px; /* original padding */
+  transition: padding 0.3s ease;
 }
 
-/* Brand row flex */
 .brand-row {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-/* Logo and texts default sizes */
+/* Logo and title original sizes */
 .logo {
-  height: 70px; /* original size */
+  height: 70px; /* original logo */
   transition: height 0.3s ease;
 }
 
-#main-header h1 {
-  font-size: 2rem; /* original */
+.site-title {
+  font-size: 2rem; /* original title */
+  margin: 0;
   transition: font-size 0.3s ease;
 }
 
 .tagline {
-  font-size: 1rem; /* original */
+  font-size: 1rem; /* original tagline */
   margin: 5px 0 0 0;
   transition: font-size 0.3s ease;
 }
 
-/* Nav bar sticky */
+/* Nav bar sticky below header */
 #navbar {
   position: sticky;
-  top: 0; /* stays just below header */
-  background: rgba(0,0,0,0.2);
+  top: 0; /* JS will adjust dynamically if needed */
   z-index: 999;
+  background: #1f2937; /* original nav background */
   padding: 10px 20px;
-  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  transition: top 0.3s ease;
+}
+
+/* Nav links styling (preserve your current style) */
+#navbar a {
+  text-decoration: none;
+  color: white;
+  margin-right: 15px;
 }
 
 
@@ -539,7 +546,7 @@ nav ul::-webkit-scrollbar {
   </style>
 </head>
 <body>
-  
+
   <!-- Live date/time -->
   <div id="live-datetime" aria-hidden="false"></div>
 
@@ -547,29 +554,29 @@ nav ul::-webkit-scrollbar {
   <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
 
   <header id="main-header">
-  <div class="brand-row">
-    <img src="logost.png" alt="Stationery logo" class="logo"/>
-    <h1>Stationery Mall 🛒</h1>
-  </div>
-  <p class="tagline">
-    Welcome to Stationery Mall — your ultimate destination for all your books and stationery needs...
-  </p>
-</header>
-
-<nav id="navbar">
-  <div class="left-links">
-    <a href="index.html">Home</a>
-    <a href="#about">About</a>
-    <a href="#faq">FAQ</a>
-    <a href="#disclaimer">Disclaimer</a>
-  </div>
-  <div class="right-section">
-    <div id="searchBarContainer" style="color:transparent;">
-      <input id="searchInput" type="text" placeholder="Search products..." aria-label="Search products" />
-      <button id="searchBtn" aria-label="Search">🔍</button>
+    <div class="brand-row">
+      <img src="logost.png" alt="Stationery logo" class="logo" />
+      <h1 class="site-title">Stationery Mall 🛒</h1>
     </div>
-  </div>
-</nav>
+    <p class="tagline">
+      Welcome to Stationery Mall — your ultimate destination for all your books and stationery needs. No more endless browsing for that perfect deal — every product here is handpicked after comparing across trusted sites, so you get bang for your buck - everytime ❤️
+    </p>
+  </header>
+
+  <nav id="navbar">
+    <div class="left-links">
+      <a href="index.html">Home</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="#disclaimer">Disclaimer</a>
+    </div>
+    <div class="right-section">
+      <div id="searchBarContainer">
+        <input id="searchInput" type="text" placeholder="Search products..." aria-label="Search products" />
+        <button id="searchBtn" aria-label="Search">🔍</button>
+      </div>
+    </div>
+  </nav>
 
 
   <!-- Ticker -->
@@ -991,33 +998,43 @@ nav ul::-webkit-scrollbar {
 
 <script>
 const header = document.getElementById("main-header");
-const logo = header.querySelector(".logo");
-const title = header.querySelector("h1");
-const tagline = header.querySelector(".tagline");
 const navbar = document.getElementById("navbar");
+const logo = header.querySelector(".logo");
+const title = header.querySelector(".site-title");
+const tagline = header.querySelector(".tagline");
 
 // Original sizes
-const logoOriginal = 70; // px
-const titleOriginal = 32; // approx 2rem
-const taglineOriginal = 16; // approx 1rem
-
-// Shrink limits
+const logoOriginal = 70;
 const logoMin = 40;
+
+const titleOriginal = 32; // approx 2rem
 const titleMin = 18;
+
+const taglineOriginal = 16; // approx 1rem
 const taglineMin = 10;
 
+const paddingOriginal = 20; // px
+const paddingMin = 5;
+
+// Scroll listener
 window.addEventListener("scroll", () => {
   const scrollY = window.scrollY;
 
-  // Shrink factor: adjust speed
-  const factor = Math.min(scrollY / 200, 1); // max shrink at 200px scroll
+  // factor: 0 → 1 based on scroll distance (200px to fully shrink)
+  const factor = Math.min(scrollY / 200, 1);
 
-  // Apply progressive shrinking
+  // Shrink elements
   logo.style.height = (logoOriginal - (logoOriginal - logoMin) * factor) + "px";
   title.style.fontSize = (titleOriginal - (titleOriginal - titleMin) * factor) + "px";
   tagline.style.fontSize = (taglineOriginal - (taglineOriginal - taglineMin) * factor) + "px";
+  header.style.padding = (paddingOriginal - (paddingOriginal - paddingMin) * factor) + "px 30px";
+
+  // Adjust nav top to stick just below header
+  const headerHeight = header.offsetHeight;
+  navbar.style.top = headerHeight + "px";
 });
 </script>
+
 
   
   </script>
