@@ -15,6 +15,8 @@
       --card: #ffffff;
       --text: #1F2937;
       --filter-width: 240px;
+      --header-height: 220px; /* desktop header height */
+      --header-small-height: 64px; /* mobile small height when scrolled */
     }
 
     * { box-sizing: border-box; }
@@ -46,18 +48,20 @@ header {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
   position: relative;
   overflow: hidden;
+  height: var(--header-height);
+  transition: height 280ms ease, padding 280ms ease;
 }
 
-/* 🧩 Container for logo + title side by side */
+/* brand row keeps logo + title */
 header .brand-row {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 18px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
-/* 🛍️ Logo Styling */
+/* logo */
 header img {
   width: 130px;
   height: 130px;
@@ -65,9 +69,10 @@ header img {
   object-fit: cover;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   animation: logoPulse 3s infinite ease-in-out;
+  transition: width 280ms ease, height 280ms ease, transform 280ms ease;
 }
 
-/* 🏷️ Website Title */
+/* Website Title */
 header h1 {
   margin: 0;
   font-size: 3rem;
@@ -75,9 +80,10 @@ header h1 {
   color: #ffffff;
   letter-spacing: 1px;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  transition: font-size 280ms ease, transform 280ms ease;
 }
 
-/* 💬 Tagline */
+/* Tagline */
 header p {
   margin-top: 1rem;
   font-weight: 500;
@@ -85,6 +91,27 @@ header p {
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.92);
   max-width: 780px;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+/* Shrunk header state (applied on mobile while scrolling) */
+.header--shrink {
+  height: var(--header-small-height);
+  padding: 8px 12px;
+  align-items: center;
+}
+.header--shrink header p {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+.header--shrink header .brand-row { gap: 10px; justify-content: flex-start; }
+.header--shrink header img {
+  width: 44px;
+  height: 44px;
+}
+.header--shrink header h1 {
+  font-size: 1.05rem;
 }
 
 /* ✨ Logo Pulse Animation */
@@ -111,6 +138,7 @@ header p {
       top: 0;
       z-index: 1000;
       flex-wrap: wrap;
+      gap: 8px;
     }
 
     nav .left-links {
@@ -136,6 +164,7 @@ header p {
       margin-left: auto;
       display: flex;
       align-items: center;
+      gap: 8px;
     }
 
     /* Premium gradient search bar styling */
@@ -153,18 +182,15 @@ header p {
   outline: none;
   padding: 8px 12px;
   border-radius: 50px 0 0 50px;
-  width: 150px;
+  width: 220px;
   transition: all 0.3s ease;
-  font-size: 0.9rem;
-  background: transparent;
-  color: #fff;
+  font-size: 0.95rem;
 }
 
 /* Expanding input when focused */
 #searchInput:focus {
-  width: 200px;
+  width: 260px;
   background: #fff;
-  color: #0b1220;
 }
 
 /* Gradient search button */
@@ -177,11 +203,14 @@ header p {
   font-weight: 600;
   background: linear-gradient(135deg, #0072ff, #00c6ff);
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Button hover glow */
 #searchBtn:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
   box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
 }
 
@@ -190,13 +219,16 @@ header p {
   box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
 }
 
-    /* ====== TICKER / MOVING NOTICE (keeps your style) ====== */
-    .ticker { width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:8px 0; position:relative;
-      border-top:2px solid rgba(255,255,255,.2); border-bottom:2px solid rgba(255,255,255,.2); box-shadow:inset 0 -3px 6px rgba(0,0,0,.1);
-    }
-    .ticker__content { display:inline-block; white-space:nowrap; position:relative; will-change:transform; }
-    @keyframes scrollText { from { transform: translateX(var(--start)); } to { transform: translateX(var(--end)); } }
-    .ticker:hover .ticker__content { animation-play-state: paused !important; }
+/* placeholder in DOM for mobile search repositioning */
+#mobile-search-placeholder { display: none; padding: 12px 16px; }
+
+/* ====== TICKER / MOVING NOTICE ====== */
+.ticker { width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:8px 0; position:relative;
+  border-top:2px solid rgba(255,255,255,.2); border-bottom:2px solid rgba(255,255,255,.2); box-shadow:inset 0 -3px 6px rgba(0,0,0,.1);
+}
+.ticker__content { display:inline-block; white-space:nowrap; position:relative; will-change:transform; }
+@keyframes scrollText { from { transform: translateX(var(--start)); } to { transform: translateX(var(--end)); } }
+.ticker:hover .ticker__content { animation-play-state: paused !important; }
 
    /* ====== LIVE DATETIME ====== */
     #live-datetime {
@@ -211,6 +243,7 @@ header p {
       font-size: 13px;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
       backdrop-filter: blur(4px);
+      transition: opacity 200ms ease, transform 200ms ease;
     }
     
     /* ====== LAYOUT: filters (left) + main (right) ====== */
@@ -255,31 +288,33 @@ header p {
 
     h2 { text-align:center; color:var(--primary); margin-bottom:1rem; }
 
-    /* Product grid & cards (kept same look) */
+    /* Product grid & cards */
     .product-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; }
     .product-card { background:white; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.1); padding:15px; text-align:center; transition:transform .2s ease; position:relative; overflow:hidden; }
     .product-card:hover { transform: translateY(-5px); }
     .product-card img { width:100%; height:180px; object-fit:contain; border-radius:10px; }
+    .product-card h3 { margin:8px 0 4px; font-size:1rem; color:#0b1220; }
+    .product-card p { color:#475569; font-size:0.9rem; min-height:40px; }
     .price { display:block; font-weight:bold; color:#1a73e8; margin: 6px 0; }
 
     .buy-btn { display:inline-block; background:linear-gradient(135deg,#2563eb,#3b82f6); color:#fff; font-weight:600; text-decoration:none; padding:10px 18px; border-radius:10px; box-shadow:0 4px 10px rgba(37,99,235,0.15); position:relative; overflow:hidden; }
-    .buy-btn:hover { background:linear-gradient(135deg,#1d4ed8,#60a5fa); transform:translateY(-3px); box-shadow:0 6px 15px rgba(37,99,235,.25); }
-    .buy-btn::after { content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; background:rgba(255,255,255,.3); transform:skewX(-20deg); transition:.5s; }
+    .buy-btn:hover { background:linear-gradient(135deg,#1d4ed8,#60a5fa); transform:translateY(-3px); box-shadow:0 6px 15px rgba(37,99,235,.5); }
+    .buy-btn::after { content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; background:rgba(255,255,255,.18); transform:skewX(-20deg); transition:.5s; }
     .buy-btn:hover::after { left:100%; }
 
     /* Source tag basic style (we animate and color in JS) */
-    .source-tag { position:absolute; top:10px; right:10px; color:#fff; font-size:12px; font-weight:600; padding:4px 10px; border-radius:14px; }
+    .source-tag { position:absolute; top:10px; right:10px; color:#fff; font-size:12px; font-weight:600; padding:4px 10px; border-radius:14px; z-index:3; }
 
     /* ====== FOOTER ====== */
     footer { background:var(--nav); color:#fff; text-align:center; padding:16px 10px; margin-top:28px; font-size:14px; }
     #visitor-info { margin-top:8px; font-weight:600; }
 
     /* ====== FLOATING UI ====== */
-    #molly-chat { position: fixed; bottom: 18px; right: 18px; z-index: 2000; width:72px; height:72px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow: 0 6px 18px rgba(2,6,23,.12); }
+    #molly-chat { position: fixed; bottom: 18px; right: 18px; z-index: 2000; width:72px; height:72px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(2,6,23,.12); }
     .molly-avatar{ width:66px; height:66px; border-radius:50%; object-fit:cover; }
 
     /* Back to top */
-    #back-to-top { position:fixed; right:18px; bottom:108px; display:none; z-index:1500; background:var(--primary); color:#fff; border:none; width:46px; height:46px; border-radius:50%; box-shadow:0 6px 12px rgba(0,0,0,0.12); cursor:pointer; }
+    #back-to-top { position:fixed; right:18px; bottom:108px; display:none; z-index:1500; background:var(--primary); color:#fff; border:none; width:46px; height:46px; border-radius:50%; box-shadow:0 6px 18px rgba(2,6,23,.12); cursor:pointer; }
     #back-to-top:hover { background:var(--accent); }
 
     /* Dark mode (preserves your variables) */
@@ -290,24 +325,14 @@ header p {
     .dark-mode .product-card { background: rgba(10,14,25,0.8); color: #e6eefc; }
     .dark-mode .buy-btn::after { background: rgba(255,255,255,.06); }
 
-    /* make sure the dark-mode toggle stays visible and above header */
+    /* Make sure the dark-mode toggle stays visible and above header */
     #darkModeToggle {
       position: fixed; top: 14px; left: 14px; z-index: 2001; width:46px; height:46px; border-radius:50%; border:none; cursor:pointer;
       background: rgba(255,255,255,0.92); color:var(--nav); font-size:18px; box-shadow:0 6px 18px rgba(2,6,23,.12);
     }
     #darkModeToggle:hover { transform: scale(1.06); }
 
-    /* ====== RESPONSIVE ====== */
-    @media (max-width: 960px) {
-      .layout { grid-template-columns: 1fr; padding: 0 12px; }
-      .filters { position: relative; top: auto; display:none; } /* hide side filters on tablet by default */
-      .filters.open { display:block; margin-bottom: 12px; } /* when toggled open */
-    }
-    
-    /* keyframes */
-    @keyframes pulse { 0%{ box-shadow:0 0 0 0 rgba(16,185,129,.28);} 70% { box-shadow:0 0 0 16px rgba(16,185,129,0);} 100%{ box-shadow:0 0 0 0 rgba(16,185,129,0); } }
-  
-  /* ====== INFO SECTIONS ====== */
+    /* ====== INFO SECTIONS ====== */
 .info-sections {
   max-width: 1100px;
   margin: 3rem auto;
@@ -357,7 +382,7 @@ header p {
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
 }
 
-/* Make scroll feel app-like on mobile */
+/* App-Like Feel */
 body {
   -webkit-tap-highlight-color: transparent;
 }
@@ -366,132 +391,121 @@ nav ul::-webkit-scrollbar {
   display: none;
 }
 
-/* ====== ADJUSTED DESKTOP -> TABLET -> MOBILE TARGETS ====== */
+/* ====== NEW MOBILE RESPONSIVE RULES (replaced old mobile code) ====== */
 
-/* Fix: earlier rules referenced .products (typo). Use .product-grid instead. */
-@media (max-width: 1024px) {
-  .product-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+/* Make the site look like a premium app on small screens.
+   We intentionally use gentle transitions and compact sizing.
+*/
 
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  header .search-box {
-    width: 100%;
-    margin: 10px 0;
-  }
-  nav ul {
-    overflow-x: auto;
-    white-space: nowrap;
-    display: flex;
-    justify-content: flex-start;
-  }
-  nav ul li {
-    padding: 10px;
-  }
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+/* Mobile breakpoint for "app-like" layout */
+@media (max-width: 960px) {
 
-@media (max-width: 480px) {
-  header {
-    padding: 10px;
-  }
-  header .logo {
-    font-size: 18px;
-  }
-  .product-card {
-    padding: 8px;
-  }
-  .product-grid {
+  /* Layout becomes single column */
+  .layout {
     grid-template-columns: 1fr;
+    padding: 0 8px;
   }
-  button, input {
-    font-size: 15px;
-  }
-  footer {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-}
 
-/* ====== MOBILE PREMIUM MODE (scoped) ====== */
-@media (max-width: 600px) {
-  /* Product grid app compact style */
+  /* Hide left filter panel by default on mobile */
+  .filters {
+    display: none;
+    position: fixed;
+    left: 0; top: 0; bottom: 0; right: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    z-index: 2200;
+    overflow-y: auto;
+    padding: 16px;
+    background: var(--card);
+  }
+
+  /* Product grid more compact: two columns with smaller cards */
   .product-grid {
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    padding: 8px;
+    padding: 6px;
   }
   .product-card {
     border-radius: 10px;
     padding: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .product-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  }
   .product-card img {
-    height: 140px;
-    object-fit: contain;
+    height: 120px;
   }
-  .product-card h3 {
-    font-size: 0.92rem;
-    margin: 6px 0;
-  }
-  .product-card p {
-    font-size: 0.78rem;
-  }
-  .price {
-    font-size: 0.9rem;
-  }
-  .buy-btn {
+  .product-card p { min-height: 34px; font-size: 0.82rem; }
+  .buy-btn { width: 100%; padding: 8px 0; border-radius: 8px; font-size: 0.9rem; }
+
+  /* Make header sticky with compact behaviour on scroll */
+  header { height: auto; padding: 18px 12px; text-align: left; }
+  header .brand-row { justify-content: flex-start; align-items: center; gap:12px; }
+  header h1 { font-size: 1.25rem; }
+  header img { width: 64px; height:64px; }
+
+  /* Show mobile placeholder for search just below header */
+  #mobile-search-placeholder { display:block; }
+
+  /* Hide desktop live datetime & dark toggle (they'll be in hamburger overlay) */
+  #live-datetime, #darkModeToggle { opacity: 0; pointer-events: none; transform: translateY(-6px); }
+
+  /* Nav becomes simpler: show only a hamburger on the left and optional quick actions on the right */
+  nav { padding: 10px 12px; }
+  nav .left-links { display:none; }
+  nav .right-section { gap: 6px; }
+  #mobileHamburger { display: inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:8px; border:none; background:rgba(255,255,255,0.08); color:#fff; font-size:20px; }
+
+  /* Full-screen overlay menu (hidden by default) */
+  #mobileOverlay {
+    position: fixed;
+    left: 0;
+    top: -100%;
     width: 100%;
-    font-size: 0.9rem;
-    padding: 9px 0;
-    border-radius: 8px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(11,18,32,0.98), rgba(8,12,20,0.98));
+    color: #fff;
+    z-index: 2300;
+    transition: top 360ms cubic-bezier(.2,.9,.2,1);
+    overflow-y: auto;
+    padding: 18px;
   }
+  #mobileOverlay.open { top: 0; }
 
-   /* Info sections compact */
-  .info-box {
-    padding: 1.2rem;
-    font-size: 0.9rem;
-  }
-  .info-box h2 {
-    font-size: 1.1rem;
-  }
+  #mobileOverlay .overlay-inner { max-width: 720px; margin: 0 auto; }
+  #mobileOverlay .overlay-row { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:14px; }
+  #mobileOverlay .overlay-links { display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+  #mobileOverlay a { color: #fff; text-decoration:none; font-weight:600; font-size:1.05rem; padding:10px 6px; border-bottom: 1px solid rgba(255,255,255,0.04); }
 
-  footer {
-    font-size: 0.85rem;
-    padding: 12px;
-  }
+  /* Make ticker slightly smaller */
+  .ticker { font-size:13px; padding:6px 0; }
 
-  /* Better tap area for back-to-top and chat */
-  #molly-chat {
-    width: 60px;
-    height: 60px;
-  }
-  #back-to-top {
-    width: 42px;
-    height: 42px;
-    bottom: 90px;
-  }
+  /* Back to top reposition */
+  #back-to-top { right: 12px; bottom: 90px; }
 
-  /* Smooth in-app feel */
-  body {
-    scroll-behavior: smooth;
-    -webkit-tap-highlight-color: transparent;
-  }
 }
-    
+
+/* Extra small phones - tighten things a bit more */
+@media (max-width: 420px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap:8px; }
+  .product-card img { height:110px; }
+  header h1 { font-size:1rem; }
+  header img { width:48px; height:48px; }
+  #searchInput { width:140px; }
+  #searchInput:focus { width:180px; }
+}
+
+/* Desktop/large screens: ensure everything remains unchanged and rich */
+@media (min-width: 961px) {
+  /* restore live datetime and dark toggle visibility on desktop */
+  #live-datetime, #darkModeToggle { opacity: 1; pointer-events: auto; transform: none; }
+  #mobile-search-placeholder { display:none; }
+  #mobileHamburger { display:none; }
+  #mobileOverlay { display:none; }
+  .filters { display:block; position: sticky; }
+  .product-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; }
+}
   </style>
 </head>
 <body>
@@ -502,26 +516,34 @@ nav ul::-webkit-scrollbar {
   <!-- Dark mode toggle -->
   <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
 
+  <!-- header wrapper for shrink class control -->
+  <div id="headerWrapper">
   <header>
     <div class="brand-row">
-    <img src="logost.png" alt="Stationery logo" />
-    <h1>Stationery Mall 🛒</h1>
-      </div>
-    <p>Welcome to Stationery Mall — your ultimate destination for all your books and stationery needs.
+      <img src="logost.png" alt="Stationery logo" />
+      <h1>Stationery Mall 🛒</h1>
+    </div>
+    <p class="tagline">Welcome to Stationery Mall — your ultimate destination for all your books and stationery needs.
 No more endless browsing for that perfect deal — every product here is handpicked after comparing across trusted sites,
 so you get bang for your buck - everytime ❤️</p>
   </header>
+  </div>
 
- 
+  <!-- placeholder for mobile search (script will move searchBarContainer here on mobile) -->
+  <div id="mobile-search-placeholder" aria-hidden="true"></div>
+
   <nav>
     <div class="left-links">
       <a href="index.html">Home</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
       <a href="#disclaimer">Disclaimer</a>
-      </div>
+    </div>
 
     <div class="right-section">
+      <!-- Mobile hamburger (shown only on small screens via CSS) -->
+      <button id="mobileHamburger" aria-label="Open menu" title="Menu" style="display:none;">☰</button>
+
       <!-- keep search bar in nav with same look; note: not prefilled -->
       <div id="searchBarContainer" style="color:transparent;">
         <input id="searchInput" type="text" placeholder="Search products..." aria-label="Search products" />
@@ -529,6 +551,42 @@ so you get bang for your buck - everytime ❤️</p>
       </div>
     </div>
   </nav>
+
+  <!-- Mobile overlay menu that slides from top (will be populated by JS) -->
+  <div id="mobileOverlay" aria-hidden="true">
+    <div class="overlay-inner">
+      <div class="overlay-row">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img src="logost.png" alt="logo" style="width:48px;height:48px;border-radius:8px;object-fit:cover;">
+          <div>
+            <div style="font-weight:800;font-size:1.1rem;">Stationery Mall</div>
+            <div id="overlay-date" style="font-size:12px;opacity:.9;margin-top:2px;"></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button id="overlay-dark-toggle" style="background:transparent;border:1px solid rgba(255,255,255,0.08);color:#fff;padding:8px;border-radius:8px;">🌙</button>
+          <button id="overlay-close" aria-label="Close menu" style="background:transparent;border:none;color:#fff;font-size:22px;padding:6px;">✕</button>
+        </div>
+      </div>
+
+      <div class="overlay-links" role="navigation" aria-label="Mobile navigation">
+        <a href="index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#disclaimer">Disclaimer</a>
+        <a href="#filter" id="overlay-filter-btn">Filters</a>
+      </div>
+
+      <div style="margin-top:18px;">
+        <div style="font-weight:700;margin-bottom:8px;">Quick Links</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="https://t.me/M1ssMolly_Bot" target="_blank" rel="noopener" style="background:#fff;color:#0b1220;padding:8px 10px;border-radius:8px;text-decoration:none;font-weight:600;">Chat with Miss Molly</a>
+          <a href="index.html" style="background:rgba(255,255,255,0.06);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none;font-weight:600;">Visit Store</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Ticker -->
   <div class="ticker">
@@ -590,7 +648,7 @@ so you get bang for your buck - everytime ❤️</p>
       <h2>Frequently Asked Questions</h2>
        <details>
         <summary>Why should I order from Stationery Mall?</summary>
-        <p>You get a curated selection of stationery and study products — already compared across top sites like Flipkart, Amazon, and Meesho — so you always find trusted quality, best prices, and[...]</p>
+        <p>You get a curated selection of stationery and study products — already compared across top sites like Flipkart, Amazon, and Meesho — so you always find trusted quality, best prices, and convenience.</p>
       </details>
       <details>
         <summary>Are these products directly sold by Stationery Mall?</summary>
@@ -628,7 +686,10 @@ so you get bang for your buck - everytime ❤️</p>
       const options = { weekday:'short', year:'numeric', month:'short', day:'numeric' };
       const dateStr = now.toLocaleDateString('en-IN', options);
       const timeStr = now.toLocaleTimeString('en-IN');
-      document.getElementById('live-datetime').textContent = `${dateStr} | ${timeStr}`;
+      const live = document.getElementById('live-datetime');
+      if(live) live.textContent = `${dateStr} | ${timeStr}`;
+      const overlayDate = document.getElementById('overlay-date');
+      if(overlayDate) overlayDate.textContent = `${dateStr} • ${timeStr}`;
     }
     updateDateTime(); setInterval(updateDateTime, 1000);
 
@@ -640,8 +701,10 @@ so you get bang for your buck - everytime ❤️</p>
       const isDark = document.documentElement.classList.contains('dark-mode');
       localStorage.setItem('ibrar-dark', isDark? '1':'0');
       darkToggle.textContent = isDark? '☀️' : '🌙';
+      // also update overlay toggle visual
+      const overlayBtn = document.getElementById('overlay-dark-toggle');
+      if(overlayBtn) overlayBtn.textContent = isDark? '☀️':'🌙';
     });
-
 
     /* ===== FAKE VISITOR COUNT (50-100) ===== */
     (function visitorCounter(){
@@ -674,14 +737,14 @@ so you get bang for your buck - everytime ❤️</p>
     window.addEventListener('scroll', ()=>{ backBtn.style.display = window.scrollY > 300 ? 'block' : 'none'; });
     backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-    /* ===== TICKER (keeps your working implementation) ===== */
+    /* ===== TICKER (keeps working implementation) ===== */
     (function initTicker(){
       const messages = [
         "🛒 These products are affiliate links from trusted sites like Flipkart, Amazon or Meesho.",
         "📦 The products are updated regularly for better deals and prices.",
         "❤️ Handpicked products, curated list, you pay nothing extra, we get small referral fee. Win-Win ⭐",
         "🔍 Use the Search Bar to find the products quickly",
-        "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐"
+        "💡 Any feedbacks/Suggestions/Queries? Leave with Miss Molly ⭐",
       ];
       const tickerText = document.getElementById("tickerText");
       const container = document.querySelector(".ticker");
@@ -914,40 +977,122 @@ so you get bang for your buck - everytime ❤️</p>
 
     })();
 
-    /* ====== FILTERS PANEL TOGGLE ON MOBILE ====== */
-    (function mobileFilterToggle(){
-      // add a small toggle button to show/hide filters on small screens
-      const btn = document.createElement('button');
-      btn.id = 'filtersToggle';
-      btn.innerHTML = 'Filters ⤓';
-      btn.style.border = 'none';
-      btn.style.padding = '8px 12px';
-      btn.style.borderRadius = '8px';
-      btn.style.background = 'linear-gradient(135deg,var(--accent),var(--primary))';
-      btn.style.color = '#fff';
-      btn.style.cursor = 'pointer';
-      btn.style.marginLeft = '8px';
-      btn.style.display = 'none';
-      btn.style.zIndex = 1200;
-      const rightSection = document.querySelector('nav .right-section');
-      if(rightSection){
-        rightSection.insertBefore(btn, rightSection.children[0]);
-      }
-
+    /* ===== MOBILE / APP-LIKE INTERACTIONS ===== */
+    (function mobileInteractions(){
+      const headerWrapper = document.getElementById('headerWrapper');
+      const header = document.querySelector('#headerWrapper > header');
+      const mobileHamburger = document.getElementById('mobileHamburger');
+      const overlay = document.getElementById('mobileOverlay');
+      const overlayClose = document.getElementById('overlay-close');
+      const overlayDark = document.getElementById('overlay-dark-toggle');
+      const searchBar = document.getElementById('searchBarContainer');
+      const nav = document.querySelector('nav .right-section');
+      const mobileSearchPlaceholder = document.getElementById('mobile-search-placeholder');
+      const overlayFilterBtn = document.getElementById('overlay-filter-btn');
       const filtersPanel = document.getElementById('filtersPanel');
-      function updateDisplay(){
+
+      // Move searchBar into mobile placeholder on small screens and back to nav on desktop
+      function repositionSearch(){
         if(window.innerWidth <= 960){
-          btn.style.display = 'inline-block';
-          filtersPanel.classList.remove('open');
+          if(mobileSearchPlaceholder && searchBar && mobileSearchPlaceholder !== searchBar.parentElement){
+            mobileSearchPlaceholder.appendChild(searchBar);
+            searchBar.style.width = '100%';
+            searchBar.style.color = 'initial';
+            document.getElementById('searchInput').style.width = '100%';
+          }
         } else {
-          btn.style.display = 'none';
-          filtersPanel.classList.remove('open');
+          // desktop: ensure search lives back inside nav.right-section
+          if(nav && searchBar && nav !== searchBar.parentElement){
+            nav.appendChild(searchBar);
+            searchBar.style.width = '';
+            document.getElementById('searchInput').style.width = '220px';
+          }
         }
       }
-      btn.addEventListener('click', ()=> filtersPanel.classList.toggle('open'));
-      window.addEventListener('resize', updateDisplay);
-      updateDisplay();
+
+      // Shrink header on scroll for mobile to give app-like compact header
+      function onScrollShrink(){
+        if(window.innerWidth <= 960){
+          if(window.scrollY > 60){
+            headerWrapper.classList.add('header--shrink');
+            overlay.classList.remove('open'); // close overlay when scrolling
+            overlay.setAttribute('aria-hidden','true');
+          } else {
+            headerWrapper.classList.remove('header--shrink');
+          }
+        } else {
+          headerWrapper.classList.remove('header--shrink');
+        }
+      }
+      window.addEventListener('scroll', onScrollShrink);
+      window.addEventListener('resize', ()=>{ repositionSearch(); onScrollShrink(); });
+      repositionSearch();
+
+      // Hamburger open/close
+      if(mobileHamburger){
+        mobileHamburger.addEventListener('click', ()=>{
+          overlay.classList.add('open');
+          overlay.setAttribute('aria-hidden','false');
+          // sync dark toggle state
+          const isDark = document.documentElement.classList.contains('dark-mode');
+          if(overlayDark) overlayDark.textContent = isDark? '☀️' : '🌙';
+        });
+      }
+      if(overlayClose){
+        overlayClose.addEventListener('click', ()=>{
+          overlay.classList.remove('open');
+          overlay.setAttribute('aria-hidden','true');
+        });
+      }
+      // overlay dark toggle mirrors desktop toggle
+      if(overlayDark){
+        overlayDark.addEventListener('click', ()=>{
+          document.documentElement.classList.toggle('dark-mode');
+          const isDark = document.documentElement.classList.contains('dark-mode');
+          localStorage.setItem('ibrar-dark', isDark? '1':'0');
+          // update both toggles visuals
+          darkToggle.textContent = isDark? '☀️' : '🌙';
+          overlayDark.textContent = isDark? '☀️' : '🌙';
+        });
+      }
+
+      // overlay filter button: open filters panel inside overlay on mobile
+      if(overlayFilterBtn){
+        overlayFilterBtn.addEventListener('click', (e)=>{
+          e.preventDefault();
+          // ensure overlay is open
+          overlay.classList.add('open');
+          // move filters into overlay (temporary) and show
+          if(window.innerWidth <= 960 && filtersPanel){
+            overlay.querySelector('.overlay-inner').appendChild(filtersPanel);
+            filtersPanel.style.display = 'block';
+          }
+        });
+      }
+
+      // when closing overlay, if filters panel was moved, move it back to layout to keep desktop intact
+      function restoreFiltersPanel(){
+        const layout = document.querySelector('.layout');
+        if(layout && filtersPanel && !layout.contains(filtersPanel)){
+          layout.insertBefore(filtersPanel, layout.firstChild);
+          filtersPanel.style.display = (window.innerWidth <= 960)?'none':'block';
+        }
+      }
+
+      // close overlay on escape
+      document.addEventListener('keyup', (e)=>{ if(e.key === 'Escape'){ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); restoreFiltersPanel(); } });
+
+      // ensure filters panel restores on resize to desktop
+      window.addEventListener('resize', ()=>{ if(window.innerWidth > 960){ restoreFiltersPanel(); } });
+
+      // when overlay closes, restore filters if necessary
+      const observer = new MutationObserver(()=>{ if(!overlay.classList.contains('open')) restoreFiltersPanel(); });
+      observer.observe(overlay, { attributes: true, attributeFilter: ['class'] });
+
     })();
-    </script>
+  </script>
+
+  </script>
+  
 </body>
 </html>
