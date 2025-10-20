@@ -488,59 +488,87 @@ nav ul::-webkit-scrollbar {
   }
 }
 
-/* Main header and brand row */
+/* Original header */
 #main-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #111827; /* original header background */
-  padding: 20px 30px; /* original padding */
-  transition: padding 0.3s ease;
+  background: #111827;
+  padding: 20px 30px;
 }
 
-.brand-row {
+#main-header .brand-row {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-/* Logo and title original sizes */
-.logo {
-  height: 70px; /* original logo */
-  transition: height 0.3s ease;
+#main-header .logo {
+  height: 70px;
 }
 
-.site-title {
-  font-size: 2rem; /* original title */
+#main-header .site-title {
+  font-size: 2rem;
   margin: 0;
-  transition: font-size 0.3s ease;
 }
 
-.tagline {
-  font-size: 1rem; /* original tagline */
+#main-header .tagline {
+  font-size: 1rem;
   margin: 5px 0 0 0;
-  transition: font-size 0.3s ease;
 }
 
-/* Nav bar sticky below header */
+.header-tools {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+/* Mini Header */
+#mini-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #111827;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
+  z-index: 1001;
+}
+
+#mini-header .brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#mini-header .logo {
+  height: 40px;
+}
+
+#mini-header .site-title {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+#mini-header .tagline {
+  font-size: 0.7rem;
+  margin: 0;
+}
+
+/* Nav bar sticky below mini-header */
 #navbar {
   position: sticky;
-  top: 0; /* JS will adjust dynamically if needed */
+  top: 0;
   z-index: 999;
-  background: #1f2937; /* original nav background */
+  background: #1f2937;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
-  transition: top 0.3s ease;
 }
-
-/* Nav links styling (preserve your current style) */
-#navbar a {
-  text-decoration: none;
-  color: white;
-  margin-right: 15px;
-}
-
 
     
   </style>
@@ -553,6 +581,8 @@ nav ul::-webkit-scrollbar {
   <!-- Dark mode toggle -->
   <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
 
+  
+  <!-- Original Header -->
   <header id="main-header">
     <div class="brand-row">
       <img src="logost.png" alt="Stationery logo" class="logo" />
@@ -561,8 +591,28 @@ nav ul::-webkit-scrollbar {
     <p class="tagline">
       Welcome to Stationery Mall — your ultimate destination for all your books and stationery needs. No more endless browsing for that perfect deal — every product here is handpicked after comparing across trusted sites, so you get bang for your buck - everytime ❤️
     </p>
+    <div class="header-tools">
+      <span id="live-datetime"></span>
+      <button id="darkModeToggle">🌙</button>
+    </div>
   </header>
 
+  <!-- Mini Sticky Header -->
+  <header id="mini-header">
+    <div class="brand-row">
+      <img src="logost.png" alt="Stationery logo" class="logo" />
+      <div class="title-tools">
+        <h1 class="site-title">Stationery Mall 🛒</h1>
+        <p class="tagline">Your destination for books & stationery</p>
+      </div>
+    </div>
+    <div class="header-tools">
+      <span id="mini-datetime"></span>
+      <button id="mini-darkModeToggle">🌙</button>
+    </div>
+  </header>
+
+  <!-- Nav Bar -->
   <nav id="navbar">
     <div class="left-links">
       <a href="index.html">Home</a>
@@ -577,6 +627,7 @@ nav ul::-webkit-scrollbar {
       </div>
     </div>
   </nav>
+
 
 
   <!-- Ticker -->
@@ -997,44 +1048,41 @@ nav ul::-webkit-scrollbar {
     </script>
 
 <script>
-const header = document.getElementById("main-header");
-const navbar = document.getElementById("navbar");
-const logo = header.querySelector(".logo");
-const title = header.querySelector(".site-title");
-const tagline = header.querySelector(".tagline");
+// References
+const mainHeader = document.getElementById("main-header");
+const miniHeader = document.getElementById("mini-header");
+const liveDatetime = document.getElementById("live-datetime");
+const miniDatetime = document.getElementById("mini-datetime");
 
-// Original sizes
-const logoOriginal = 70;
-const logoMin = 40;
+// Live datetime update
+function updateTime() {
+  const now = new Date();
+  const timeString = now.toLocaleString();
+  liveDatetime.textContent = timeString;
+  miniDatetime.textContent = timeString;
+}
+setInterval(updateTime, 1000);
+updateTime();
 
-const titleOriginal = 32; // approx 2rem
-const titleMin = 18;
+// Dark mode toggle
+const darkToggleMain = document.getElementById("darkModeToggle");
+const darkToggleMini = document.getElementById("mini-darkModeToggle");
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+}
+darkToggleMain.addEventListener("click", toggleDarkMode);
+darkToggleMini.addEventListener("click", toggleDarkMode);
 
-const taglineOriginal = 16; // approx 1rem
-const taglineMin = 10;
-
-const paddingOriginal = 20; // px
-const paddingMin = 5;
-
-// Scroll listener
+// Show mini-header on scroll
 window.addEventListener("scroll", () => {
   const scrollY = window.scrollY;
-
-  // factor: 0 → 1 based on scroll distance (200px to fully shrink)
-  const factor = Math.min(scrollY / 200, 1);
-
-  // Shrink elements
-  logo.style.height = (logoOriginal - (logoOriginal - logoMin) * factor) + "px";
-  title.style.fontSize = (titleOriginal - (titleOriginal - titleMin) * factor) + "px";
-  tagline.style.fontSize = (taglineOriginal - (taglineOriginal - taglineMin) * factor) + "px";
-  header.style.padding = (paddingOriginal - (paddingOriginal - paddingMin) * factor) + "px 30px";
-
-  // Adjust nav top to stick just below header
-  const headerHeight = header.offsetHeight;
-  navbar.style.top = headerHeight + "px";
+  if(scrollY > mainHeader.offsetHeight / 2){
+    miniHeader.style.transform = "scaleY(1)";
+  } else {
+    miniHeader.style.transform = "scaleY(0)";
+  }
 });
 </script>
-
 
   
   </script>
