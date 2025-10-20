@@ -425,6 +425,69 @@ header p {
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+/* Mobile Responsive Design */
+
+@media (max-width: 1024px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  header .search-box {
+    width: 100%;
+    margin: 10px 0;
+  }
+  nav ul {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    justify-content: flex-start;
+  }
+  nav ul li {
+    padding: 10px;
+  }
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 10px;
+  }
+  header .logo {
+    font-size: 18px;
+  }
+  .product-card {
+    padding: 8px;
+  }
+  .products {
+    grid-template-columns: 1fr;
+  }
+  button, input {
+    font-size: 15px;
+  }
+  footer {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+/* App-Like Feel */
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+nav ul::-webkit-scrollbar {
+  display: none;
+}
+
     
   </style>
 </head>
