@@ -44,11 +44,7 @@ header {
   background: linear-gradient(135deg, var(--primary), var(--accent));
   color: #fff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  width: 100%;
+  position: relative;
   overflow: hidden;
 }
 
@@ -111,7 +107,7 @@ header p {
       justify-content: space-between;
       align-items: center;
       padding: 0.7rem 1.5rem;
-      position: fixed; 
+      position: sticky; 
       top: 0;
       z-index: 1000;
       flex-wrap: wrap;
