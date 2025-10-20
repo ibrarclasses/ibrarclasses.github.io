@@ -49,17 +49,15 @@
 }
     /* Scroll Header */
 #scrollHeader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0.6rem 1.6rem;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  position: fixed;
-  overflow: hidden;
+  background: var(--nav);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.7rem 1.5rem;
+      position: sticky; 
+      top: 0;
+      z-index: 1000;
+      flex-wrap: wrap;
   opacity: 0;
   pointer-events: none;       /* Makes it non-clickable when hidden */
   transition: opacity 0.5s ease;
