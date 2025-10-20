@@ -68,12 +68,30 @@
   pointer-events: all;
 }
 
-    .fixed-header-wrap {
+   .fixed-header-wrap {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
+
+/* Header */
+#scrollHeader {
+  background: linear-gradient(to right, #ff8a00, #da1b60);
+  color: white;
+  padding: 15px 0;
+  transition: all 0.5s ease;
+}
+
+/* NAV (sticks right below header automatically) */
+#mainNav {
+  background: linear-gradient(to right, #f06, #ffcc00);
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 12px 0;
+}
+
 
 
 /* 🧩 Container for logo + title side by side */
