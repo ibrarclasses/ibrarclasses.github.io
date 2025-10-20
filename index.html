@@ -16,19 +16,16 @@
       --card: #fff;
       --text: #1F2937;
 
-      /* Desktop header baseline (kept for desktop visuals) */
-      --topbar-height-desktop: 200px;
-
-      /* Mobile sizes (used in mobile media query too) */
-      --header-height-mobile: 86px;    /* initial header height on mobile */
-      --header-height-mobile-compact: 56px; /* compact header height */
-      --search-height: 56px;
+      /* mobile constants (used by JS too) */
+      --header-height-mobile: 92px; /* initial estimation, will be measured & corrected by JS */
+      --header-height-mobile-compact: 56px;
+      --search-height: 60px;
     }
 
     *{ box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     html,body{ height:100%; margin:0; padding:0; font-family:'Poppins',sans-serif; color:var(--text); background:var(--bg); }
 
-    /* ---------- Desktop/Global header (kept so desktop looks same) ---------- */
+    /* ---------------- DESKTOP / GLOBAL (unchanged look) ---------------- */
     header {
       display:flex;
       align-items:center;
@@ -54,58 +51,84 @@
     header h1 { margin:0; font-size:3rem; font-weight:800; text-shadow:0 0 8px rgba(255,255,255,0.25); }
     header p { margin-top:0.8rem; font-weight:500; font-size:1.05rem; max-width:780px; text-align:center; }
 
-    /* Nav (desktop) */
     nav { background: linear-gradient(135deg,#10B981,#1486a5); display:flex; justify-content:space-between; align-items:center; gap:12px; padding:0.7rem 1.5rem; color:#fff; position:relative; z-index:900; }
     nav .left-links{ display:flex; gap:15px; align-items:center; }
     nav .right-section{ margin-left:auto; display:flex; gap:8px; align-items:center; }
 
-    /* Desktop product layout and other page styles - kept unchanged to preserve desktop look */
     .layout{ max-width:1200px; margin:1.5rem auto; display:grid; grid-template-columns:240px 1fr; gap:1.5rem; padding:0 1rem; }
     .filters{ background:var(--card); border-radius:12px; padding:14px; box-shadow:0 6px 22px rgba(6,24,44,0.06); position:sticky; top:84px; align-self:start; }
     .main{ display:flex; flex-direction:column; gap:1.5rem; }
     .container{ padding:1.5rem; background:var(--card); border-radius:14px; box-shadow:0 6px 22px rgba(6,24,44,0.06); }
     .product-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem; }
 
-    /* Floating controls */
+    /* desktop floating controls (stay visible on desktop) */
     #live-datetime{ position:fixed; top:12px; right:18px; background:rgba(255,255,255,0.92); padding:8px 12px; border-radius:9px; box-shadow:0 4px 12px rgba(2,6,23,0.12); z-index:950; font-size:13px; }
     #darkModeToggle{ position:fixed; top:14px; left:14px; width:46px; height:46px; border-radius:10px; background:rgba(255,255,255,0.92); border:none; z-index:951; box-shadow:0 6px 16px rgba(2,6,23,0.12); cursor:pointer; }
 
     footer{ background:linear-gradient(135deg,#10B981,#1486a5); color:#fff; text-align:center; padding:16px; margin-top:28px; }
 
-    /* ---------- MOBILE-SPECIFIC: isolate everything using media queries ---------- */
+    /* ---------------- MOBILE-ONLY LAYER ----------------
+       Everything inside @media (max-width:960px) is purely mobile behavior.
+       Desktop remains unchanged because display: none/visibility & positioning are scoped here.
+    --------------------------------------------------*/
     @media (max-width: 960px) {
-      /* Reset desktop two-column layout */
-      .layout { grid-template-columns: 1fr; padding: 0; gap: 12px; margin-top: calc(var(--header-height-mobile) + var(--search-height) + 12px); } 
-      /* We set margin-top to push content below the fixed header+search on mobile */
 
-      /* FIXED header: always visible and never disappears */
+      /* layout resets - marginTop will be set dynamically via JS to the exact values */
+      .layout { grid-template-columns: 1fr; padding: 0; gap: 12px; margin-top: 0; }
+
+      /* Fixed header that never disappears */
       header {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         z-index: 1200;
-        padding: 12px 12px; /* initial mobile padding */
+        padding: 12px 12px;
         align-items: flex-start;
         display:flex;
         flex-direction:column;
         gap:6px;
+        transition: padding .28s ease, box-shadow .28s ease, background .28s ease;
       }
+
       header .brand-row { width:100%; gap:12px; align-items:center; justify-content:flex-start; }
       header img { width:86px; height:86px; transition: width .22s ease, height .22s ease, transform .22s ease; }
       header h1 { margin:0; font-size:1.6rem; font-weight:700; text-align:left; transition: font-size .22s ease, transform .22s ease; }
-      header p { margin:0; font-size:0.72rem; opacity:1; color: rgba(255,255,255,0.95); transition: opacity .22s ease, transform .22s ease; text-align:left; }
+      /* tagline visible but small to fit */
+      header p { margin:0; font-size:0.68rem; opacity:1; color: rgba(255,255,255,0.95); transition: opacity .22s ease, transform .22s ease; text-align:left; max-width:calc(100% - 110px); }
 
-      /* Compact header variant when scrolled */
+      /* header compact state (on scroll) */
       header.compact { padding:8px 12px; box-shadow: 0 8px 26px rgba(2,6,23,0.18); }
       header.compact img { width:48px; height:48px; }
       header.compact h1 { font-size:1.05rem; }
-      header.compact p { opacity:0; transform: translateY(-6px); font-size:0.65rem; }
+      header.compact p { opacity:0; transform: translateY(-6px); font-size:0.62rem; }
 
-      /* SEARCH BAR fixed below header */
+      /* HIDE desktop nav links on mobile - we'll show mobile nav inside overlay */
+      nav { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:10px 12px; position:relative; z-index:1199; background:transparent; }
+      nav .left-links { display:none; }
+      nav .right-section { display:flex; gap:8px; align-items:center; }
+
+      /* SHOW hamburger only on mobile */
+      #hamburgerBtn {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        width:46px; height:46px; border-radius:10px; border:none;
+        background: rgba(255,255,255,0.98);
+        box-shadow:0 6px 20px rgba(2,6,23,0.12);
+        cursor:pointer;
+        z-index:1220;
+        transition: transform .18s ease, box-shadow .18s ease;
+      }
+      #hamburgerBtn:active { transform: scale(.98); }
+
+      /* hide desktop floating controls and clone them inside overlay via JS */
+      #live-datetime, #darkModeToggle { opacity:0; pointer-events:none; transform:translateY(-6px); }
+
+      /* mobile search: fixed below header (visible only on mobile) */
       #mobile-search {
         position: fixed;
-        top: calc(var(--header-height-mobile));
+        top: 0; /* exact top will be adjusted by JS to header height measurement */
         left: 0;
         right: 0;
         height: var(--search-height);
@@ -114,10 +137,10 @@
         align-items:center;
         justify-content:center;
         padding:8px 12px;
-        background: linear-gradient(180deg, rgba(248,250,252,0.01), rgba(248,250,252,0.01));
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02));
         backdrop-filter: blur(6px);
+        transition: top .2s ease, opacity .2s ease;
       }
-      /* inner search container */
       #mobile-search .search-inner {
         width:100%;
         max-width:980px;
@@ -129,7 +152,7 @@
         align-items:center;
         width:100%;
         background:#fff;
-        border-radius:10px;
+        border-radius:12px;
         box-shadow:0 6px 18px rgba(2,6,23,0.08);
         padding:8px;
         gap:8px;
@@ -139,73 +162,46 @@
       }
       .search-control button { border:0; background:linear-gradient(135deg,var(--primary),#60a5fa); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:600; }
 
-      /* Hide desktop nav elements on mobile */
-      nav { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:10px 12px; position:relative; z-index:1199; }
-      nav .left-links { display:none; } /* desktop links hidden on mobile */
-      nav .right-section { display:flex; gap:8px; align-items:center; }
-
-      /* Hamburger (top-left) - visible only on mobile */
-      #hamburgerBtn {
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        width:46px; height:46px; border-radius:10px; border:none;
-        background: rgba(255,255,255,0.98);
-        box-shadow:0 6px 20px rgba(2,6,23,0.12);
-        cursor:pointer;
-        z-index:1220;
-      }
-
-      /* Hide desktop floating controls from interfering - we'll clone inside overlay */
-      #live-datetime, #darkModeToggle { opacity:0; pointer-events:none; transform:translateY(-6px); }
-
-      /* MOBILE SLIDE-IN OVERLAY FROM LEFT */
+      /* SOLID left-slide overlay */
       .mobile-overlay {
         position: fixed;
         top: 0;
         left: 0;
-        width: 86%;
+        width: 84%;
         max-width: 420px;
         height: 100vh;
-        background: linear-gradient(180deg,#ffffff,#f7fbff);
+        background: #ffffff; /* solid white as requested */
         z-index:1300;
         transform: translateX(-110%);
-        transition: transform .32s cubic-bezier(.2,.9,.25,1);
-        box-shadow: 10px 0 40px rgba(2,6,23,0.18);
+        transition: transform .34s cubic-bezier(.2,.95,.18,1), box-shadow .25s ease;
+        box-shadow: 12px 0 34px rgba(2,6,23,0.16);
         overflow-y:auto;
         -webkit-overflow-scrolling:touch;
         padding: 18px;
-        border-top-right-radius:12px;
-        border-bottom-right-radius:12px;
       }
       .mobile-overlay.open { transform: translateX(0); }
 
-      .overlay-top {
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:8px;
-        margin-bottom:12px;
-      }
-      .overlay-top .left { display:flex; gap:8px; align-items:center; }
-      .overlay-top .right { display:flex; gap:8px; align-items:center; font-weight:600; color:#0b1220; }
+      .overlay-top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px; }
+      .overlay-top .left { display:flex; gap:10px; align-items:center; }
+      .overlay-top .right { display:flex; gap:8px; align-items:center; color:#0b1220; font-weight:600; font-size:13px; }
 
-      .overlay-nav { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
-      .overlay-nav a { text-decoration:none; color:#0b1220; padding:10px 8px; border-radius:8px; font-weight:600; background:transparent; }
+      .overlay-nav { display:flex; flex-direction:column; gap:6px; margin-top:6px; }
+      .overlay-nav a { text-decoration:none; color:#0b1220; padding:12px 8px; border-radius:8px; font-weight:700; font-size:16px; }
       .overlay-nav a:hover { background: rgba(14,165,233,0.06); }
 
-      .overlay-filters { margin-top:12px; background:rgba(246,249,255,0.9); padding:10px; border-radius:10px; }
+      .overlay-filters { margin-top:14px; background:rgba(246,249,255,0.95); padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(2,6,23,0.04); }
       .overlay-filters .filter-btn { display:inline-block; margin:6px 6px 6px 0; padding:6px 10px; border-radius:8px; background:#fff; box-shadow:0 4px 10px rgba(2,6,23,0.06); font-weight:600; cursor:pointer; }
 
-      /* When overlay is open, show a subtle page backdrop by darkening body (we set via JS by toggling a class on body) */
+      /* page backdrop when overlay open (controlled by body class via JS) */
       body.overlay-active::before{
         content:"";
         position:fixed; inset:0;
         background:rgba(0,0,0,0.28);
-        z-index:1290;
+        z-index:1295;
+        transition: opacity .22s ease;
       }
 
-      /* Compact product grid for mobile - app-like small cards */
+      /* compact product grid for mobile */
       .product-grid {
         display:grid;
         grid-template-columns: repeat(2, 1fr);
@@ -218,49 +214,45 @@
       .product-card p { font-size:0.78rem; color:#475569; height:38px; overflow:hidden; text-align:left; }
       .price { font-weight:700; color:#1a73e8; }
 
-      /* Footer smaller */
+      /* footer adjustments */
       footer { padding:12px; font-size:0.92rem; }
+    }
 
-      /* ensure overlay scroll distance isn't obscured by fixed header+search */
-      .mobile-overlay { padding-top: calc(var(--header-height-mobile) + var(--search-height) + 12px); }
-
-    } /* end mobile media query */
-
-    /* -------------- small helpers -------------- */
+    /* small helpers */
     .hidden { display:none !important; }
     a{color:inherit;}
     button{font-family:inherit;}
-
   </style>
 </head>
 <body>
 
-  <!-- LIVE DATETIME (desktop visible, mobile cloned into overlay) -->
+  <!-- Live date/time (desktop visible; will be cloned into overlay on mobile) -->
   <div id="live-datetime" aria-hidden="false"></div>
 
-  <!-- Dark mode toggle (desktop visible, mobile clone used inside overlay) -->
+  <!-- Dark mode (desktop visible; clone into overlay on mobile) -->
   <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
 
-  <!-- HEADER (desktop & mobile) -->
+  <!-- HEADER (shared markup; behavior scoped to mobile via CSS + JS) -->
   <header id="topHeader" role="banner" aria-label="Top header">
     <div style="display:flex; width:100%; align-items:center; justify-content:space-between;">
-      <!-- Hamburger on mobile appears visually; hidden on desktop by CSS -->
+      <!-- Hamburger: only visible on mobile via CSS -->
       <button id="hamburgerBtn" aria-label="Open menu" title="Menu" style="border:none; background:transparent; font-size:22px; display:none;">☰</button>
 
       <div class="brand-row" style="margin-left:6px;">
         <img src="logost.png" alt="Stationery logo" id="brandLogo" />
         <div style="display:flex; flex-direction:column;">
           <h1 id="brandTitle">Stationery Mall 🛒</h1>
-          <p id="brandTagline" style="margin-top:4px; color:rgba(255,255,255,0.95);">Your one-stop for books & stationery — curated deals from trusted stores, handpicked for students.</p>
+          <!-- small tagline visible on load -->
+          <p id="brandTagline" style="margin-top:4px; color:rgba(255,255,255,0.95);">One-stop for books & stationery — curated deals from trusted stores.</p>
         </div>
       </div>
 
-      <!-- on mobile this area remains empty to keep header compact, desktop will show dark toggle and datetime -->
+      <!-- spacer (desktop will show floating controls visually) -->
       <div style="width:46px; height:46px; margin-right:6px;"></div>
     </div>
   </header>
 
-  <!-- MOBILE SEARCH (fixed under header on mobile) -->
+  <!-- MOBILE SEARCH (fixed below header on mobile). Hidden by default; shown in mobile media via JS/CSS. -->
   <div id="mobile-search" aria-hidden="true" style="display:none;">
     <div class="search-inner">
       <div class="search-control" role="search" aria-label="Search products">
@@ -270,7 +262,7 @@
     </div>
   </div>
 
-  <!-- NAV (desktop visible) -->
+  <!-- NAV (desktop) -->
   <nav>
     <div class="left-links" id="navLinks">
       <a href="index.html">Home</a>
@@ -280,30 +272,22 @@
     </div>
 
     <div class="right-section">
-      <!-- Desktop search (kept) -->
+      <!-- Desktop search (kept untouched) -->
       <div id="desktopSearch" style="display:flex; align-items:center; gap:8px;">
         <div style="display:flex; background:#fff; padding:6px; border-radius:10px; align-items:center; box-shadow:0 6px 18px rgba(2,6,23,0.06);">
           <input id="desktopSearchInput" type="text" placeholder="Search products..." style="border:0; outline:none; padding:8px; width:220px;" aria-label="Search products" />
           <button id="desktopSearchBtn" style="padding:8px 10px; background:linear-gradient(135deg,var(--primary),#60a5fa); color:#fff; border-radius:6px; border:none; cursor:pointer;">🔍</button>
         </div>
       </div>
-
-      <!-- Hamburger (mobile only) - placed here so it's top-left visually when header is fixed -->
-      <div style="display:flex; gap:8px; align-items:center;">
-        <button id="hamburgerBtnDuplicate" aria-hidden="true" style="display:none; border:none; background:transparent;">☰</button>
-      </div>
     </div>
   </nav>
 
-  <!-- MOBILE overlay that slides from left -->
+  <!-- MOBILE OVERLAY: solid white left-side panel -->
   <aside class="mobile-overlay" id="mobileOverlay" aria-hidden="true" role="dialog" aria-label="Mobile menu">
-    <div>
-      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-        <div class="overlay-top left">
-          <!-- clone dark toggle inserted here by JS -->
-          <div id="overlayDarkContainer"></div>
-        </div>
-        <div class="overlay-top right" style="font-size:13px;" id="overlayDateContainer"></div>
+    <div id="overlayInner">
+      <div class="overlay-top">
+        <div class="left" id="overlayDarkContainer" aria-hidden="true"></div>
+        <div class="right" id="overlayDateContainer" aria-hidden="true"></div>
       </div>
 
       <nav class="overlay-nav" aria-label="Mobile navigation">
@@ -325,11 +309,11 @@
   </aside>
 
   <!-- Ticker -->
-  <div class="ticker" style="width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:8px 0; margin-top:calc(var(--topbar-height-desktop) * 0);">
+  <div class="ticker" style="width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:8px 0; margin-top:0;">
     <div class="ticker__content" id="tickerText"></div>
   </div>
 
-  <!-- Main layout -->
+  <!-- MAIN LAYOUT -->
   <main class="layout" id="pageContent" role="main">
     <aside class="filters" id="filtersPanel">
       <h3>Filters</h3>
@@ -364,7 +348,6 @@
           </div>
         </div>
       </section>
-
     </section>
   </main>
 
@@ -380,64 +363,57 @@
 
   <button id="back-to-top" aria-label="Back to top" style="position:fixed;right:20px;bottom:96px;display:none; z-index:1400; background:var(--primary); color:#fff; border:none; width:46px; height:46px; border-radius:50%;">↑</button>
 
-  <!-- ====== SCRIPTS ====== -->
+  <!-- ===== SCRIPTS ===== -->
   <script>
-    /* ------------------ Utility helpers ------------------ */
-    function $(sel){ return document.querySelector(sel); }
-    function $all(sel){ return Array.from(document.querySelectorAll(sel)); }
+    /* ---------- Small helpers ---------- */
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
 
-    /* ------------------ Live datetime ------------------ */
-    const liveDateEl = document.getElementById('live-datetime');
-    function updateDateTime(){
+    /* ---------------- Live Date/Time ---------------- */
+    const liveDateEl = $('#live-datetime');
+    function updateDateTime() {
       const now = new Date();
       const dateStr = now.toLocaleDateString('en-IN', { weekday:'short', year:'numeric', month:'short', day:'numeric' });
       const timeStr = now.toLocaleTimeString('en-IN');
       if(liveDateEl) liveDateEl.textContent = `${dateStr} | ${timeStr}`;
-      // overlay clone also updated if present
-      const overlayDate = document.getElementById('overlayDateContainer');
+      const overlayDate = $('#overlayDateContainer');
       if(overlayDate) overlayDate.textContent = `${dateStr} • ${timeStr}`;
     }
     updateDateTime(); setInterval(updateDateTime, 1000);
 
-    /* ------------------ Dark mode toggle ------------------ */
-    const darkToggle = document.getElementById('darkModeToggle');
-    if(localStorage.getItem('ibrar-dark') === '1'){ document.documentElement.classList.add('dark-mode'); if(darkToggle) darkToggle.textContent='☀️'; }
-    if(darkToggle) darkToggle.addEventListener('click', ()=> {
+    /* ---------------- Dark Mode toggle ---------------- */
+    const darkToggle = $('#darkModeToggle');
+    if(localStorage.getItem('ibrar-dark') === '1') {
+      document.documentElement.classList.add('dark-mode');
+      if(darkToggle) darkToggle.textContent = '☀️';
+    }
+    if(darkToggle) darkToggle.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark-mode');
       const on = document.documentElement.classList.contains('dark-mode');
       localStorage.setItem('ibrar-dark', on ? '1' : '0');
       darkToggle.textContent = on ? '☀️' : '🌙';
     });
 
-    /* ------------------ Back to top ------------------ */
-    const backBtn = document.getElementById('back-to-top');
-    window.addEventListener('scroll', ()=> { if(window.scrollY > 280) backBtn.style.display='block'; else backBtn.style.display='none'; });
-    backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}) );
-
-    /* ------------------ Ticker messages ------------------ */
+    /* ---------------- Ticker ---------------- */
     (function initTicker(){
-      const messages = [
+      const msgs = [
         "🛒 Affiliate links to Flipkart, Amazon & Meesho — we may earn a small fee.",
         "📦 Products updated regularly for the best deals.",
         "❤️ Handpicked products for students — curated with care.",
         "🔍 Use the search bar to find items quickly."
       ];
-      const tickerText = document.getElementById('tickerText');
-      if(!tickerText) return;
-      let i=0;
-      function show(){
-        tickerText.textContent = messages[i];
-        i = (i+1) % messages.length;
-        setTimeout(show, 6000);
-      }
+      const el = $('#tickerText');
+      if(!el) return;
+      let i = 0;
+      function show(){ el.textContent = msgs[i]; i = (i+1) % msgs.length; setTimeout(show, 5000); }
       show();
     })();
 
-    /* ------------------ Products, filters & search (simple demo logic) ------------------ */
+    /* ---------------- Products & Filters (demo static data) ---------------- */
     (function productModule(){
-      const grid = document.getElementById('productGrid');
-      const filterListEl = document.getElementById('filterList');
-      const overlayFilterButtons = document.getElementById('overlayFilterButtons');
+      const grid = $('#productGrid');
+      const filterListEl = $('#filterList');
+      const overlayFilterButtons = $('#overlayFilterButtons');
       const demoProducts = [
         { title:'A4 Notebook', desc:'210 pages, spiral', price:'₹139', image:'https://via.placeholder.com/300x300?text=Notebook', category:'Notebooks' },
         { title:'Ball Pen (Pack)', desc:'Smooth writing', price:'₹89', image:'https://via.placeholder.com/300x300?text=Pen', category:'Pens' },
@@ -448,113 +424,118 @@
         { title:'Pencil Pack', desc:'12 pencils', price:'₹59', image:'https://via.placeholder.com/300x300?text=Pencil', category:'Pens' },
         { title:'Desk Organizer', desc:'Keep tidy', price:'₹299', image:'https://via.placeholder.com/300x300?text=Organizer', category:'Gadgets' }
       ];
-      const categories = Array.from(new Set(demoProducts.map(p=>p.category)));
+      const categories = Array.from(new Set(demoProducts.map(p => p.category)));
       let activeFilters = [];
 
       function renderFilters(){
         filterListEl.innerHTML = '';
         overlayFilterButtons.innerHTML = '';
-        categories.forEach(cat=>{
+        categories.forEach(cat => {
           const lab = document.createElement('label');
           lab.style.display='flex'; lab.style.gap='8px'; lab.style.alignItems='center'; lab.style.marginBottom='6px';
           const chk = document.createElement('input'); chk.type='checkbox'; chk.value=cat;
-          chk.addEventListener('change', ()=>{ syncFilters(); renderProducts(); });
+          chk.addEventListener('change', () => { syncFilters(); renderProducts(); });
           lab.appendChild(chk);
           const span = document.createElement('span'); span.textContent = cat; lab.appendChild(span);
           filterListEl.appendChild(lab);
 
-          const fbtn = document.createElement('button'); fbtn.className='filter-btn'; fbtn.textContent=cat;
-          fbtn.addEventListener('click', ()=>{
-            if(activeFilters.includes(cat)) activeFilters = activeFilters.filter(x=>x!==cat);
+          const fbtn = document.createElement('button'); fbtn.className='filter-btn'; fbtn.textContent = cat;
+          fbtn.addEventListener('click', () => {
+            if(activeFilters.includes(cat)) activeFilters = activeFilters.filter(x => x !== cat);
             else activeFilters.push(cat);
             // sync checkboxes
-            filterListEl.querySelectorAll('input[type="checkbox"]').forEach(i => { if(activeFilters.includes(i.value)) i.checked = true; else i.checked=false; });
+            filterListEl.querySelectorAll('input[type="checkbox"]').forEach(i => { if(activeFilters.includes(i.value)) i.checked=true; else i.checked=false; });
             renderProducts();
           });
           overlayFilterButtons.appendChild(fbtn);
         });
       }
 
-      function syncFilters(){
-        activeFilters = Array.from(filterListEl.querySelectorAll('input[type="checkbox"]:checked')).map(i=>i.value);
-      }
+      function syncFilters(){ activeFilters = Array.from(filterListEl.querySelectorAll('input[type="checkbox"]:checked')).map(i => i.value); }
 
       function renderProducts(){
-        const q = (document.getElementById('mobileSearchInput')?.value || document.getElementById('desktopSearchInput')?.value || '').toLowerCase().trim();
+        const q = ($('#mobileSearchInput')?.value || $('#desktopSearchInput')?.value || '').toLowerCase().trim();
         let list = demoProducts.slice();
         if(activeFilters.length) list = list.filter(p => activeFilters.includes(p.category));
         if(q) list = list.filter(p => (p.title + ' ' + p.desc + ' ' + p.category).toLowerCase().includes(q));
         grid.innerHTML = '';
         if(!list.length) { grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#475569">No items found</p>'; return; }
-        list.forEach(p=>{
-          const card = document.createElement('div'); card.className='product-card';
-          card.innerHTML = `<img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.src='fallback.jpg'"><h3>${p.title}</h3><p>${p.desc}</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="price">${p.price}</span><a class="buy-btn" href="#" style="text-decoration:none;padding:6px 10px;border-radius:8px;background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;font-weight:700;">Buy</a></div>`;
+        list.forEach(p => {
+          const card = document.createElement('div'); card.className = 'product-card';
+          card.innerHTML = `<img src="${p.image}" alt="${p.title}" loading="lazy"><h3>${p.title}</h3><p>${p.desc}</p><div style="display:flex;align-items:center;justify-content:space-between;"><span class="price">${p.price}</span><a class="buy-btn" href="#" style="text-decoration:none;padding:6px 10px;border-radius:8px;background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;font-weight:700;">Buy</a></div>`;
           grid.appendChild(card);
         });
       }
 
-      document.getElementById('mobileSearchBtn')?.addEventListener('click', renderProducts);
-      document.getElementById('desktopSearchBtn')?.addEventListener('click', renderProducts);
-      document.getElementById('mobileSearchInput')?.addEventListener('keyup', (e)=>{ if(e.key === 'Enter') renderProducts(); });
-      document.getElementById('desktopSearchInput')?.addEventListener('keyup', (e)=>{ if(e.key === 'Enter') renderProducts(); });
+      $('#mobileSearchBtn')?.addEventListener('click', renderProducts);
+      $('#desktopSearchBtn')?.addEventListener('click', renderProducts);
+      $('#mobileSearchInput')?.addEventListener('keyup', e => { if(e.key === 'Enter') renderProducts(); });
+      $('#desktopSearchInput')?.addEventListener('keyup', e => { if(e.key === 'Enter') renderProducts(); });
 
       renderFilters();
       renderProducts();
     })();
 
-    /* ------------------ MOBILE UX: hamburger, clone controls, header shrink behavior ------------------ */
+    /* ---------------- Mobile UX: header shrink, fixed search, left overlay ---------------- */
     (function mobileUX(){
       const mq = window.matchMedia('(max-width:960px)');
-      const hamburger = document.getElementById('hamburgerBtn');
-      const hamburgerDup = document.getElementById('hamburgerBtnDuplicate');
-      const mobileSearch = document.getElementById('mobile-search');
-      const overlay = document.getElementById('mobileOverlay');
-      const closeOverlayBtn = document.getElementById('closeOverlayBtn');
-      const overlayDarkContainer = document.getElementById('overlayDarkContainer');
-      const overlayDateContainer = document.getElementById('overlayDateContainer');
-      const topHeader = document.getElementById('topHeader');
-      const brandTagline = document.getElementById('brandTagline');
+      const hamburger = $('#hamburgerBtn');
+      const overlay = $('#mobileOverlay');
+      const closeOverlayBtn = $('#closeOverlayBtn');
+      const overlayDarkContainer = $('#overlayDarkContainer');
+      const overlayDateContainer = $('#overlayDateContainer');
+      const mobileSearch = $('#mobile-search');
+      const topHeader = $('#topHeader');
       const body = document.body;
 
-      function setupMobileUI(){
-        if(mq.matches){
-          // show mobile search and hamburger
-          mobileSearch.style.display = 'flex';
-          // Display the single hamburger (top-left inside header)
-          hamburger.style.display = 'inline-flex';
-          // ensure right desktop duplicates hidden
-          if(hamburgerDup) hamburgerDup.style.display = 'none';
-
-          // clone dark toggle into overlay (if not already)
-          if(!document.getElementById('overlayDarkBtn') && document.getElementById('darkModeToggle')){
-            const orig = document.getElementById('darkModeToggle');
-            const clone = orig.cloneNode(true);
-            clone.id = 'overlayDarkBtn';
-            clone.style.opacity = 1;
-            clone.style.pointerEvents = 'auto';
-            clone.style.background = 'transparent';
-            clone.style.border = '1px solid rgba(0,0,0,0.06)';
-            clone.style.padding = '6px 8px';
-            clone.style.borderRadius = '8px';
-            clone.addEventListener('click', ()=> orig.click());
-            overlayDarkContainer.appendChild(clone);
-          }
-
-          // ensure overlay date/time displays live value
-          // updateDateTime() handles text updates
-
-          // Populate overlay filters quick UI is handled by product module earlier
-        } else {
-          // desktop: hide mobile-only controls
-          mobileSearch.style.display = 'none';
-          hamburger.style.display = 'none';
-          if(hamburgerDup) hamburgerDup.style.display = 'none';
-          // remove clones if any
-          const c = document.getElementById('overlayDarkBtn'); if(c && c.parentNode) c.parentNode.removeChild(c);
+      // measure and set offsets so content doesn't hide under fixed header+search
+      function setContentOffset(){
+        if(!mq.matches){
+          $('#pageContent').style.marginTop = '';
+          // show desktop floating controls
+          if($('#live-datetime')) $('#live-datetime').style.opacity = '';
+          if($('#darkModeToggle')) $('#darkModeToggle').style.opacity = '';
+          return;
         }
+        // header may change height when 'compact'; measure actual heights
+        const headerRect = topHeader.getBoundingClientRect();
+        const headerHeight = Math.ceil(headerRect.height);
+        const searchRect = mobileSearch.getBoundingClientRect();
+        const searchHeight = Math.ceil(searchRect.height) || parseInt(getComputedStyle(document.documentElement).getPropertyValue('--search-height')) || 60;
+        const total = headerHeight + searchHeight + 12; // small gap
+        $('#pageContent').style.marginTop = total + 'px';
+        // place mobile-search directly below header
+        mobileSearch.style.top = headerHeight + 'px';
       }
 
-      // Hamburger toggle behavior
+      function showMobileElements(){
+        if(!mq.matches) return;
+        // show hamburger and mobile-search
+        if(hamburger) hamburger.style.display = 'inline-flex';
+        if(mobileSearch) mobileSearch.style.display = 'flex';
+        // clone dark toggle into overlay if not present
+        if(overlayDarkContainer && !$('#overlayDarkBtn') && $('#darkModeToggle')){
+          const orig = $('#darkModeToggle');
+          const clone = orig.cloneNode(true);
+          clone.id = 'overlayDarkBtn';
+          clone.style.background = 'transparent';
+          clone.style.border = '1px solid rgba(0,0,0,0.06)';
+          clone.style.padding = '6px 8px';
+          clone.style.borderRadius = '8px';
+          clone.addEventListener('click', () => { orig.click(); });
+          overlayDarkContainer.appendChild(clone);
+        }
+        // ensure overlay date/time shows
+        updateDateTime();
+      }
+
+      function hideMobileElements(){
+        if(hamburger) hamburger.style.display = 'none';
+        if(mobileSearch) mobileSearch.style.display = 'none';
+        const c = $('#overlayDarkBtn'); if(c && c.parentNode) c.parentNode.removeChild(c);
+      }
+
+      // overlay open/close
       function openOverlay(){
         overlay.classList.add('open');
         overlay.setAttribute('aria-hidden','false');
@@ -568,89 +549,68 @@
         document.body.style.overflow = '';
       }
 
-      if(hamburger) hamburger.addEventListener('click', ()=> {
-        if(overlay.classList.contains('open')) closeOverlay(); else openOverlay();
-      });
-      if(closeOverlayBtn) closeOverlayBtn.addEventListener('click', closeOverlay);
+      // click handlers
+      hamburger?.addEventListener('click', () => { if(overlay.classList.contains('open')) closeOverlay(); else openOverlay(); });
+      closeOverlayBtn?.addEventListener('click', closeOverlay);
 
-      // close overlay if clicking outside it (we listen to document)
-      document.addEventListener('click', (e)=>{
+      // close when clicking outside overlay
+      document.addEventListener('click', (e) => {
         if(!mq.matches) return;
-        if(overlay.classList.contains('open')){
-          const isInside = overlay.contains(e.target) || hamburger.contains(e.target);
-          if(!isInside) closeOverlay();
-        }
+        if(!overlay.classList.contains('open')) return;
+        const isInside = overlay.contains(e.target) || (hamburger && hamburger.contains(e.target));
+        if(!isInside) closeOverlay();
       });
 
-      // Prevent clicks inside overlay from closing when interacting
-      overlay.addEventListener('click', (e)=>{ /* let it bubble - document handler handles outside clicks */ });
-
-      // Header shrink behavior: header is fixed and must never disappear
+      // header shrink behavior (only toggles .compact; header never disappears)
+      let lastScroll = 0;
       function onScroll(){
-        if(!mq.matches) {
-          topHeader.classList.remove('compact');
-          return;
-        }
+        if(!mq.matches){ topHeader.classList.remove('compact'); setContentOffset(); return; }
         const sc = window.scrollY || document.documentElement.scrollTop;
         if(sc > 48) topHeader.classList.add('compact');
         else topHeader.classList.remove('compact');
+        // update offsets when header size changes
+        setContentOffset();
+        lastScroll = sc;
       }
-      window.addEventListener('resize', setupMobileUI);
-      window.addEventListener('orientationchange', setupMobileUI);
+
+      // initial & responsive
+      function onResize(){
+        if(mq.matches) showMobileElements(); else hideMobileElements();
+        // small delay to allow layout recalculation
+        setTimeout(setContentOffset, 50);
+      }
+
+      window.addEventListener('resize', onResize);
+      window.addEventListener('orientationchange', onResize);
       window.addEventListener('scroll', onScroll, { passive:true });
 
-      // initial run
-      setupMobileUI();
+      // run once
+      onResize();
       onScroll();
     })();
 
-    /* ------------------ Accessibility & tuning ------------------ */
-    // ensure main content is pushed down below fixed header + search on mobile: 
-    // we already set .layout margin-top using CSS calc(var(--header-height-mobile) + var(--search-height))
-    // But if you want exact computed values (e.g. when header becomes compact), we can adjust dynamically:
-    (function adjustContentOffset(){
-      function applyOffset(){
-        if(window.matchMedia('(max-width:960px)').matches){
-          const header = document.getElementById('topHeader');
-          const mobileSearch = document.getElementById('mobile-search');
-          const layout = document.getElementById('pageContent');
-          const h = header ? header.getBoundingClientRect().height : 0;
-          const s = mobileSearch ? mobileSearch.getBoundingClientRect().height : 0;
-          if(layout) layout.style.marginTop = (h + s + 12) + 'px';
-        } else {
-          const layout = document.getElementById('pageContent');
-          if(layout) layout.style.marginTop = '';
-        }
-      }
-      window.addEventListener('resize', applyOffset);
-      window.addEventListener('load', applyOffset);
-      window.addEventListener('orientationchange', applyOffset);
-      // also adjust when header may change (scroll)
-      window.addEventListener('scroll', applyOffset, { passive:true });
-      applyOffset();
+    /* ---------------- Adjust content offset on load and when fonts/images change ---------------- */
+    (function adjustOnLoad(){
+      window.addEventListener('load', () => {
+        // force recalculation after small delay (images/fonts loaded)
+        setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 120);
+      });
     })();
 
-    /* ------------------ Visitor counter (demo) ------------------ */
+    /* ---------------- back-to-top ---------------- */
+    (function backToTop(){
+      const btn = $('#back-to-top');
+      window.addEventListener('scroll', () => { if(window.scrollY > 280) btn.style.display='block'; else btn.style.display='none'; });
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    })();
+
+    /* ---------------- visitor-counter demo ---------------- */
     (function visitorCounter(){
-      const vi = document.getElementById('visitor-info');
+      const vi = $('#visitor-info');
       if(!vi) return;
       let count = parseInt(localStorage.getItem('ibrar_visitors') || '72', 10);
-      function tick(){
-        if(Math.random() < 0.4) count = Math.min(999, count + Math.floor(Math.random() * 3));
-        localStorage.setItem('ibrar_visitors', count);
-        vi.innerHTML = `Visitors this month: <strong>${count}</strong>`;
-      }
-      tick();
-      setInterval(tick, 8000);
-    })();
-
-    /* ------------------ Ensure date/time overlay shows at start ------------------ */
-    (function populateOverlayDateNow(){
-      const overlayDate = document.getElementById('overlayDateContainer');
-      if(overlayDate){
-        const now = new Date();
-        overlayDate.textContent = now.toLocaleString('en-IN', { weekday:'short', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
-      }
+      function tick(){ if(Math.random()<0.4) count = Math.min(999, count + Math.floor(Math.random()*3)); localStorage.setItem('ibrar_visitors', count); vi.innerHTML = `Visitors this month: <strong>${count}</strong>`; }
+      tick(); setInterval(tick, 8000);
     })();
 
   </script>
