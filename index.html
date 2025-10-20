@@ -44,7 +44,11 @@ header {
   background: linear-gradient(135deg, var(--primary), var(--accent));
   color: #fff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -240,6 +244,7 @@ header p {
 
     /* Main column keeps product grid and other content */
     .main {
+      margin-top: 80px;
       display:flex; flex-direction:column; gap:1.5rem;
     }
 
