@@ -488,45 +488,50 @@ nav ul::-webkit-scrollbar {
   }
 }
 
-/* Header & Nav base */
+/* Make entire header sticky */
 #main-header {
-  transition: all 0.4s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(90deg, #1f2937, #111827);
+  transition: height 0.3s ease;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-#main-header .brand-row img.logo {
-  height: 70px; /* original logo size */
-  transition: all 0.4s ease;
+/* Brand row flex */
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Logo and texts default sizes */
+.logo {
+  height: 70px; /* original size */
+  transition: height 0.3s ease;
 }
 
 #main-header h1 {
-  font-size: 2rem; /* original title size */
-  transition: all 0.4s ease;
+  font-size: 2rem; /* original */
+  transition: font-size 0.3s ease;
 }
 
-#main-header .tagline {
-  font-size: 1rem; /* original tagline size */
-  transition: all 0.4s ease;
+.tagline {
+  font-size: 1rem; /* original */
+  margin: 5px 0 0 0;
+  transition: font-size 0.3s ease;
 }
 
+/* Nav bar sticky */
 #navbar {
   position: sticky;
-  top: 0;
+  top: 0; /* stays just below header */
+  background: rgba(0,0,0,0.2);
   z-index: 999;
-  transition: all 0.4s ease;
-}
-
-/* Shrinked state */
-#main-header.shrink .brand-row img.logo {
-  height: 40px; /* smaller logo */
-}
-
-#main-header.shrink h1 {
-  font-size: 1.2rem;
-}
-
-#main-header.shrink .tagline {
-  font-size: 0.7rem;
-  margin-bottom: 5px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
 }
 
 
@@ -984,20 +989,33 @@ nav ul::-webkit-scrollbar {
     })();
     </script>
 
-  <script>
-let lastScrollTop = 0;
+<script>
 const header = document.getElementById("main-header");
+const logo = header.querySelector(".logo");
+const title = header.querySelector("h1");
+const tagline = header.querySelector(".tagline");
+const navbar = document.getElementById("navbar");
 
-window.addEventListener("scroll", function () {
-  let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+// Original sizes
+const logoOriginal = 70; // px
+const titleOriginal = 32; // approx 2rem
+const taglineOriginal = 16; // approx 1rem
 
-  if (currentScroll > lastScrollTop && currentScroll > 80) {
-    header.classList.add("shrink");
-  } else {
-    header.classList.remove("shrink");
-  }
+// Shrink limits
+const logoMin = 40;
+const titleMin = 18;
+const taglineMin = 10;
 
-  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+
+  // Shrink factor: adjust speed
+  const factor = Math.min(scrollY / 200, 1); // max shrink at 200px scroll
+
+  // Apply progressive shrinking
+  logo.style.height = (logoOriginal - (logoOriginal - logoMin) * factor) + "px";
+  title.style.fontSize = (titleOriginal - (titleOriginal - titleMin) * factor) + "px";
+  tagline.style.fontSize = (taglineOriginal - (taglineOriginal - taglineMin) * factor) + "px";
 });
 </script>
 
