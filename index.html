@@ -488,71 +488,45 @@ nav ul::-webkit-scrollbar {
   }
 }
 
-/* ===== Scroll Shrink Header ===== */
+/* Header & Nav base */
 #main-header {
+  transition: all 0.4s ease;
+}
+
+#main-header .brand-row img.logo {
+  height: 70px; /* original logo size */
+  transition: all 0.4s ease;
+}
+
+#main-header h1 {
+  font-size: 2rem; /* original title size */
+  transition: all 0.4s ease;
+}
+
+#main-header .tagline {
+  font-size: 1rem; /* original tagline size */
+  transition: all 0.4s ease;
+}
+
+#navbar {
   position: sticky;
   top: 0;
-  z-index: 1000;
-  background: linear-gradient(90deg, #1f2937, #111827);
-  color: white;
+  z-index: 999;
   transition: all 0.4s ease;
 }
 
-/* Header Top Section */
-#main-header .header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 30px;
-  transition: all 0.4s ease;
+/* Shrinked state */
+#main-header.shrink .brand-row img.logo {
+  height: 40px; /* smaller logo */
 }
 
-/* Logo */
-#main-header .logo {
-  height: 70px;
-  transition: all 0.4s ease;
-}
-
-/* Site Name */
-#main-header .site-name h1 {
-  font-size: 2rem;
-  margin: 0;
-  transition: all 0.4s ease;
-}
-#main-header .site-name .tagline {
-  font-size: 1rem;
-  margin: 0;
-  transition: all 0.4s ease;
-}
-
-/* Navbar */
-#navbar {
-  background: rgba(0,0,0,0.2);
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  transition: all 0.4s ease;
-}
-
-/* Shrinked Header */
-#main-header.shrink .header-top {
-  padding: 5px 20px;
-}
-
-#main-header.shrink .logo {
-  height: 40px;
-}
-
-#main-header.shrink .site-name h1 {
+#main-header.shrink h1 {
   font-size: 1.2rem;
 }
 
-#main-header.shrink .site-name .tagline {
+#main-header.shrink .tagline {
   font-size: 0.7rem;
-}
-
-#navbar.shrink {
-  padding: 5px 20px;
+  margin-bottom: 5px;
 }
 
 
@@ -568,37 +542,29 @@ nav ul::-webkit-scrollbar {
   <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
 
   <header id="main-header">
-    <div class="header-top">
-      <div class="brand-row">
-        <img src="logost.png" alt="Stationery logo" class="logo" />
-        <div class="site-name">
-          <h1>Stationery Mall 🛒</h1>
-          <p class="tagline">Your ultimate destination for books & stationery</p>
-        </div>
-      </div>
+  <div class="brand-row">
+    <img src="logost.png" alt="Stationery logo" class="logo"/>
+    <h1>Stationery Mall 🛒</h1>
+  </div>
+  <p class="tagline">
+    Welcome to Stationery Mall — your ultimate destination for all your books and stationery needs...
+  </p>
+</header>
 
-      <div class="header-tools">
-        <span id="live-datetime"></span>
-        <button id="darkModeToggle">🌙</button>
-      </div>
+<nav id="navbar">
+  <div class="left-links">
+    <a href="index.html">Home</a>
+    <a href="#about">About</a>
+    <a href="#faq">FAQ</a>
+    <a href="#disclaimer">Disclaimer</a>
+  </div>
+  <div class="right-section">
+    <div id="searchBarContainer" style="color:transparent;">
+      <input id="searchInput" type="text" placeholder="Search products..." aria-label="Search products" />
+      <button id="searchBtn" aria-label="Search">🔍</button>
     </div>
-
-    <nav id="navbar">
-      <div class="left-links">
-        <a href="index.html">Home</a>
-        <a href="#about">About</a>
-        <a href="#faq">FAQ</a>
-        <a href="#disclaimer">Disclaimer</a>
-      </div>
-
-      <div class="right-section">
-        <div id="searchBarContainer" style="color:transparent;">
-          <input id="searchInput" type="text" placeholder="Search products..." aria-label="Search products" />
-          <button id="searchBtn" aria-label="Search">🔍</button>
-        </div>
-      </div>
-    </nav>
-  </header>
+  </div>
+</nav>
 
 
   <!-- Ticker -->
@@ -1017,26 +983,22 @@ nav ul::-webkit-scrollbar {
       updateDisplay();
     })();
     </script>
-<script>
+
+  <script>
 let lastScrollTop = 0;
 const header = document.getElementById("main-header");
-const navbar = document.getElementById("navbar");
 
 window.addEventListener("scroll", function () {
   let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
   if (currentScroll > lastScrollTop && currentScroll > 80) {
-    // Scroll down → shrink
     header.classList.add("shrink");
-    navbar.classList.add("shrink");
   } else {
-    // Scroll up → expand
     header.classList.remove("shrink");
-    navbar.classList.remove("shrink");
   }
 
   lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-}, false);
+});
 </script>
 
   
