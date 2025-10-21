@@ -202,134 +202,90 @@ header p {
   box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
 }
 
-/* ---------- RESPONSIVE, VARIABLE-DRIVEN HEADER (no transform scaling on header itself) ---------- */
-/* define defaults if not already present */
-:root{
+/* === HEADER / NAV / TICKER SMART SHRINK SYSTEM === */
+
+/* Base sizing variables */
+:root {
   --nav-height: 56px;
-  --header-expanded: calc(var(--nav-height) * 4); /* pixels or calc */
+  --header-expanded: calc(var(--nav-height) * 4);
   --header-shrunk: calc(var(--nav-height) * 2);
-  --header-height: var(--header-expanded); /* runtime updated by JS */
-  --ticker-height: 0px; /* runtime updated by JS */
-  --page-offset: calc(var(--header-height) + var(--nav-height) + var(--ticker-height) + 1rem);
-  --logo-base: 80px;
-  --title-base: 1.6rem;
-  --tagline-base: 0.95rem;
-  --logo-size: var(--logo-base);
-  --title-size: var(--title-base);
-  --tagline-size: var(--tagline-base);
+  --header-height: var(--header-expanded);
 }
 
-/* header container: do NOT scale the whole header with transform.
-   Instead size it via height and let inner elements scale with CSS vars. */
+/* Header always full-width and top-sticky */
 header {
-  height: var(--header-height);
-  padding: 0.6rem 1rem;
-  transition: height 420ms cubic-bezier(.22,.9,.28,1), padding 360ms ease;
   position: sticky;
   top: 0;
-  z-index: 1000;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  overflow:visible;
-  will-change: height;
+  z-index: 1200;
+  width: 100%;
+  height: var(--header-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   background: linear-gradient(135deg, var(--primary), var(--accent));
-  backdrop-filter: blur(0px); /* will be tuned by JS via class */
+  color: #fff;
+  transition: height 0.4s cubic-bezier(.22,.9,.28,1);
+  overflow: hidden;
 }
 
-/* inner elements read from vars updated by JS */
-header .brand-row img {
-  width: var(--logo-size);
-  height: var(--logo-size);
-  transition: width 380ms cubic-bezier(.22,.9,.28,1), height 380ms cubic-bezier(.22,.9,.28,1), filter 360ms;
+/* Inner elements scale smoothly via vars updated by JS */
+header img {
+  width: var(--logo-size, 80px);
+  height: var(--logo-size, 80px);
+  border-radius: 50%;
   object-fit: cover;
+  transition: width .4s cubic-bezier(.22,.9,.28,1), height .4s cubic-bezier(.22,.9,.28,1);
 }
-
 header h1 {
-  font-size: var(--title-size);
-  transition: font-size 360ms cubic-bezier(.22,.9,.28,1), letter-spacing 300ms;
-  margin:0;
+  font-size: var(--title-size, 1.6rem);
+  margin: .3rem 0 0;
+  transition: font-size .35s cubic-bezier(.22,.9,.28,1);
 }
-
 header p {
-  font-size: var(--tagline-size);
-  transition: font-size 300ms cubic-bezier(.22,.9,.28,1), opacity 300ms;
-  max-width:720px;
-  margin-top:0.6rem;
-  opacity:1;
+  font-size: var(--tagline-size, .95rem);
+  opacity: var(--tagline-opacity, 1);
+  margin: .3rem 0 0;
+  transition: all .35s cubic-bezier(.22,.9,.28,1);
 }
 
-/* subtle blur applied when fully shrunk for premium glass effect (toggled smoothly) */
-header.shrunk-glass {
-  backdrop-filter: blur(8px);
-}
-
-/* NAV uses CSS var for top so it always sits directly under header */
+/* Nav pinned directly below header */
 nav {
-  height: var(--nav-height);
-  top: var(--header-height);
-  transition: top 420ms cubic-bezier(.22,.9,.28,1);
   position: sticky;
-  z-index:1100;
+  top: var(--header-height);
+  z-index: 1100;
+  height: var(--nav-height);
+  background: var(--nav);  /* keep your gradient variable */
+  transition: top .4s cubic-bezier(.22,.9,.28,1);
 }
 
-/* ticker sits under nav and will read --header-height + nav */
+/* Ticker always below nav */
 .ticker {
   position: sticky;
   top: calc(var(--header-height) + var(--nav-height));
   z-index: 1099;
-  transition: top 420ms cubic-bezier(.22,.9,.28,1);
+  transition: top .4s cubic-bezier(.22,.9,.28,1);
 }
 
-/* layout padding-top depends on page-offset var which JS updates on load and resize */
+/* Layout padding ensures content starts below ticker */
 .layout {
-  padding-top: var(--page-offset);
-  transition: padding-top 420ms cubic-bezier(.22,.9,.28,1);
+  padding-top: calc(var(--header-height) + var(--nav-height) + var(--ticker-height, 0px) + 16px);
+  transition: padding-top .4s cubic-bezier(.22,.9,.28,1);
 }
 
-/* Filters stick to just below the ticker (use computed offsets) */
+/* Filters follow ticker */
 .filters {
   position: sticky;
-  top: calc(var(--header-height) + var(--nav-height) + var(--ticker-height) + 12px);
-  transition: top 420ms cubic-bezier(.22,.9,.28,1);
-}
-
-/* small responsive tweaks still apply */
-@media (max-width:768px){
-  header { position: relative; height: auto; }
-  nav { top: 0; position: relative; }
-  .ticker { position: relative; top: auto; }
-  .layout { padding-top: 0.5rem; }
-  .filters { position: relative; top: auto; }
-}
-    /* ---- stacking & sticky fixes ---- */
-header {
-  z-index: 1200; /* header above nav */
-}
-
-/* nav should stay below header but above page content */
-nav {
-  z-index: 1100;
-  background: linear-gradient(135deg, var(--primary), var(--accent)); /* keep existing look */
-}
-
-/* ticker below nav */
-.ticker {
-  z-index: 1099;
-  position: sticky; /* ensure sticky on all modern browsers */
-  /* top will be set inline by JS to keep it exactly below nav/header */
-}
-
-/* filters should be above page content but below ticker/nav */
-.filters {
+  top: calc(var(--header-height) + var(--nav-height) + var(--ticker-height, 0px) + 12px);
   z-index: 1080;
+  transition: top .4s cubic-bezier(.22,.9,.28,1);
 }
 
-/* ensure layout respects inline paddingTop */
-.layout {
-  /* don't rely on only CSS variable --page-offset for first paint — JS will set inline padding */
-  transition: padding-top 420ms cubic-bezier(.22,.9,.28,1);
+/* Mobile fallback: disable shrinking */
+@media (max-width: 768px) {
+  header, nav, .ticker, .layout, .filters { position: relative; top: auto; }
+  header { height: auto; }
 }
 
     
@@ -1105,138 +1061,88 @@ so you get bang for your buck - everytime ❤️</p>
     </script>
 
  <script> 
-   /* ======= Smooth header controller (improved: synchronously fixes layout on load) ======= */
-(function smoothHeaderController_v2(){
-  const docEl = document.documentElement;
+/* === ROBUST HEADER SHRINK CONTROLLER === */
+(function headerShrinkSystem(){
+  const doc = document.documentElement;
   const header = document.querySelector('header');
   const nav = document.querySelector('nav');
   const ticker = document.querySelector('.ticker');
   const layout = document.querySelector('.layout');
   const filters = document.querySelector('.filters');
 
-  function getCssNumberVar(name, fallback){
-    const v = getComputedStyle(docEl).getPropertyValue(name).trim();
-    if(!v) return fallback;
-    if(v.endsWith('px')) return parseFloat(v);
-    return parseFloat(v) || fallback;
-  }
-
-  // base constants
-  const navHeight = getCssNumberVar('--nav-height', 56);
-  const expandedH = navHeight * 4;
-  const shrunkH = navHeight * 2;
+  // constants
+  const navH = 56;
+  const H_EXP = navH * 4;
+  const H_SHR = navH * 2;
+  const scrollRange = 220;   // px scroll distance for full shrink
+  const ease = 0.12;         // smoothing
   const logoBase = 80;
-  const titleBaseRem = 1.6;
-  const taglineBaseRem = 0.95;
+  const titleBase = 1.6;
+  const taglineBase = 0.95;
 
-  // smoothing
-  let currentH = expandedH;
-  let targetH = expandedH;
-  const ease = 0.14;
-  const scrollRange = 220;
-  let rafId = null;
+  let currentH = H_EXP;
+  let targetH = H_EXP;
+  let raf = null;
 
-  // Synchronously set inline style positions so page paints correctly (fixes initial gap)
-  function syncInlineLayout(h){
-    // header inline height is managed by CSS var for more predictable transitions:
-    docEl.style.setProperty('--header-height', h + 'px');
+  /* ---------- helper: update all layout metrics ---------- */
+  function updateLayout(h){
+    // header height variable
+    doc.style.setProperty('--header-height', h + 'px');
 
-    // update nav top inline to exactly sit under header
-    if(nav) nav.style.top = Math.round(h) + 'px';
+    // element scaling
+    const scale = h / H_EXP;
+    doc.style.setProperty('--logo-size', (logoBase * scale).toFixed(1) + 'px');
+    doc.style.setProperty('--title-size', (titleBase * scale).toFixed(3) + 'rem');
+    doc.style.setProperty('--tagline-size', (taglineBase * Math.max(scale,0.6)).toFixed(3) + 'rem');
+    doc.style.setProperty('--tagline-opacity', (0.6 + 0.4 * scale).toFixed(2));
 
-    // compute ticker height (may be 0 on first paint if offscreen or fonts not loaded)
-    const tRect = ticker ? ticker.getBoundingClientRect() : { height: 0 };
-    const tH = tRect.height || parseFloat(getComputedStyle(ticker || document.body).height) || 0;
+    // ticker height (if visible)
+    const tH = ticker ? ticker.offsetHeight : 0;
+    doc.style.setProperty('--ticker-height', tH + 'px');
 
-    // set ticker top so it stays pinned directly under nav
-    if(ticker) ticker.style.top = Math.round(h + navHeight) + 'px';
-
-    // layout padding so product grid sits right below ticker on first paint
-    const paddingTop = Math.round(h + navHeight + tH + 16); // 16px small buffer
-    if(layout) layout.style.paddingTop = paddingTop + 'px';
-
-    // filters stick under ticker too (small 12px gap preserved)
-    if(filters) filters.style.top = Math.round(h + navHeight + tH + 12) + 'px';
+    // inline corrections for first paint & during animation
+    if(nav) nav.style.top = h + 'px';
+    if(ticker) ticker.style.top = (h + navH) + 'px';
+    if(layout) layout.style.paddingTop = (h + navH + tH + 16) + 'px';
+    if(filters) filters.style.top = (h + navH + tH + 12) + 'px';
   }
 
-  // update CSS vars for element sizes (logo, title, tagline)
-  function updateElementVars(h){
-    const scale = h / expandedH; // 1 .. 0.5
-    docEl.style.setProperty('--logo-size', Math.round(logoBase * scale) + 'px');
-    docEl.style.setProperty('--title-size', (titleBaseRem * scale).toFixed(3) + 'rem');
-    docEl.style.setProperty('--tagline-size', (taglineBaseRem * Math.max(scale, 0.6)).toFixed(3) + 'rem');
-
-    // maintain ticker height var for any CSS depending on it
-    const tH = (ticker ? ticker.getBoundingClientRect().height : 0);
-    docEl.style.setProperty('--ticker-height', tH + 'px');
-    // page offset var for completeness
-    const pageOffsetVal = Math.round(h + navHeight + tH + 16);
-    docEl.style.setProperty('--page-offset', pageOffsetVal + 'px');
-
-    // glass effect toggle
-    if (h <= (shrunkH + 2)) header.classList.add('shrunk-glass');
-    else header.classList.remove('shrunk-glass');
-  }
-
-  function setRootVarsImmediate(h){
-    // Do synchronous inline updates before first paint to avoid gap
-    syncInlineLayout(h);
-    updateElementVars(h);
-  }
-
-  function rafLoop(){
-    const delta = targetH - currentH;
-    if(Math.abs(delta) > 0.5){
-      currentH += delta * ease;
-      // update both inline layout values and CSS vars
-      syncInlineLayout(currentH);
-      updateElementVars(currentH);
-      rafId = requestAnimationFrame(rafLoop);
+  /* ---------- smooth interpolation ---------- */
+  function animate(){
+    const diff = targetH - currentH;
+    if(Math.abs(diff) > 0.4){
+      currentH += diff * ease;
+      updateLayout(currentH);
+      raf = requestAnimationFrame(animate);
     } else {
       currentH = targetH;
-      syncInlineLayout(currentH);
-      updateElementVars(currentH);
-      if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+      updateLayout(currentH);
+      cancelAnimationFrame(raf);
+      raf = null;
     }
   }
 
-  function updateTargetFromScroll(){
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
-    const clamped = Math.max(0, Math.min(scrollRange, scrollY));
-    const t = clamped / scrollRange;
-    const smoothT = t * t * (3 - 2 * t);
-    targetH = expandedH - (expandedH - shrunkH) * smoothT;
-    if(!rafId) rafId = requestAnimationFrame(rafLoop);
+  /* ---------- derive target height from scroll ---------- */
+  function onScroll(){
+    const y = Math.min(scrollRange, Math.max(0, window.scrollY || document.documentElement.scrollTop));
+    const t = y / scrollRange;
+    const smoothT = t * t * (3 - 2 * t); // smoothstep
+    targetH = H_EXP - (H_EXP - H_SHR) * smoothT;
+    if(!raf) raf = requestAnimationFrame(animate);
   }
 
-  // Listen to DOMContentLoaded and also correct immediately if script loads after DOM ready
+  /* ---------- initial layout fix ---------- */
   function init(){
-    // try to compute ticker height now (may be 0; we call again in timeouts)
-    currentH = expandedH;
-    targetH = expandedH;
-
-    // synchronous set so page paints correctly without large gap
-    setRootVarsImmediate(currentH);
-
-    // run again after small delays to account for fonts/images loading and ticker computed height
-    setTimeout(()=> setRootVarsImmediate(currentH), 80);
-    setTimeout(()=> setRootVarsImmediate(currentH), 400);
-
-    // start listening for scroll to animate
-    window.addEventListener('scroll', updateTargetFromScroll, { passive: true });
-    window.addEventListener('resize', ()=> {
-      // recalc immediately on resize to keep layout in sync
-      setRootVarsImmediate(currentH);
-    });
+    updateLayout(currentH); // sync before paint
+    setTimeout(()=>updateLayout(currentH),50);
+    setTimeout(()=>updateLayout(currentH),300);
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', ()=>updateLayout(currentH));
   }
 
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    init();
-  } else {
-    document.addEventListener('DOMContentLoaded', init);
-  }
+  if(document.readyState === 'complete' || document.readyState === 'interactive') init();
+  else document.addEventListener('DOMContentLoaded', init);
 })();
-
 
   </script>
   </script>
