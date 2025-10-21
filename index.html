@@ -303,6 +303,35 @@ nav {
   .layout { padding-top: 0.5rem; }
   .filters { position: relative; top: auto; }
 }
+    /* ---- stacking & sticky fixes ---- */
+header {
+  z-index: 1200; /* header above nav */
+}
+
+/* nav should stay below header but above page content */
+nav {
+  z-index: 1100;
+  background: linear-gradient(135deg, var(--primary), var(--accent)); /* keep existing look */
+}
+
+/* ticker below nav */
+.ticker {
+  z-index: 1099;
+  position: sticky; /* ensure sticky on all modern browsers */
+  /* top will be set inline by JS to keep it exactly below nav/header */
+}
+
+/* filters should be above page content but below ticker/nav */
+.filters {
+  z-index: 1080;
+}
+
+/* ensure layout respects inline paddingTop */
+.layout {
+  /* don't rely on only CSS variable --page-offset for first paint — JS will set inline padding */
+  transition: padding-top 420ms cubic-bezier(.22,.9,.28,1);
+}
+
     
     /* ====== TICKER / MOVING NOTICE (keeps your style) ====== */
     .ticker { width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:8px 0; position:relative;
@@ -1076,14 +1105,8 @@ so you get bang for your buck - everytime ❤️</p>
     </script>
 
  <script> 
-/* ======= Smooth header height interpolation (no shaking) =======
-   - Uses requestAnimationFrame and lerp to animate --header-height CSS var
-   - Also computes and sets --ticker-height and --page-offset so nav, ticker, layout and filters align perfectly
-   - Also updates inner element sizes via CSS vars (--logo-size, --title-size, --tagline-size)
-   - Smooth even if user stops mid-scroll
-*/
-
-(function smoothHeaderController(){
+/* ======= Smooth header controller (improved: synchronously fixes layout on load) ======= */
+(function smoothHeaderController_v2(){
   const docEl = document.documentElement;
   const header = document.querySelector('header');
   const nav = document.querySelector('nav');
@@ -1091,121 +1114,126 @@ so you get bang for your buck - everytime ❤️</p>
   const layout = document.querySelector('.layout');
   const filters = document.querySelector('.filters');
 
-  // read nav-height from CSS var or fallback
   function getCssNumberVar(name, fallback){
     const v = getComputedStyle(docEl).getPropertyValue(name).trim();
     if(!v) return fallback;
     if(v.endsWith('px')) return parseFloat(v);
-    // try eval calc (simple)
     return parseFloat(v) || fallback;
   }
 
+  // base constants
   const navHeight = getCssNumberVar('--nav-height', 56);
   const expandedH = navHeight * 4;
   const shrunkH = navHeight * 2;
+  const logoBase = 80;
+  const titleBaseRem = 1.6;
+  const taglineBaseRem = 0.95;
 
-  // base element sizes (match your CSS default sizes)
-  const logoBase = 80;     // px
-  const titleBase = 1.6;   // rem
-  const taglineBase = 0.95;// rem
-
-  // smooth animation parameters
-  let currentH = expandedH;            // current header height in px (animated)
-  let targetH = expandedH;             // target header height (depends on scroll)
-  const ease = 0.14;                   // lower = slower interpolation; 0.14 is smooth
+  // smoothing
+  let currentH = expandedH;
+  let targetH = expandedH;
+  const ease = 0.14;
+  const scrollRange = 220;
   let rafId = null;
 
-  // Determine scroll mapping: we map scroll range [0, scrollRange] to header shrink from expandedH to shrunkH
-  const scrollRange = 220; // px over which header transitions fully; tweak for behavior
-
-  // Initialize: set CSS vars properly on load
-  function setRootVars(h){
+  // Synchronously set inline style positions so page paints correctly (fixes initial gap)
+  function syncInlineLayout(h){
+    // header inline height is managed by CSS var for more predictable transitions:
     docEl.style.setProperty('--header-height', h + 'px');
 
-    // compute scale factor relative to expanded
-    const scale = h / expandedH; // between shrunk/expanded
-    // update visual sizes
+    // update nav top inline to exactly sit under header
+    if(nav) nav.style.top = Math.round(h) + 'px';
+
+    // compute ticker height (may be 0 on first paint if offscreen or fonts not loaded)
+    const tRect = ticker ? ticker.getBoundingClientRect() : { height: 0 };
+    const tH = tRect.height || parseFloat(getComputedStyle(ticker || document.body).height) || 0;
+
+    // set ticker top so it stays pinned directly under nav
+    if(ticker) ticker.style.top = Math.round(h + navHeight) + 'px';
+
+    // layout padding so product grid sits right below ticker on first paint
+    const paddingTop = Math.round(h + navHeight + tH + 16); // 16px small buffer
+    if(layout) layout.style.paddingTop = paddingTop + 'px';
+
+    // filters stick under ticker too (small 12px gap preserved)
+    if(filters) filters.style.top = Math.round(h + navHeight + tH + 12) + 'px';
+  }
+
+  // update CSS vars for element sizes (logo, title, tagline)
+  function updateElementVars(h){
+    const scale = h / expandedH; // 1 .. 0.5
     docEl.style.setProperty('--logo-size', Math.round(logoBase * scale) + 'px');
+    docEl.style.setProperty('--title-size', (titleBaseRem * scale).toFixed(3) + 'rem');
+    docEl.style.setProperty('--tagline-size', (taglineBaseRem * Math.max(scale, 0.6)).toFixed(3) + 'rem');
 
-    // convert rem to px using computed font-size of root:
-    const rootFont = parseFloat(getComputedStyle(document.documentElement).fontSize || 16);
-    docEl.style.setProperty('--title-size', (titleBase * scale).toFixed(3) + 'rem');
-    docEl.style.setProperty('--tagline-size', (taglineBase * Math.max(scale, 0.6)).toFixed(3) + 'rem');
-
-    // ticker height (read live)
-    const tH = ticker ? ticker.getBoundingClientRect().height : 0;
+    // maintain ticker height var for any CSS depending on it
+    const tH = (ticker ? ticker.getBoundingClientRect().height : 0);
     docEl.style.setProperty('--ticker-height', tH + 'px');
-
-    // page offset for .layout padding-top
-    const pageOffsetVal = (h + navHeight + tH + 16); // extra 16px gap fallback
+    // page offset var for completeness
+    const pageOffsetVal = Math.round(h + navHeight + tH + 16);
     docEl.style.setProperty('--page-offset', pageOffsetVal + 'px');
 
-    // add or remove glass class when near shrunk
+    // glass effect toggle
     if (h <= (shrunkH + 2)) header.classList.add('shrunk-glass');
     else header.classList.remove('shrunk-glass');
   }
 
-  // animation loop: interpolate currentH -> targetH
+  function setRootVarsImmediate(h){
+    // Do synchronous inline updates before first paint to avoid gap
+    syncInlineLayout(h);
+    updateElementVars(h);
+  }
+
   function rafLoop(){
     const delta = targetH - currentH;
-    if (Math.abs(delta) > 0.5) {
-      currentH += delta * ease; // lerp
-      setRootVars(currentH);
+    if(Math.abs(delta) > 0.5){
+      currentH += delta * ease;
+      // update both inline layout values and CSS vars
+      syncInlineLayout(currentH);
+      updateElementVars(currentH);
       rafId = requestAnimationFrame(rafLoop);
     } else {
-      // snap to target and stop RAF
       currentH = targetH;
-      setRootVars(currentH);
-      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      syncInlineLayout(currentH);
+      updateElementVars(currentH);
+      if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
     }
   }
 
-  // compute target header height from scroll position
   function updateTargetFromScroll(){
     const scrollY = window.scrollY || document.documentElement.scrollTop;
     const clamped = Math.max(0, Math.min(scrollRange, scrollY));
-    // interpolation factor 0..1
     const t = clamped / scrollRange;
-    // ease mapping (smoothstep)
     const smoothT = t * t * (3 - 2 * t);
     targetH = expandedH - (expandedH - shrunkH) * smoothT;
-
-    // ensure nav top will follow via CSS var --header-height (set in raf)
     if(!rafId) rafId = requestAnimationFrame(rafLoop);
   }
 
-  // ensure ticker and layout offset are correct on load and resize
-  function recalcLayout(){
-    // force read ticker height and update CSS vars by running setRootVars with currentH
-    setRootVars(currentH);
+  // Listen to DOMContentLoaded and also correct immediately if script loads after DOM ready
+  function init(){
+    // try to compute ticker height now (may be 0; we call again in timeouts)
+    currentH = expandedH;
+    targetH = expandedH;
+
+    // synchronous set so page paints correctly without large gap
+    setRootVarsImmediate(currentH);
+
+    // run again after small delays to account for fonts/images loading and ticker computed height
+    setTimeout(()=> setRootVarsImmediate(currentH), 80);
+    setTimeout(()=> setRootVarsImmediate(currentH), 400);
+
+    // start listening for scroll to animate
+    window.addEventListener('scroll', updateTargetFromScroll, { passive: true });
+    window.addEventListener('resize', ()=> {
+      // recalc immediately on resize to keep layout in sync
+      setRootVarsImmediate(currentH);
+    });
   }
 
-  // events
-  window.addEventListener('scroll', updateTargetFromScroll, {passive:true});
-  window.addEventListener('resize', () => {
-    // recalc sizes (navHeight static, but tickers may wrap)
-    recalcLayout();
-  });
-
-  // initial setup on DOM ready
-  document.addEventListener('DOMContentLoaded', ()=>{
-    // set initial measured values
-    currentH = expandedH;
-    targetH = expandedH;
-    setRootVars(currentH);
-
-    // ensure initial layout padding is correct ASAP, with small delay to let fonts/images load
-    setTimeout(recalcLayout, 80);
-    setTimeout(recalcLayout, 400);
-  });
-
-  // in case script runs after DOMContentLoaded
-  if (document.readyState === 'interactive' || document.readyState === 'complete') {
-    currentH = expandedH;
-    targetH = expandedH;
-    setRootVars(currentH);
-    setTimeout(recalcLayout, 80);
-    setTimeout(recalcLayout, 400);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    init();
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
   }
 })();
 
