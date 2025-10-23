@@ -37,10 +37,10 @@
 header {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   text-align: center;
-  padding: 2.5rem 1rem;
+  padding: 1rem 1rem;
   background: linear-gradient(135deg, var(--primary), var(--accent));
   color: #fff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
@@ -52,8 +52,8 @@ header {
 header .brand-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 18px;
+  justify-content: flex-start;
+  gap: 25px;
   flex-wrap: wrap;
 }
 
@@ -70,7 +70,7 @@ header img {
 /* 🏷️ Website Title */
 header h1 {
   margin: 0;
-  font-size: 3rem;
+  font-size: 5.5rem;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: 1px;
@@ -79,12 +79,13 @@ header h1 {
 
 /* 💬 Tagline */
 header p {
-  margin-top: 1rem;
-  font-weight: 500;
-  font-size: 1.05rem;
+  margin-top: 0.7rem;
+  margin-bottom:0.1rem;
+  font-weight: 200;
+  font-size: 1rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.92);
-  max-width: 780px;
+  max-width: 1200px;
 }
 
 /* ✨ Logo Pulse Animation */
@@ -94,7 +95,7 @@ header p {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
   }
   50% {
-    transform: scale(1.08);
+    transform: scale(1.07);
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
   }
 }
@@ -106,7 +107,7 @@ header p {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.7rem 1.5rem;
+      padding: 0.5rem 1rem;
       position: sticky; 
       top: 0;
       z-index: 1000;
@@ -188,16 +189,35 @@ header p {
 }
 
     /* ====== TICKER / MOVING NOTICE (keeps your style) ====== */
-    .ticker { width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:8px 0; position:relative;
+    .ticker { width:100%; overflow:hidden; background:linear-gradient(90deg,#2563eb,#10b981); color:white; font-weight:600; padding:9px 0; position:relative;
       border-top:2px solid rgba(255,255,255,.2); border-bottom:2px solid rgba(255,255,255,.2); box-shadow:inset 0 -3px 6px rgba(0,0,0,.1);
     }
     .ticker__content { display:inline-block; white-space:nowrap; position:relative; will-change:transform; }
     @keyframes scrollText { from { transform: translateX(var(--start)); } to { transform: translateX(var(--end)); } }
     .ticker:hover .ticker__content { animation-play-state: paused !important; }
 
+/* Classes toggled by JS when stuck */
+.fixed-nav {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.fixed-ticker {
+  position: fixed !important;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  /* top will be set dynamically by JS to match nav height */
+}
+
    /* ====== LIVE DATETIME ====== */
     #live-datetime {
-      position: fixed;
+      position: absolute;
       top: 12px;
       right: 18px;
       z-index: 1100;
@@ -227,7 +247,7 @@ header p {
       padding: 14px;
       box-shadow: 0 6px 22px rgba(6,24,44,0.06);
       position: sticky;
-      top: 84px; /* under nav/header */
+      top: 90px; /* under nav/header */
       height: fit-content;
       align-self: start;
     }
@@ -240,12 +260,13 @@ header p {
 
     /* Main column keeps product grid and other content */
     .main {
-      margin-top: 80px;
-      display:flex; flex-direction:column; gap:1.5rem;
+      margin-top: 12px;
+      display:flex; flex-direction:column; gap:1rem;
     }
 
     .container {
-      padding: 1.5rem;
+      max-width: 1200px;
+      padding: 1rem;
       background: rgba(255,255,255,0.96);
       border-radius: 14px;
       box-shadow: 0 6px 22px rgba(6,24,44,0.06);
@@ -254,8 +275,8 @@ header p {
     h2 { text-align:center; color:var(--primary); margin-bottom:1rem; }
 
     /* Product grid & cards (kept same look) */
-    .product-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; }
-    .product-card { background:white; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.1); padding:15px; text-align:center; transition:transform .2s ease; position:relative; }
+    .product-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; width: 100%; }
+    .product-card { background:white; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.1); padding:10px; text-align:center; transition:transform .2s ease; position:relative; }
     .product-card:hover { transform: translateY(-5px); }
     .product-card img { width:100%; height:180px; object-fit:contain; border-radius:10px; }
     .price { display:block; font-weight:bold; color:#1a73e8; margin: 6px 0; }
@@ -272,40 +293,7 @@ header p {
     footer { background:var(--nav); color:#fff; text-align:center; padding:16px 10px; margin-top:28px; font-size:14px; }
     #visitor-info { margin-top:8px; font-weight:600; }
 
-    /* ====== FLOATING UI ====== */
-    #molly-chat { position: fixed; bottom: 18px; right: 18px; z-index: 2000; width:72px; height:72px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 26px rgba(3,10,23,.18); text-decoration:none; animation:pulse 2.5s infinite; }
-    .molly-avatar{ width:66px; height:66px; border-radius:50%; object-fit:cover; }
-
-    /* Back to top */
-    #back-to-top { position:fixed; right:18px; bottom:108px; display:none; z-index:1500; background:var(--primary); color:#fff; border:none; width:46px; height:46px; border-radius:50%; box-shadow:0 6px 20px rgba(2,6,23,.16); cursor:pointer; font-weight:700; }
-    #back-to-top:hover { background:var(--accent); }
-
-    /* Dark mode (preserves your variables) */
-    .dark-mode { --primary:#60a5fa; --accent:#34d399; --nav:#0b1220; --bg:#0b1220; --card:#071129; --text:#ffffff; }
-    /* ensure dark mode content readability for elements using hard-coded colors */
-    .dark-mode header, .dark-mode nav { filter: none; }
-    .dark-mode .container, .dark-mode .filters, .dark-mode .main { background: rgba(6,10,20,0.85); color: #e6eefc; }
-    .dark-mode .product-card { background: rgba(10,14,25,0.8); color: #e6eefc; }
-    .dark-mode .buy-btn::after { background: rgba(255,255,255,.06); }
-
-    /* Make sure the dark-mode toggle stays visible and above header */
-    #darkModeToggle {
-      position: fixed; top: 14px; left: 14px; z-index: 2001; width:46px; height:46px; border-radius:50%; border:none; cursor:pointer;
-      background: rgba(255,255,255,0.92); color:var(--nav); font-size:18px; box-shadow:0 6px 18px rgba(2,6,23,.12);
-    }
-    #darkModeToggle:hover { transform: scale(1.06); }
-
-    /* ====== RESPONSIVE ====== */
-    @media (max-width: 960px) {
-      .layout { grid-template-columns: 1fr; padding: 0 12px; }
-      .filters { position: relative; top: auto; display:none; } /* hide side filters on tablet by default */
-      .filters.open { display:block; margin-bottom: 12px; } /* when toggled open */
-    }
-    
-    /* keyframes */
-    @keyframes pulse { 0%{ box-shadow:0 0 0 0 rgba(16,185,129,.28);} 70% { box-shadow:0 0 0 16px rgba(16,185,129,0);} 100%{ box-shadow:0 0 0 0 rgba(16,185,129,0); } }
-  
-  /* ====== INFO SECTIONS ====== */
+    /* ====== INFO SECTIONS ====== */
 .info-sections {
   max-width: 1100px;
   margin: 3rem auto;
@@ -355,140 +343,28 @@ header p {
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
 }
 
-    /* Mobile Responsive Design */
+    /* ====== FLOATING UI ====== */
+    #molly-chat { position: fixed; bottom: 18px; right: 18px; z-index: 2000; width:72px; height:72px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 26px rgba(3,10,23,.18); text-decoration:none; animation:pulse 2.5s infinite; }
+    .molly-avatar{ width:66px; height:66px; border-radius:50%; object-fit:cover; }
 
-@media (max-width: 1024px) {
-  .products {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+    /* Back to top */
+    #back-to-top { position:fixed; right:18px; bottom:108px; display:none; z-index:1500; background:var(--primary); color:#fff; border:none; width:46px; height:46px; border-radius:50%; box-shadow:0 6px 20px rgba(2,6,23,.16); cursor:pointer; font-weight:700; }
+    #back-to-top:hover { background:var(--accent); }
 
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  header .search-box {
-    width: 100%;
-    margin: 10px 0;
-  }
-  nav ul {
-    overflow-x: auto;
-    white-space: nowrap;
-    display: flex;
-    justify-content: flex-start;
-  }
-  nav ul li {
-    padding: 10px;
-  }
-  .products {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+    /* Dark mode (preserves your variables) */
+    .dark-mode { --primary:#60a5fa; --accent:#34d399; --nav:#0b1220; --bg:#0b1220; --card:#071129; --text:#ffffff; }
+    /* ensure dark mode content readability for elements using hard-coded colors */
+    .dark-mode header, .dark-mode nav { filter: none; }
+    .dark-mode .container, .dark-mode .filters, .dark-mode .main { background: rgba(6,10,20,0.85); color: #e6eefc; }
+    .dark-mode .product-card { background: rgba(10,14,25,0.8); color: #e6eefc; }
+    .dark-mode .buy-btn::after { background: rgba(255,255,255,.06); }
 
-@media (max-width: 480px) {
-  header {
-    padding: 10px;
-  }
-  header .logo {
-    font-size: 18px;
-  }
-  .product-card {
-    padding: 8px;
-  }
-  .products {
-    grid-template-columns: 1fr;
-  }
-  button, input {
-    font-size: 15px;
-  }
-  footer {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-}
-
-/* App-Like Feel */
-body {
-  -webkit-tap-highlight-color: transparent;
-}
-
-nav ul::-webkit-scrollbar {
-  display: none;
-}
-    
-/* ====== MOBILE PREMIUM MODE ====== */
-
-    /* Product grid app compact style */
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    padding: 8px;
-  }
-  .product-card {
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .product-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  }
-  .product-card img {
-    height: 140px;
-    object-fit: contain;
-  }
-  .product-card h3 {
-    font-size: 0.92rem;
-    margin: 6px 0;
-  }
-  .product-card p {
-    font-size: 0.78rem;
-  }
-  .price {
-    font-size: 0.9rem;
-  }
-  .buy-btn {
-    width: 100%;
-    font-size: 0.9rem;
-    padding: 9px 0;
-    border-radius: 8px;
-  }
-
-   /* Info sections compact */
-  .info-box {
-    padding: 1.2rem;
-    font-size: 0.9rem;
-  }
-  .info-box h2 {
-    font-size: 1.1rem;
-  }
-
-  footer {
-    font-size: 0.85rem;
-    padding: 12px;
-  }
-
-  /* Better tap area for back-to-top and chat */
-  #molly-chat {
-    width: 60px;
-    height: 60px;
-  }
-  #back-to-top {
-    width: 42px;
-    height: 42px;
-    bottom: 90px;
-  }
-
-  /* Smooth in-app feel */
-  body {
-    scroll-behavior: smooth;
-    -webkit-tap-highlight-color: transparent;
-  }
-}
-
+    /* Make sure the dark-mode toggle stays visible and above header */
+    #darkModeToggle {
+      position: fixed; top: 60px; right: 14px; z-index: 2001; width:35px; height:35px; border-radius:50%; border:none; cursor:pointer;
+      background: rgba(255,255,255,0.92); color:var(--nav); font-size:18px; box-shadow:0 6px 18px rgba(2,6,23,.12);
+    }
+    #darkModeToggle:hover { transform: scale(1.06); }
 
 
     
@@ -946,6 +822,72 @@ so you get bang for your buck - everytime ❤️</p>
       updateDisplay();
     })();
     </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const nav = document.querySelector('nav');
+  const ticker = document.querySelector('.ticker');
+  const header = document.querySelector('.site-header') || document.querySelector('header');
+
+  if (!nav || !ticker) return; // safety
+
+  // Get initial positions *relative to the document*
+  const navInitialTop = nav.getBoundingClientRect().top + window.scrollY;
+
+  // helper to recompute when window resized (nav height may change)
+  function updateDims() {
+    // recalc initial nav top in case layout shifted
+    // (use the nav's current position relative to document top)
+    dims.navTop = nav.getBoundingClientRect().top + window.scrollY;
+    dims.navHeight = nav.offsetHeight;
+    dims.tickerHeight = ticker.offsetHeight;
+  }
+
+  const dims = { navTop: navInitialTop, navHeight: nav.offsetHeight, tickerHeight: ticker.offsetHeight };
+
+  function setFixed() {
+    nav.classList.add('fixed-nav');
+    ticker.classList.add('fixed-ticker');
+    // place ticker right under nav
+    ticker.style.top = dims.navHeight + 'px';
+    // add top padding to body to prevent content jump (nav + ticker heights)
+    document.body.style.paddingTop = (dims.navHeight + dims.tickerHeight) + 'px';
+  }
+
+  function unsetFixed() {
+    nav.classList.remove('fixed-nav');
+    ticker.classList.remove('fixed-ticker');
+    ticker.style.top = '';
+    document.body.style.paddingTop = '';
+  }
+
+  function onScroll() {
+    // If we've scrolled past the nav's original top point (i.e., header gone)
+    if (window.scrollY >= dims.navTop) {
+      // only set fixed if not already
+      if (!nav.classList.contains('fixed-nav')) setFixed();
+    } else {
+      if (nav.classList.contains('fixed-nav')) unsetFixed();
+    }
+  }
+
+  // Recompute sizes on resize and orientationchange
+  window.addEventListener('resize', function() {
+    // remove fixed to get accurate natural sizes
+    unsetFixed();
+    updateDims();
+    onScroll();
+  });
+
+  // initial dims
+  updateDims();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // run once
+  onScroll();
+});
+</script>
+
 
   </script>
   
