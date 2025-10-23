@@ -402,7 +402,13 @@ header p {
   #darkModeToggle { top: 40px; right: 8px; width: 32px; height: 32px; font-size: 16px; }
 }
 
-    
+  /*Disappear filter on mobile and reappear on desktop*/
+   @media (max-width: 1024px) {
+    .filters { display: none !important; }
+  }
+   @media (min-width: 1025px) {
+  .filters { display: block !important; }
+}
   </style>
 </head>
 <body>
