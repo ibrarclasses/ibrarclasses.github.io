@@ -825,37 +825,7 @@ so you get bang for your buck - everytime ❤️</p>
 
     })();
 
-    /* ====== FILTERS PANEL TOGGLE ON MOBILE ====== */
-    (function mobileFilterToggle(){
-      // add a small toggle button to show/hide filters on small screens
-      const btn = document.createElement('button');
-      btn.id = 'filtersToggle';
-      btn.innerHTML = 'Filters ⤓';
-      btn.style.border = 'none';
-      btn.style.padding = '8px 12px';
-      btn.style.borderRadius = '8px';
-      btn.style.background = 'linear-gradient(135deg,var(--accent),var(--primary))';
-      btn.style.color = '#fff';
-      btn.style.cursor = 'pointer';
-      btn.style.marginLeft = '8px';
-      btn.style.display = 'none';
-      btn.style.zIndex = 1200;
-      document.querySelector('nav .right-section').insertBefore(btn, document.querySelector('nav .right-section').children[0]);
-
-      const filtersPanel = document.getElementById('filtersPanel');
-      function updateDisplay(){
-        if(window.innerWidth <= 960){
-          btn.style.display = 'inline-block';
-          filtersPanel.classList.remove('open');
-        } else {
-          btn.style.display = 'none';
-          filtersPanel.classList.remove('open');
-        }
-      }
-      btn.addEventListener('click', ()=> filtersPanel.classList.toggle('open'));
-      window.addEventListener('resize', updateDisplay);
-      updateDisplay();
-    })();
+  
     </script>
 
 <script>
