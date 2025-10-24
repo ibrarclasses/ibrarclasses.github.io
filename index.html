@@ -550,7 +550,7 @@ nav:not(.fixed-nav) .nav-branding {
 /* ====== STICKY NAV CENTER BRANDING (refined version) ====== */
 .nav-branding {
   position: absolute;
-  left: 50%;
+  left: 35%;
   top: 40%; 
   transform: translate(-50%, -50%) translateY(-10px);
   display: flex;
@@ -564,8 +564,8 @@ nav:not(.fixed-nav) .nav-branding {
 
 /* Branding content style */
 .nav-branding img {
-  width: 45px;
-  height: 45px;
+  width: 49px;
+  height: 49px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
@@ -574,8 +574,8 @@ nav:not(.fixed-nav) .nav-branding {
 
 .nav-branding span {
   color: #ffffff;
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-weight: 900;
+  font-size: 1.88rem;
   letter-spacing: 0.4px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   user-select: none;
@@ -624,6 +624,7 @@ nav:not(.fixed-nav) .nav-branding {
   right: 1%;
   margin-top: 46%;
   display: flex;
+  width: 100%;
   align-items: center;
   background: linear-gradient(135deg, #00c6ff, #0072ff);
   border-radius: 50px;
@@ -636,7 +637,7 @@ nav:not(.fixed-nav) .nav-branding {
   outline: none;
   padding: 8px 12px;
   border-radius: 50px 0 0 50px;
-  width: 120px;
+  width: 90%;
   transition: all 0.3s ease;
   font-size: 0.9rem;
 }
@@ -669,12 +670,29 @@ nav:not(.fixed-nav) .nav-branding {
 #searchBarContainer:focus-within {
   box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
 }
+
+/* search bar fixed rules */
+#searchBarContainer {
+  flex: none;            /* stop it from stretching/shrinking */
+  width: auto;           /* allow child to define its width */
+  justify-content: center;
+  left: 10;
+  right: 0;
+  margin: 1 auto;
 }
- /* Make sure the dark-mode toggle stays visible and above header */
-    #darkModeToggle {
-      position: fixed; margin-top: 0.1%; right: 14px; z-index: 2001; width:30px; height:30px; border-radius:50%; border:none; cursor:pointer; opacity:90%;
-      background: rgba(255,255,255,0.92); color:var(--nav); font-size:18px; box-shadow:0 6px 18px rgba(2,6,23,.12);
-    }
+
+#searchInput {
+  flex: none;            /* override flex rules if inherited */
+  width: 110px !important; /* force a fixed width */
+  max-width: none;
+  transition: width 0.3s ease;
+}
+
+#searchInput:focus {
+  width: 130px !important; /* expands to left/right */
+}
+
+}
 
 @media (max-width: 480px) {
   header h1 { font-size: 1.8rem; }
@@ -695,6 +713,22 @@ nav:not(.fixed-nav) .nav-branding {
    @media (min-width: 1025px) {
   .filters { display: block !important; }
   .live-datetime { display: block !important; }
+}
+
+/*Disappear time and date on mobile and reappear on desktop*/
+   @media (max-width: 748px) {
+    #live-datetime { display: none !important; }
+  }
+   @media (min-width: 749px) {
+   #live-datetime { display: block !important; }
+}
+
+/*Disappear Darl Mode Toggle on mobile and reappear on desktop*/
+   @media (max-width: 748px) {
+    #darkModeToggle { display: none !important; }
+  }
+   @media (min-width: 749px) {
+   #darkModeToggle { display: block !important; }
 }
   </style>
 </head>
