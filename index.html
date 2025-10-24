@@ -509,8 +509,16 @@ nav:not(.fixed-nav) .nav-branding {
   .brand-row { justify-content: center; flex-direction: column; gap: 10px; }
   header h1 { font-size: 2.4rem; line-height: 1.2; }
   header p { font-size: 0.9rem; padding: 0 0.5rem; }
-  nav { flex-direction: column; align-items: stretch; gap: 6px; }
-  nav .left-links, nav .right-section { justify-content: center; flex-wrap: wrap; }
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    height: auto !important;
+    min-height: 80px; /* slightly taller for better fit */
+  }
+  nav .left-links, nav .right-section { justify-content: center; flex-wrap: wrap; gap: 10px; }
   .layout { padding: 0 0.6rem; margin-top: 1rem; }
   .product-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
   .container { padding: 0.7rem; }
