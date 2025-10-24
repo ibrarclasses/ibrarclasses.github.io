@@ -505,7 +505,7 @@ nav:not(.fixed-nav) .nav-branding {
   .product-card img { height: 150px; }
 }
 
-/* ✅ Mobile NAV refinement */
+/* ✅ Mobile NAV refinement 768px */
 @media (max-width: 768px) {
     /* ====== NAV BAR ====== */
     nav {
@@ -525,7 +525,175 @@ nav:not(.fixed-nav) .nav-branding {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 15%;
+      margin-top: 17%;
+    }
+
+    nav .left-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    nav .left-links a:hover {
+      color: #ffffff;
+      transform: scale(1.05);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    }
+    nav .right-section {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* ====== STICKY NAV CENTER BRANDING (refined version) ====== */
+.nav-branding {
+  position: absolute;
+  left: 32%;
+  top: 40%; 
+  transform: translate(-50%, -50%) translateY(-10px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  animation: none;
+}
+
+/* Branding content style */
+.nav-branding img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
+  animation: navLogoPulse 4s infinite ease-in-out;
+}
+
+.nav-branding span {
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 2.50rem;
+  letter-spacing: 0.4px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  user-select: none;
+}
+
+/* Animate when nav becomes sticky */
+.fixed-nav .nav-branding {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* Smooth hide when header returns */
+nav:not(.fixed-nav) .nav-branding {
+  opacity: 0;
+  transform: translate(-50%, -50%) translateY(-10px);
+}
+
+/* ✨ Soft glowing logo animation */
+@keyframes navLogoPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Fade-in animation (optional for smoother entry) */
+@keyframes brandingFadeIn {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Optional: Hide on small screens to save space */
+
+
+
+    
+    /* Premium gradient search bar styling */
+#searchBarContainer {
+  position: relative;
+  left: 4%;
+  right: 1%;
+  margin-top: 46%;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border-radius: 50px;
+  padding: 1px;
+  transition: all 0.3s ease;
+}
+
+#searchInput {
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  border-radius: 50px 0 0 50px;
+  width: 90%;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+/* Expanding input when focused */
+#searchInput:focus {
+  width: 200px;
+  background: #fff;
+}
+
+/* Gradient search button */
+#searchBtn {
+  border: none;
+  padding: 8px 8px;
+  border-radius: 0 50px 50px 0;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  transition: all 0.3s ease;
+}
+
+/* Button hover glow */
+#searchBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
+}
+
+/* Smooth shadow around full bar */
+#searchBarContainer:focus-within {
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
+}
+
+}
+
+/* ✅ Mobile NAV refinement 480px */
+@media (max-width: 480px) {
+    /* ====== NAV BAR ====== */
+    nav {
+      background: var(--nav);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      position: sticky; 
+      top: 0;
+      min-height: 100px; /* taller for two-line spacing */
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    nav .left-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 17%;
     }
 
     nav .left-links a {
@@ -575,7 +743,7 @@ nav:not(.fixed-nav) .nav-branding {
 .nav-branding span {
   color: #ffffff;
   font-weight: 900;
-  font-size: 1.88rem;
+  font-size: 1.20rem;
   letter-spacing: 0.4px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   user-select: none;
@@ -683,25 +851,15 @@ nav:not(.fixed-nav) .nav-branding {
 
 #searchInput {
   flex: none;            /* override flex rules if inherited */
-  width: 90px !important; /* force a fixed width */
+  width: 65px !important; /* force a fixed width */
   max-width: none;
   transition: width 0.3s ease;
 }
 
 #searchInput:focus {
-  width: 110px !important; /* expands to left/right */
-}
+  width: 75px !important; /* expands to left/right */
 }
 
-@media (max-width: 480px) {
-  header h1 { font-size: 1.8rem; }
-  header img { width: 75px; height: 75px; }
-  .product-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.8rem; }
-  .product-card { padding: 8px; }
-  .buy-btn { padding: 8px 12px; font-size: 0.85rem; }
-  #searchInput { width: 50px; font-size: 0.8rem; }
-  #searchInput:focus { width: 80px; }
-  #darkModeToggle { top: 40px; right: 8px; width: 32px; height: 32px; font-size: 16px; }
 }
 
   /*Disappear filter on mobile and reappear on desktop*/
