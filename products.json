@@ -59,7 +59,7 @@
     {
         "title": "Art & Culture by Nitin Singhania",
         "desc": "UPSC Must-haves: Latest Edition",
-        "price": "₹250",
+        "price": "₹589",
         "image": "https://m.media-amazon.com/images/I/81PN3gjTRhL._SL1500_.jpg",
         "link": "https://amzn.to/4qmG9M2",
         "category": "Books",
@@ -79,9 +79,9 @@
     {
         "title": "Environment by Shankar",
         "desc": "UPSC Must-haves: Latest Edition",
-        "price": "₹587",
+        "price": "₹500",
         "image": "https://m.media-amazon.com/images/I/81QDvvYdNdL._SL1500_.jpg",
-        "link": "https://amzn.to/47bKubM",
+        "link": "https://fktr.in/Jvt0jB0",
         "category": "Books",
         "hotdeal": true
     },
@@ -89,7 +89,7 @@
     {
         "title": "Oxford Student Atlas for India",
         "desc": "UPSC Must-haves: Latest Edition",
-        "price": "₹234",
+        "price": "₹275",
         "image": "https://m.media-amazon.com/images/I/71b+cxzHonL._SL1425_.jpg",
         "link": "https://amzn.to/3KRpsYQ",
         "category": "Books"
@@ -125,7 +125,7 @@
     {
         "title": "NCERT Summary Class 6 -12 by Disha Publication",
         "desc": "Great for quick revision, covers each and every fact in one liners",
-        "price": "₹339",
+        "price": "₹374",
         "image": "https://m.media-amazon.com/images/I/81jfw3LGtcL._SL1500_.jpg",
         "link": "https://amzn.to/49c8UVf",
         "category": "Books"
@@ -188,16 +188,16 @@
     {
         "title": "Faber Castell Highlighters",
         "desc": " Pack of 5, Aesthetic Colors, Sumdge Proof, Quick-Drying Ink",
-        "price": "₹121",
+        "price": "₹96",
         "image": "https://m.media-amazon.com/images/I/7122BryXkJL._SL1500_.jpg",
-        "link": "https://amzn.to/4qjPh42",
+        "link": "https://fktr.in/lE3ms79",
         "category": "Accessories"
     },
 
     {
         "title": "Sticky Notes",
         "desc": "400 Sheets, 5 colors, Fluorescent Paper, Self Adhesive",
-        "price": "₹90",
+        "price": "₹139",
         "image": "https://m.media-amazon.com/images/I/51I1nBnQBOL._SL1500_.jpg",
         "link": "https://amzn.to/4hfeQPf",
         "category": "Accessories"
@@ -206,7 +206,7 @@
     {
         "title": "Set of 7 Maps & Charts",
         "desc": "India & World Maps, Political & Physical, History, Geo and Constitution Map, Full Size",
-        "price": "₹157",
+        "price": "₹169",
         "image": "https://m.media-amazon.com/images/I/71ZHVWqirzL._SL1417_.jpg",
         "link": "https://amzn.to/493mGJS",
         "category": "Accessories"
@@ -215,7 +215,7 @@
     {
         "title": "Gold Globe for Study table",
         "desc": "Aesthetic , White and Gold, 8 inch Dia",
-        "price": "₹390",
+        "price": "₹400",
         "image": "https://images.meesho.com/images/products/63498381/aoz8r_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:878044?p_id=63498381&ext_id=11sznx&utm_source=instagram_stories",
         "category": "Table Decors"
@@ -224,7 +224,7 @@
     {
         "title": "Desk Organizer",
         "desc": "Keeps the study table neat and organized",
-        "price": "₹177",
+        "price": "₹197",
         "image": "https://m.media-amazon.com/images/I/61NTWfv92CL._SL1000_.jpg",
         "link": "https://amzn.to/3IS1zjd",
         "category": "Table Decors"
@@ -248,4 +248,3 @@
         "category": "Table Decors"
     }
 ]
-
