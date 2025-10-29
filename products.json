@@ -29,13 +29,21 @@
     },
 
     {
-        "title": "HP 250 G10 Intel® Core™ i5 13th Gen 1334U - (16 GB/512 GB SSD/Windows 11) Laptop (15.6 inch)",
-        "desc": "Bought myself this Diwali, working perfect",
-        "price": "₹48820",
-        "image": "https://m.media-amazon.com/images/I/61qybrIqhmL._SL1500_.jpg",
-        "link": "https://amzn.to/3L73mBK",
-        "category": "Gadgets",
-        "hotdeal": true
+        "title": "Spiral Notebook Set of 8",
+        "desc": " Best Value, 200 Pages Each, Unruled, A4 Size.",
+        "price": "₹614",
+        "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/diary-notebook/x/0/k/uniqpal-set-of-8-a4-notebook-spiral-plain-page-200-pages-white-original-imah6v7nncev2jqk.jpeg?q=70&crop=false%202x,%20",
+        "link": "https://fktr.in/SmibK44",
+        "category": "Notebooks"
+    },
+
+    {
+        "title": "Classmate Notebooks",
+        "desc": "Set of 6, 172 Pages Each, Ruled, A4 Size.",
+        "price": "₹268",
+        "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/diary-notebook/c/2/p/-original-imaghnn8b9zvy6tu.jpeg?q=70&crop=false%202x,%20",
+        "link": "https://fktr.in/ys9pOyo",
+        "category": "Notebooks"
     },
 
     {
@@ -195,6 +203,16 @@
     },
 
     {
+        "title": "HP 250 G10 Intel® Core™ i5 13th Gen 1334U - (16 GB/512 GB SSD/Windows 11) Laptop (15.6 inch)",
+        "desc": "Bought myself this Diwali, working perfect",
+        "price": "₹48820",
+        "image": "https://m.media-amazon.com/images/I/61qybrIqhmL._SL1500_.jpg",
+        "link": "https://amzn.to/3L73mBK",
+        "category": "Gadgets",
+        "hotdeal": true
+    },
+
+    {
         "title": "Sticky Notes",
         "desc": "400 Sheets, 5 colors, Fluorescent Paper, Self Adhesive",
         "price": "₹139",
@@ -248,3 +266,4 @@
         "category": "Table Decors"
     }
 ]
+
