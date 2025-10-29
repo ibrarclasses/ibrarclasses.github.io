@@ -371,7 +371,7 @@ nav:not(.fixed-nav) .nav-branding {
     .filters {
       background: rgba(255,255,255,0.96);
       border-radius: 12px;
-      padding: 14px;
+      padding: 6px;
       box-shadow: 0 6px 22px rgba(6,24,44,0.06);
       position: sticky;
       top: 90px; /* under nav/header */
@@ -905,6 +905,55 @@ nav:not(.fixed-nav) .nav-branding {
    @media (min-width: 749px) {
    #darkModeToggle { display: block !important; }
 }
+
+/* ===== Premium Share Card ===== */
+.share-card {
+  margin-top: 17px;
+  padding: 0.4rem;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #3b82f6, #10b981);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  animation: floatCard 5s ease-in-out infinite alternate;
+}
+
+@keyframes floatCard {
+  0% { transform: translateY(0); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+  100% { transform: translateY(-8px); box-shadow: 0 12px 28px rgba(0,0,0,0.3); }
+}
+
+.share-card-content h4 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.share-card-content p {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+#shareBtn {
+  background: #fff;
+  color: #2563eb;
+  border: none;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
+}
+
+#shareBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(255,255,255,0.4);
+}
+
   </style>
 </head>
 <body>
@@ -958,7 +1007,7 @@ so you get bang for your buck - everytime ❤️</p>
 
     <!-- Filters column (left) -->
     <aside class="filters" id="filtersPanel" aria-hidden="false">
-      <h3>Filters</h3>
+      <h3>Categories</h3>
       <div class="filter-list" id="filterList">
         <!-- checkboxes injected by JS (demo categories used) -->
       </div>
@@ -966,6 +1015,15 @@ so you get bang for your buck - everytime ❤️</p>
         <button id="clearFilters">Clear</button>
       </div>
       <hr style="margin:12px 0;border:none;border-top:1px solid #eef2f7;">
+
+      <div class="share-card">
+  <div class="share-card-content">
+    <h4>❤️ Love Stationery Mall?</h4>
+    <p>Help others discover amazing stationery deals — share it with your friends!</p>
+    <button id="shareBtn">📤 Share Now</button>
+  </div>
+</div>
+
     </aside>
 
     <!-- Main column (right) -->
@@ -1094,7 +1152,7 @@ so you get bang for your buck - everytime ❤️</p>
     /* ===== TICKER (keeps your working implementation) ===== */
     (function initTicker(){
       const messages = [
-        "📦 New products are updated daily for better deals and prices.",
+        "📦 New products are updated regularly for better deals and prices.",
         "❤️ Handpicked products, at best available prices, you pay nothing extra, we get small referral fee. Win-Win ⭐",
         "🔍 Use the Search Bar to find the products quickly",
         "💡 Did not find your product? Leave the request with Miss Molly ⭐",
@@ -1395,6 +1453,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // run once
   onScroll();
+});
+</script>
+
+<script>
+document.getElementById('shareBtn').addEventListener('click', async () => {
+  const shareData = {
+    title: 'Stationery Mall by Ibrar Classes',
+    text: 'Discover premium stationery & study items curated from Flipkart, Amazon & Meesho!',
+    url: 'https://ibrarclasses.github.io/'
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      navigator.clipboard.writeText(shareData.url);
+      alert('🔗 Link copied to clipboard! Share it with your friends.');
+    }
+  } catch (err) {
+    console.error('Share failed:', err);
+  }
 });
 </script>
 
