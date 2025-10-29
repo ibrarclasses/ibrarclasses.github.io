@@ -964,7 +964,6 @@ so you get bang for your buck - everytime ❤️</p>
       </div>
       <div class="filter-actions">
         <button id="clearFilters">Clear</button>
-        <button id="saveFiltersBtn">Save</button>
       </div>
       <hr style="margin:12px 0;border:none;border-top:1px solid #eef2f7;">
     </aside>
@@ -1296,7 +1295,7 @@ so you get bang for your buck - everytime ❤️</p>
         const boxes = filterListEl.querySelectorAll('input[type="checkbox"]'); boxes.forEach(b=>b.checked=false);
         applyFiltersAndSearch();
       });
-      saveBtn.addEventListener('click', ()=> { localStorage.setItem('ibrar_filters', JSON.stringify(activeFilters)); alert('Filters saved locally.'); });
+      
 
       // Build filters from demo + product categories (if any)
       function computeCategoriesFromProducts(prodList){
@@ -1404,4 +1403,3 @@ document.addEventListener('DOMContentLoaded', function () {
   
 </body>
 </html>
-
