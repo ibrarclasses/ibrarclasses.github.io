@@ -817,99 +817,103 @@ nav:not(.fixed-nav) .nav-branding {
 
 @media (max-width: 768px) {
   /* Mobile header with hamburger - FIXED ALIGNMENT */
-  .mobile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-  }
-  
-  .mobile-header .hamburger {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    flex-shrink: 0; /* Prevent shrinking */
-    order: 1; /* Position on the left */
-  }
-  
-  .mobile-header .hamburger:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-  
-  .mobile-header .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex: 1;
-    justify-content: center; /* Center the logo */
-    order: 2; /* Position in the center */
-  }
-  
-  .mobile-header .logo-container img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
-  
-  .mobile-header .logo-container h1 {
-    font-size: 1.2rem;
-    margin: 0;
-  }
-  
-  .mobile-header .search-toggle {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    flex-shrink: 0; /* Prevent shrinking */
-    order: 3; /* Position on the right */
-  }
-  
-  .mobile-header .search-toggle:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
+.mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  height: auto;
+  min-height: 60px;
+}
+
+.mobile-header .hamburger {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mobile-header .hamburger:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-header .logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  justify-content: center;
+  max-width: calc(100% - 100px); /* Account for hamburger and search button */
+}
+
+.mobile-header .logo-container img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.mobile-header .logo-container h1 {
+  font-size: 1.2rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-header .search-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mobile-header .search-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
   
   .mobile-search {
-    display: none;
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .mobile-search.active {
-    display: block;
-  }
-  
-  .mobile-search #mobileSearchInput {
-    width: 100%;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 20px;
-    background: white;
-    color: var(--text);
-  }
+  display: none;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.mobile-search.active {
+  display: block;
+}
+
+.mobile-search #mobileSearchInput {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 20px;
+  background: white;
+  color: var(--text);
+}
   
   /* Hide desktop header and nav on mobile */
   header, nav {
@@ -1517,8 +1521,8 @@ input:checked + .slider:before {
   </header>
 
   <div class="mobile-search" id="mobileSearch">
-    <input id="mobileSearchInput" type="text" placeholder="Search products..." aria-label="Search products" />
-  </div>
+  <input id="mobileSearchInput" type="text" placeholder="Search products..." aria-label="Search products" />
+</div>
 
   <!-- Desktop Header (hidden on mobile) -->
   <header>
@@ -2118,151 +2122,160 @@ so you get bang for your buck - everytime ❤️</p>
     })();
 
     /* ====== MOBILE MENU FUNCTIONALITY ====== */
-    (function initMobileMenu() {
-      const hamburgerMenu = document.getElementById('hamburgerMenu');
-      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-      const mobileMenuClose = document.getElementById('mobileMenuClose');
-      const mobileMenuFilters = document.getElementById('mobileMenuFilters');
-      const mobileMenuClearFilters = document.getElementById('mobileMenuClearFilters');
-      const mobileDarkModeToggle = document.getElementById('mobileDarkModeToggle');
-      const mobileMenuDateTime = document.getElementById('mobileMenuDateTime');
-      const mobileSearchToggle = document.getElementById('mobileSearchToggle');
-      const mobileSearch = document.getElementById('mobileSearch');
-      const mobileSearchInput = document.getElementById('mobileSearchInput');
+    /* ====== MOBILE MENU FUNCTIONALITY ====== */
+(function initMobileMenu() {
+  const hamburgerMenu = document.getElementById('hamburgerMenu');
+  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuFilters = document.getElementById('mobileMenuFilters');
+  const mobileMenuClearFilters = document.getElementById('mobileMenuClearFilters');
+  const mobileDarkModeToggle = document.getElementById('mobileDarkModeToggle');
+  const mobileMenuDateTime = document.getElementById('mobileMenuDateTime');
+  const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+  const mobileSearch = document.getElementById('mobileSearch');
+  const mobileSearchInput = document.getElementById('mobileSearchInput');
+  
+  // Open mobile menu
+  hamburgerMenu.addEventListener('click', () => {
+    mobileMenuOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+  });
+  
+  // Close mobile menu
+  function closeMobileMenu() {
+    mobileMenuOverlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+  
+  mobileMenuClose.addEventListener('click', closeMobileMenu);
+  
+  // Close menu when clicking outside
+  mobileMenuOverlay.addEventListener('click', (e) => {
+    if (e.target === mobileMenuOverlay) {
+      closeMobileMenu();
+    }
+  });
+  
+  // Close menu when clicking on a navigation link
+  document.querySelectorAll('.mobile-menu-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+  });
+  
+  // Sync filters with main filter panel
+  function syncMobileFilters() {
+    mobileMenuFilters.innerHTML = '';
+    
+    // Get categories from the main filter panel
+    const mainFilterItems = document.querySelectorAll('.filter-item');
+    
+    mainFilterItems.forEach(item => {
+      const checkbox = item.querySelector('input[type="checkbox"]');
+      const label = item.querySelector('span').textContent;
       
-      // Open mobile menu
-      hamburgerMenu.addEventListener('click', () => {
-        mobileMenuOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
-      });
+      const filterItem = document.createElement('div');
+      filterItem.className = 'mobile-menu-filter-item';
       
-      // Close mobile menu
-      function closeMobileMenu() {
-        mobileMenuOverlay.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scrolling
-      }
+      filterItem.innerHTML = `
+        <input type="checkbox" id="mobile_${checkbox.id}" value="${checkbox.value}" ${checkbox.checked ? 'checked' : ''} />
+        <label for="mobile_${checkbox.id}">${label}</label>
+      `;
       
-      mobileMenuClose.addEventListener('click', closeMobileMenu);
+      mobileMenuFilters.appendChild(filterItem);
       
-      // Close menu when clicking outside
-      mobileMenuOverlay.addEventListener('click', (e) => {
-        if (e.target === mobileMenuOverlay) {
-          closeMobileMenu();
-        }
-      });
-      
-      // Close menu when clicking on a navigation link
-      document.querySelectorAll('.mobile-menu-nav a').forEach(link => {
-        link.addEventListener('click', () => {
-          closeMobileMenu();
-        });
-      });
-      
-      // Sync filters with main filter panel
-      function syncMobileFilters() {
-        mobileMenuFilters.innerHTML = '';
-        
-        // Get categories from the main filter panel
-        const mainFilterItems = document.querySelectorAll('.filter-item');
-        
-        mainFilterItems.forEach(item => {
-          const checkbox = item.querySelector('input[type="checkbox"]');
-          const label = item.querySelector('span').textContent;
-          
-          const filterItem = document.createElement('div');
-          filterItem.className = 'mobile-menu-filter-item';
-          
-          filterItem.innerHTML = `
-            <input type="checkbox" id="mobile_${checkbox.id}" value="${checkbox.value}" ${checkbox.checked ? 'checked' : ''} />
-            <label for="mobile_${checkbox.id}">${label}</label>
-          `;
-          
-          mobileMenuFilters.appendChild(filterItem);
-          
-          // Add event listener to sync with main filter
-          filterItem.querySelector('input').addEventListener('change', (e) => {
-            // Update main filter
-            checkbox.checked = e.target.checked;
-            
-            // Trigger change event on main filter to apply filters
-            checkbox.dispatchEvent(new Event('change'));
-          });
-        });
-      }
-      
-      // Clear filters
-      mobileMenuClearFilters.addEventListener('click', () => {
-        // Uncheck all mobile filters
-        document.querySelectorAll('.mobile-menu-filter-item input').forEach(input => {
-          input.checked = false;
-        });
-        
-        // Uncheck all main filters
-        document.querySelectorAll('.filter-item input').forEach(input => {
-          input.checked = false;
-        });
+      // Add event listener to sync with main filter
+      filterItem.querySelector('input').addEventListener('change', (e) => {
+        // Update main filter
+        checkbox.checked = e.target.checked;
         
         // Trigger change event on main filter to apply filters
-        document.querySelector('.filter-item input').dispatchEvent(new Event('change'));
+        checkbox.dispatchEvent(new Event('change'));
       });
-      
-      // Sync dark mode toggle
-      const isDarkMode = document.documentElement.classList.contains('dark-mode');
-      mobileDarkModeToggle.checked = isDarkMode;
-      
-      mobileDarkModeToggle.addEventListener('change', () => {
-        // Toggle dark mode
-        document.documentElement.classList.toggle('dark-mode');
-        const isDark = document.documentElement.classList.contains('dark-mode');
-        
-        // Update main dark mode toggle
-        const mainDarkModeToggle = document.getElementById('darkModeToggle');
-        mainDarkModeToggle.textContent = isDark ? '☀️' : '🌙';
-        
-        // Save preference
-        localStorage.setItem('ibrar-dark', isDark ? '1' : '0');
-      });
-      
-      // Update date/time in mobile menu
-      function updateMobileDateTime() {
-        const now = new Date();
-        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        const dateStr = now.toLocaleDateString('en-IN', options);
-        const timeStr = now.toLocaleTimeString('en-IN');
-        mobileMenuDateTime.textContent = `${dateStr} | ${timeStr}`;
+    });
+  }
+  
+  // Clear filters
+  mobileMenuClearFilters.addEventListener('click', () => {
+    // Uncheck all mobile filters
+    document.querySelectorAll('.mobile-menu-filter-item input').forEach(input => {
+      input.checked = false;
+    });
+    
+    // Uncheck all main filters
+    document.querySelectorAll('.filter-item input').forEach(input => {
+      input.checked = false;
+    });
+    
+    // Trigger change event on main filter to apply filters
+    document.querySelector('.filter-item input').dispatchEvent(new Event('change'));
+  });
+  
+  // Sync dark mode toggle
+  const isDarkMode = document.documentElement.classList.contains('dark-mode');
+  mobileDarkModeToggle.checked = isDarkMode;
+  
+  mobileDarkModeToggle.addEventListener('change', () => {
+    // Toggle dark mode
+    document.documentElement.classList.toggle('dark-mode');
+    const isDark = document.documentElement.classList.contains('dark-mode');
+    
+    // Update main dark mode toggle
+    const mainDarkModeToggle = document.getElementById('darkModeToggle');
+    mainDarkModeToggle.textContent = isDark ? '☀️' : '🌙';
+    
+    // Save preference
+    localStorage.setItem('ibrar-dark', isDark ? '1' : '0');
+  });
+  
+  // Update date/time in mobile menu
+  function updateMobileDateTime() {
+    const now = new Date();
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('en-IN', options);
+    const timeStr = now.toLocaleTimeString('en-IN');
+    mobileMenuDateTime.textContent = `${dateStr} | ${timeStr}`;
+  }
+  
+  updateMobileDateTime();
+  setInterval(updateMobileDateTime, 1000);
+  
+  // Mobile search toggle - FIXED
+  if (mobileSearchToggle && mobileSearch) {
+    mobileSearchToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      mobileSearch.classList.toggle('active');
+      if (mobileSearch.classList.contains('active')) {
+        mobileSearchInput.focus();
       }
-      
-      updateMobileDateTime();
-      setInterval(updateMobileDateTime, 1000);
-      
-      // Mobile search toggle
-      mobileSearchToggle.addEventListener('click', () => {
-        mobileSearch.classList.toggle('active');
-        if (mobileSearch.classList.contains('active')) {
-          mobileSearchInput.focus();
-        }
-      });
-      
-      // Mobile search functionality
-      mobileSearchInput.addEventListener('input', () => {
-        // Sync with main search input
-        const mainSearchInput = document.getElementById('searchInput');
+    });
+  }
+  
+  // Mobile search functionality
+  if (mobileSearchInput) {
+    mobileSearchInput.addEventListener('input', () => {
+      // Sync with main search input
+      const mainSearchInput = document.getElementById('searchInput');
+      if (mainSearchInput) {
         mainSearchInput.value = mobileSearchInput.value;
         
         // Trigger search
         mainSearchInput.dispatchEvent(new Event('input'));
-      });
-      
-      // Initialize mobile filters when menu is opened
-      hamburgerMenu.addEventListener('click', syncMobileFilters);
-      
-      // Close mobile search when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!mobileSearch.contains(e.target) && e.target !== mobileSearchToggle) {
-          mobileSearch.classList.remove('active');
-        }
-      });
-    })();
+      }
+    });
+  }
+  
+  // Initialize mobile filters when menu is opened
+  hamburgerMenu.addEventListener('click', syncMobileFilters);
+  
+  // Close mobile search when clicking outside
+  document.addEventListener('click', (e) => {
+    if (mobileSearch && !mobileSearch.contains(e.target) && e.target !== mobileSearchToggle) {
+      mobileSearch.classList.remove('active');
+    }
+  });
+})();
   
     </script>
 
