@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Stationery Mall | Ibrar Classes</title>
-    <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TF3YZ5NPGL"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -15,7 +15,7 @@
 </script>
 
   <!-- ✅ COMPLETE SEO + SOCIAL META TAGS FOR STATIONERY MALL -->
-<meta name="description" content="Stationery Mall by Ibrar Classes — India’s one-stop online destination for books, notebooks, pens, and affordable stationery items from trusted sites like Amazon, Flipkart, and Meesho. Find the best school, college, and office supplies hand-picked for quality and value.">
+<meta name="description" content="Stationery Mall by Ibrar Classes — India's one-stop online destination for books, notebooks, pens, and affordable stationery items from trusted sites like Amazon, Flipkart, and Meesho. Find the best school, college, and office supplies hand-picked for quality and value.">
 <meta name="keywords" content="stationery mall, ibrar classes, upsc, ssc, aspirants, buy stationery online, notebooks, books, pens, school supplies, flipkart stationery, amazon stationery, meesho stationery, office stationery, best stationery deals, cheap stationery india, student supplies, drawing materials, study materials, exam books, educational products">
 <meta name="author" content="Ibrar Classes">
 <meta name="robots" content="index, follow">
@@ -61,7 +61,7 @@
 </script>
 <!-- ✅ END OF SEO TAGS -->
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ====== BASIC / THEME ====== */
     :root {
@@ -72,6 +72,15 @@
       --card: #ffffff;
       --text: #1F2937;
       --filter-width: 240px;
+      --fluid-min-width: 320;
+      --fluid-max-width: 1200;
+      --fluid-screen: 100vw;
+      --fluid-bp: calc(
+        (var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) /
+        (var(--fluid-max-width) - var(--fluid-min-width))
+      );
+      --menu-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      --menu-gradient: linear-gradient(135deg, var(--primary), var(--accent));
     }
 
     * { box-sizing: border-box; }
@@ -88,6 +97,34 @@
       color: var(--text);
       transition: background-color .4s, color .4s;
       overflow-x: hidden;
+    }
+
+    /* Fluid font sizes */
+    h1 {
+      font-size: clamp(1.5rem, 5vw, 5.5rem);
+    }
+
+    h2 {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+    }
+
+    h3 {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+    }
+
+    p, .filter-item, .buy-btn, .carousel-buy-btn {
+      font-size: clamp(0.8rem, 2vw, 1rem);
+    }
+
+    /* Fluid spacing */
+    .layout, .carousel-container, .container {
+      padding-left: clamp(0.5rem, 2vw, 1rem);
+      padding-right: clamp(0.5rem, 2vw, 1rem);
+    }
+
+    .layout {
+      margin-top: clamp(1rem, 3vw, 1.5rem);
+      gap: clamp(1rem, 3vw, 1.5rem);
     }
 
    /* ====== HEADER ====== */
@@ -127,7 +164,6 @@ header img {
 /* 🏷️ Website Title */
 header h1 {
   margin: 0;
-  font-size: 5.5rem;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: 1px;
@@ -139,7 +175,6 @@ header p {
   margin-top: 0.7rem;
   margin-bottom:0.1rem;
   font-weight: 200;
-  font-size: 1rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.92);
   max-width: 1200px;
@@ -181,7 +216,6 @@ header p {
       color: white;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1rem;
       transition: color 0.3s, transform 0.2s;
     }
 
@@ -224,7 +258,6 @@ header p {
 .nav-branding span {
   color: #ffffff;
   font-weight: 700;
-  font-size: 1.15rem;
   letter-spacing: 0.4px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   user-select: none;
@@ -283,7 +316,6 @@ nav:not(.fixed-nav) .nav-branding {
   border-radius: 50px 0 0 50px;
   width: 150px;
   transition: all 0.3s ease;
-  font-size: 0.9rem;
 }
 
 /* Expanding input when focused */
@@ -352,10 +384,278 @@ nav:not(.fixed-nav) .nav-branding {
       color: #0b1220;
       padding: 7px 12px;
       border-radius: 9px;
-      font-size: 13px;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
       backdrop-filter: blur(4px);
     }
+    
+    /* ====== CAROUSEL STYLES ====== */
+.carousel-container {
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  position: relative;
+}
+
+.carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.carousel-header h2 {
+  color: var(--primary);
+  margin: 0;
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.carousel-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background: var(--accent);
+  transform: scale(1.05);
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item {
+  min-width: 100%;
+  padding: 0 0.5rem;
+}
+
+.carousel-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.carousel-card-image {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+.carousel-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-content h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.3;
+  height: 2.6rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.carousel-content p {
+  margin: 0 0 0.8rem 0;
+  color: #64748b;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.carousel-price {
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.carousel-buy-btn {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.carousel-buy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-source-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 14px;
+  z-index: 1;
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: var(--primary);
+  width: 24px;
+  border-radius: 5px;
+}
+
+/* Carousel responsive styles */
+@media (min-width: 768px) {
+  .carousel-item {
+    min-width: 50%;
+  }
+  
+  .carousel-card {
+    flex-direction: row;
+    height: 180px;
+  }
+  
+  .carousel-card-image {
+    width: 180px;
+    height: 100%;
+    margin-bottom: 0;
+    margin-right: 1rem;
+  }
+  
+  .carousel-content h3 {
+    font-size: 1.1rem;
+    height: auto;
+    -webkit-line-clamp: 1;
+  }
+  
+  .carousel-content p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-item {
+    min-width: 33.333%;
+  }
+  
+  .carousel-card {
+    height: 200px;
+  }
+  
+  .carousel-card-image {
+    width: 200px;
+  }
+  
+  .carousel-content h3 {
+    font-size: 1.2rem;
+  }
+  
+  .carousel-content p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Mobile carousel adjustments */
+@media (max-width: 767px) {
+  .carousel-item {
+    min-width: 50%;
+  }
+  
+  .carousel-card {
+    height: auto;
+    min-height: 280px;
+  }
+  
+  .carousel-card-image {
+    height: 140px;
+  }
+  
+  .carousel-content h3 {
+    font-size: 0.9rem;
+    height: 2.2rem;
+  }
+  
+  .carousel-content p {
+    font-size: 0.8rem;
+  }
+  
+  .carousel-price {
+    font-size: 0.9rem;
+  }
+  
+  .carousel-buy-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    min-width: 100%;
+  }
+  
+  .carousel-card {
+    min-height: 260px;
+  }
+  
+  .carousel-card-image {
+    height: 120px;
+  }
+}
     
     /* ====== LAYOUT: filters (left) + main (right) ====== */
     .layout {
@@ -493,401 +793,532 @@ nav:not(.fixed-nav) .nav-branding {
     }
     #darkModeToggle:hover { transform: scale(1.06); }
 
-/* ====== ULTRA-SMOOTH MOBILE RESPONSIVENESS ====== */
+/* ====== MOBILE RESPONSIVENESS ====== */
+/* Mobile-first responsive design */
+@media (max-width: 1200px) {
+  .layout {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 1024px) {
-  header h1 { font-size: 3rem; }
-  header img { width: 90px; height: 90px; }
-  .layout { grid-template-columns: 1fr; }
-  nav .left-links a { font-size: 0.9rem; padding: 4px 0; }
-  #searchInput { width: 100px; }
-  #searchInput:focus { width: 120px; }
-  .product-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
-  .product-card img { height: 150px; }
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .filters {
+    display: none;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
 
-/* ✅ Mobile NAV refinement 768px */
 @media (max-width: 768px) {
-    /* ====== NAV BAR ====== */
-    nav {
-      background: var(--nav);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      position: sticky; 
-      top: 0;
-      min-height: 100px; /* taller for two-line spacing */
-      z-index: 1000;
-      flex-wrap: wrap;
-    }
-
-    nav .left-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 17%;
-    }
-
-    nav .left-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.8rem;
-      transition: color 0.3s, transform 0.2s;
-    }
-
-    nav .left-links a:hover {
-      color: #ffffff;
-      transform: scale(1.05);
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-    }
-    nav .right-section {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-}
-
-/* ====== STICKY NAV CENTER BRANDING (refined version) ====== */
-.nav-branding {
-  position: absolute;
-  left: 32%;
-  top: 40%; 
-  transform: translate(-50%, -50%) translateY(-10px);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  animation: none;
-}
-
-/* Branding content style */
-.nav-branding img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
-  animation: navLogoPulse 4s infinite ease-in-out;
-}
-
-.nav-branding span {
-  color: #ffffff;
-  font-weight: 900;
-  font-size: 2.50rem;
-  letter-spacing: 0.4px;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  user-select: none;
-}
-
-/* Animate when nav becomes sticky */
-.fixed-nav .nav-branding {
-  opacity: 1;
-  transform: translate(-50%, -50%) translateY(0);
-  pointer-events: auto;
-}
-
-/* Smooth hide when header returns */
-nav:not(.fixed-nav) .nav-branding {
-  opacity: 0;
-  transform: translate(-50%, -50%) translateY(-10px);
-}
-
-/* ✨ Soft glowing logo animation */
-@keyframes navLogoPulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  /* Mobile header with hamburger - FIXED ALIGNMENT */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
   }
-  50% {
-    transform: scale(1.08);
-    box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+  
+  .mobile-header .hamburger {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    flex-shrink: 0; /* Prevent shrinking */
+    order: 1; /* Position on the left */
+  }
+  
+  .mobile-header .hamburger:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .mobile-header .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    justify-content: center; /* Center the logo */
+    order: 2; /* Position in the center */
+  }
+  
+  .mobile-header .logo-container img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .mobile-header .logo-container h1 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .mobile-header .search-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    flex-shrink: 0; /* Prevent shrinking */
+    order: 3; /* Position on the right */
+  }
+  
+  .mobile-header .search-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .mobile-search {
+    display: none;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .mobile-search.active {
+    display: block;
+  }
+  
+  .mobile-search #mobileSearchInput {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 20px;
+    background: white;
+    color: var(--text);
+  }
+  
+  /* Hide desktop header and nav on mobile */
+  header, nav {
+    display: none;
+  }
+  
+  /* Show mobile header */
+  .mobile-header {
+    display: flex;
+  }
+  
+  /* Adjust ticker for mobile */
+  .ticker {
+    font-size: 0.8rem;
+    padding: 6px 0;
+  }
+  
+  /* Adjust product grid for mobile */
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  .product-card img {
+    height: 150px;
+  }
+  
+  /* Adjust footer for mobile */
+  footer {
+    padding: 1rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Adjust info sections for mobile */
+  .info-box {
+    padding: 1rem;
+  }
+  
+  .info-box h2 {
+    font-size: 1.2rem;
+  }
+  
+  .info-box p, .info-box details {
+    font-size: 0.9rem;
   }
 }
 
-/* Fade-in animation (optional for smoother entry) */
-@keyframes brandingFadeIn {
-  from { opacity: 0; transform: translate(-50%, -60%); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
-}
-
-/* Optional: Hide on small screens to save space */
-
-
-
-    
-    /* Premium gradient search bar styling */
-#searchBarContainer {
-  position: relative;
-  left: 4%;
-  right: 1%;
-  margin-top: 46%;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  border-radius: 50px;
-  padding: 1px;
-  transition: all 0.3s ease;
-}
-
-#searchInput {
-  border: none;
-  outline: none;
-  padding: 8px 12px;
-  border-radius: 50px 0 0 50px;
-  width: 90%;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-}
-
-/* Expanding input when focused */
-#searchInput:focus {
-  width: 200px;
-  background: #fff;
-}
-
-/* Gradient search button */
-#searchBtn {
-  border: none;
-  padding: 8px 8px;
-  border-radius: 0 50px 50px 0;
-  cursor: pointer;
-  color: white;
-  font-weight: 600;
-  background: linear-gradient(135deg, #0072ff, #00c6ff);
-  transition: all 0.3s ease;
-}
-
-/* Button hover glow */
-#searchBtn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
-}
-
-/* Smooth shadow around full bar */
-#searchBarContainer:focus-within {
-  box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
-}
-
-}
-
-/* ✅ Mobile NAV refinement 480px */
 @media (max-width: 480px) {
-  /* 💬 OG Branding */
-header h1 { font-size: 1.5rem; }
-header img { width: 60px; height: 60px; }
-  /* 💬 Tagline */
-header p {
-  margin-top: 0.2rem;
-  margin-bottom:0.1rem;
-  font-weight: 150;
-  font-size: 0.6rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.92);
-  max-width: 1200px;
-}
-  /* 💬 Product Grids */    
-  .layout { grid-template-columns: 1fr; }
-  .product-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; }
-  .product-card img { height: 200px; }
-
-    /* ====== NAV BAR ====== */
-    nav {
-      background: var(--nav);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      position: sticky; 
-      top: 0;
-      min-height: 100px; /* taller for two-line spacing */
-      z-index: 1000;
-      flex-wrap: wrap;
-    }
-
-    nav .left-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 17%;
-    }
-
-    nav .left-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.8rem;
-      transition: color 0.3s, transform 0.2s;
-    }
-
-    nav .left-links a:hover {
-      color: #ffffff;
-      transform: scale(1.05);
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-    }
-    nav .right-section {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-}
-
-/* ====== STICKY NAV CENTER BRANDING (refined version) ====== */
-.nav-branding {
-  position: absolute;
-  left: 35%;
-  top: 40%; 
-  transform: translate(-50%, -50%) translateY(-10px);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  animation: none;
-}
-
-/* Branding content style */
-.nav-branding img {
-  width: 49px;
-  height: 49px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
-  animation: navLogoPulse 4s infinite ease-in-out;
-}
-
-.nav-branding span {
-  color: #ffffff;
-  font-weight: 900;
-  font-size: 1.20rem;
-  letter-spacing: 0.4px;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  user-select: none;
-}
-
-/* Animate when nav becomes sticky */
-.fixed-nav .nav-branding {
-  opacity: 1;
-  transform: translate(-50%, -50%) translateY(0);
-  pointer-events: auto;
-}
-
-/* Smooth hide when header returns */
-nav:not(.fixed-nav) .nav-branding {
-  opacity: 0;
-  transform: translate(-50%, -50%) translateY(-10px);
-}
-
-/* ✨ Soft glowing logo animation */
-@keyframes navLogoPulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.5rem;
   }
-  50% {
-    transform: scale(1.08);
-    box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+  
+  .product-card img {
+    height: 130px;
+  }
+  
+  .buy-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
   }
 }
 
-/* Fade-in animation (optional for smoother entry) */
-@keyframes brandingFadeIn {
-  from { opacity: 0; transform: translate(-50%, -60%); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
-}
-
-/* Optional: Hide on small screens to save space */
-
-
-
-    
-    /* Premium gradient search bar styling */
-#searchBarContainer {
-  position: relative;
-  left: 4%;
-  right: 1%;
-  margin-top: 46%;
-  display: flex;
+/* ====== PREMIUM MOBILE MENU STYLES ====== */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(5px);
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 85%;
+  max-width: 320px;
+  height: 100%;
+  background: var(--menu-gradient);
+  box-shadow: var(--menu-shadow);
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow-y: auto;
+  border-radius: 0 20px 20px 0;
+}
+
+.mobile-menu-overlay.active .mobile-menu {
+  transform: translateX(0);
+}
+
+.mobile-menu-header {
+  display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  border-radius: 50px;
-  padding: 1px;
-  transition: all 0.3s ease;
+  justify-content: space-between;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-#searchInput {
-  border: none;
-  outline: none;
-  padding: 8px 12px;
-  border-radius: 50px 0 0 50px;
-  width: 90%;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
+.mobile-menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
-/* Expanding input when focused */
-#searchInput:focus {
-  width: 200px;
-  background: #fff;
+.mobile-menu-logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Gradient search button */
-#searchBtn {
-  border: none;
-  padding: 8px 8px;
-  border-radius: 0 50px 50px 0;
-  cursor: pointer;
+.mobile-menu-logo h2 {
+  margin: 0;
+  font-size: 1.4rem;
   color: white;
-  font-weight: 600;
-  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   transition: all 0.3s ease;
 }
 
-/* Button hover glow */
-#searchBtn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
+.mobile-menu-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
 }
 
-/* Smooth shadow around full bar */
-#searchBarContainer:focus-within {
-  box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
+.mobile-menu-content {
+  padding: 1.5rem;
 }
 
-/* search bar fixed rules */
-#searchBarContainer {
-  flex: none;            /* stop it from stretching/shrinking */
-  width: auto;           /* allow child to define its width */
-  justify-content: center;
-  left: 10;
+.mobile-menu-section {
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.2rem;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-section:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-menu-section h3 {
+  margin: 0 0 1rem 0;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-menu-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-menu-nav li {
+  margin-bottom: 0.8rem;
+}
+
+.mobile-menu-nav a {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.mobile-menu-nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: translateX(5px);
+}
+
+.mobile-menu-nav a svg {
+  margin-right: 10px;
+}
+
+.mobile-menu-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.mobile-menu-filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+}
+
+.mobile-menu-filter-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+}
+
+.mobile-menu-filter-item label {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.mobile-menu-filter-item label:hover {
+  color: white;
+}
+
+.mobile-menu-clear-filters {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mobile-menu-clear-filters:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.mobile-menu-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.mobile-menu-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-menu-setting span {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.mobile-menu-datetime {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.8rem;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: white;
+  font-weight: 500;
+}
+
+/* Enhanced toggle switch styles */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
   right: 0;
-  margin: 1 auto;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: .4s;
+  border-radius: 30px;
 }
 
-#searchInput {
-  flex: none;            /* override flex rules if inherited */
-  width: 65px !important; /* force a fixed width */
-  max-width: none;
-  transition: width 0.3s ease;
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-#searchInput:focus {
-  width: 75px !important; /* expands to left/right */
+input:checked + .slider {
+  background-color: var(--accent);
 }
 
+input:checked + .slider:before {
+  transform: translateX(30px);
 }
 
-  /*Disappear filter on mobile and reappear on desktop*/
+.mobile-menu-social {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.mobile-menu-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-social a:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+/* Add some premium animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-menu-section {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.mobile-menu-section:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.mobile-menu-section:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.mobile-menu-section:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.mobile-menu-section:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Hide mobile header and menu on desktop */
+@media (min-width: 769px) {
+  .mobile-header, .mobile-search, .mobile-menu-overlay {
+    display: none !important;
+  }
+}
+
+/*Disappear filter on mobile and reappear on desktop*/
    @media (max-width: 1024px) {
     .filters { display: none !important; }
-    .live-datetime { display: none !important; }
+    #live-datetime { display: none !important; }
   }
    @media (min-width: 1025px) {
   .filters { display: block !important; }
-  .live-datetime { display: block !important; }
+  #live-datetime { display: block !important; }
 }
 
 /*Disappear time and date on mobile and reappear on desktop*/
@@ -958,12 +1389,138 @@ nav:not(.fixed-nav) .nav-branding {
 </head>
 <body>
   
-  <!-- Live date/time -->
-  <div id="live-datetime" aria-hidden="false"></div>
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-header">
+        <div class="mobile-menu-logo">
+          <img src="logost.png" alt="Stationery Mall Logo" />
+          <h2>Stationery Mall</h2>
+        </div>
+        <button class="mobile-menu-close" id="mobileMenuClose">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="mobile-menu-content">
+        <div class="mobile-menu-section">
+          <h3>Navigation</h3>
+          <ul class="mobile-menu-nav">
+            <li>
+              <a href="index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#about">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                About
+              </a>
+            </li>
+            <li>
+              <a href="#disclaimer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Disclaimer
+              </a>
+            </li>
+            <li>
+              <a href="#faq">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                FAQ
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="mobile-menu-section">
+          <h3>Categories</h3>
+          <div class="mobile-menu-filters" id="mobileMenuFilters">
+            <!-- Filters will be dynamically inserted here -->
+          </div>
+          <button class="mobile-menu-clear-filters" id="mobileMenuClearFilters">Clear Filters</button>
+        </div>
+        
+        <div class="mobile-menu-section">
+          <h3>Settings</h3>
+          <div class="mobile-menu-settings">
+            <div class="mobile-menu-setting">
+              <span>Dark Mode</span>
+              <label class="switch">
+                <input type="checkbox" id="mobileDarkModeToggle">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="mobile-menu-datetime" id="mobileMenuDateTime"></div>
+          </div>
+        </div>
+        
+        <div class="mobile-menu-section">
+          <div class="mobile-menu-social">
+            <a href="https://www.youtube.com/@ibrarclasses" target="_blank" rel="noopener">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+              </svg>
+            </a>
+            <a href="https://t.me/M1ssMolly_Bot" target="_blank" rel="noopener">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.26-1.13 7.73-1.6 10.26-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-1.06-1.24-.82-1.95-1.33-3.15-2.13-1.39-.92-.49-1.43.31-2.26.21-.22 3.86-3.54 3.93-3.84.01-.04.01-.18-.07-.26s-.2-.05-.29-.03c-.12.03-2.09 1.33-5.91 3.91-.56.38-1.06.57-1.52.56-.5-.01-1.46-.28-2.18-.51-.88-.28-1.57-.43-1.51-.91.03-.25.38-.51 1.04-.78 4.07-1.77 6.78-2.94 8.13-3.51 3.88-1.61 4.68-1.89 5.2-1.9.12 0 .37.03.54.17.14.12.18.28.2.44-.01.06 0 .23-.02.36z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- Dark mode toggle -->
-  <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
+  <!-- Mobile Header -->
+  <header class="mobile-header">
+    <button class="hamburger" id="hamburgerMenu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    
+    <div class="logo-container">
+      <img src="logost.png" alt="Stationery Mall Logo" />
+      <h1>Stationery Mall</h1>
+    </div>
+    
+    <button class="search-toggle" id="mobileSearchToggle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+    </button>
+  </header>
 
+  <div class="mobile-search" id="mobileSearch">
+    <input id="mobileSearchInput" type="text" placeholder="Search products..." aria-label="Search products" />
+  </div>
+
+  <!-- Desktop Header (hidden on mobile) -->
   <header>
     <div class="brand-row">
     <img src="logost.png" alt="Stationery logo" />
@@ -1000,6 +1557,39 @@ so you get bang for your buck - everytime ❤️</p>
   <!-- Ticker -->
   <div class="ticker">
     <div class="ticker__content" id="tickerText"></div>
+  </div>
+
+  <!-- Live date/time -->
+  <div id="live-datetime" aria-hidden="false"></div>
+
+  <!-- Dark mode toggle -->
+  <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
+
+  <!-- Carousel -->
+  <div class="carousel-container">
+    <div class="carousel-header">
+      <h2>Featured Products</h2>
+      <div class="carousel-controls">
+        <button id="prevBtn" class="carousel-btn" aria-label="Previous slide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button id="nextBtn" class="carousel-btn" aria-label="Next slide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- Carousel items will be dynamically inserted here -->
+      </div>
+    </div>
+    <div class="carousel-indicators" id="carouselIndicators">
+      <!-- Indicators will be dynamically inserted here -->
+    </div>
   </div>
 
   <!-- Layout: left filters + main -->
@@ -1097,6 +1687,16 @@ so you get bang for your buck - everytime ❤️</p>
 
   <!-- ========== SCRIPTS ========== -->
   <script>
+    // Global utility function to detect source from URL
+    function detectSource(url){
+      if(!url) return '';
+      const u = url.toLowerCase();
+      if(u.includes('amzn') || u.includes('amazon')) return 'Amazon';
+      if(u.includes('fktr') || u.includes('flipkart')) return 'Flipkart';
+      if(u.includes('meesho')) return 'Meesho';
+      return '';
+    }
+
     /* ===== LIVE DATETIME ===== */
     function updateDateTime(){
       const now = new Date();
@@ -1149,7 +1749,7 @@ so you get bang for your buck - everytime ❤️</p>
     window.addEventListener('scroll', ()=>{ backBtn.style.display = window.scrollY > 300 ? 'block' : 'none'; });
     backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-    /* ===== TICKER (keeps your working implementation) ===== */
+    /* ===== TICKER (keeps your working implementation) ====== */
     (function initTicker(){
       const messages = [
         "📦 New products are updated regularly for better deals and prices.",
@@ -1198,16 +1798,6 @@ so you get bang for your buck - everytime ❤️</p>
       const demoCategories = ['Pens','Notebooks','Books','Accessories','Gadgets','Table Decors'];
       let products = [];      // full list
       let activeFilters = JSON.parse(localStorage.getItem('ibrar_filters') || '[]'); // array of selected category names
-
-      // Utility: extract source from URL
-      function detectSource(url){
-        if(!url) return '';
-        const u = url.toLowerCase();
-        if(u.includes('amzn') || u.includes('amazon')) return 'Amazon';
-        if(u.includes('fktr') || u.includes('flipkart')) return 'Flipkart';
-        if(u.includes('meesho')) return 'Meesho';
-        return '';
-      }
 
       // Build filter UI (prefers categories found in products, else demo)
       function buildFilterUI(categories){
@@ -1375,6 +1965,11 @@ so you get bang for your buck - everytime ❤️</p>
           buildFilterUI(cats);
           // initial display uses saved filters and blank search
           applyFiltersAndSearch();
+          
+          // Trigger carousel initialization after products are loaded
+          if (window.initCarousel) {
+            window.initCarousel();
+          }
         } catch(err){
           console.error('Error loading products:', err);
           grid.innerHTML = `<p style="text-align:center;color:red">⚠️ Failed to load products, please refresh the page.</p>`;
@@ -1388,6 +1983,286 @@ so you get bang for your buck - everytime ❤️</p>
 
     })();
 
+    /* ====== CAROUSEL FUNCTIONALITY ====== */
+    (function initCarouselModule() {
+      const carouselTrack = document.getElementById('carouselTrack');
+      const indicatorsContainer = document.getElementById('carouselIndicators');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      let currentIndex = 0;
+      let featuredProducts = [];
+      let autoplayInterval;
+      
+      // Fetch featured products from products.json
+      async function loadFeaturedProducts() {
+        try {
+          const response = await fetch('products.json?v=' + new Date().getTime());
+          const products = await response.json();
+          
+          // Select up to 6 random products as featured
+          const shuffled = [...products].sort(() => 0.5 - Math.random());
+          featuredProducts = shuffled.slice(0, 6);
+          
+          renderCarousel();
+          setupAutoplay();
+        } catch (error) {
+          console.error('Error loading featured products:', error);
+        }
+      }
+      
+      // Render carousel items
+      function renderCarousel() {
+        carouselTrack.innerHTML = '';
+        indicatorsContainer.innerHTML = '';
+        
+        featuredProducts.forEach((product, index) => {
+          // Create carousel item
+          const item = document.createElement('div');
+          item.className = 'carousel-item';
+          
+          const source = detectSource(product.link) || (product.source || '');
+          const sourceColor = source === 'Amazon' ? '#FFD700' : 
+                             source === 'Flipkart' ? '#2874F0' : 
+                             source === 'Meesho' ? '#E91E63' : '#444';
+          
+          item.innerHTML = `
+            <div class="carousel-card">
+              <img src="${product.image || 'fallback.jpg'}" alt="${product.title || 'Product'}" onerror="this.src='fallback.jpg';" class="carousel-card-image">
+              <div class="carousel-content">
+                <h3>${product.title || ''}</h3>
+                <p>${product.desc || ''}</p>
+                <div class="carousel-price">${product.price || ''}</div>
+                <a href="${product.link || '#'}" target="_blank" class="carousel-buy-btn" rel="nofollow noopener noreferrer">Buy Now</a>
+              </div>
+              ${source ? `<div class="carousel-source-tag" style="background: ${sourceColor};">${source}</div>` : ''}
+            </div>
+          `;
+          
+          carouselTrack.appendChild(item);
+          
+          // Create indicator
+          const indicator = document.createElement('div');
+          indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+          indicator.addEventListener('click', () => goToSlide(index));
+          indicatorsContainer.appendChild(indicator);
+        });
+      }
+      
+      // Navigate to specific slide
+      function goToSlide(index) {
+        currentIndex = index;
+        const slideWidth = 100 / getVisibleSlides();
+        carouselTrack.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+        
+        // Update indicators
+        document.querySelectorAll('.indicator').forEach((ind, i) => {
+          ind.classList.toggle('active', i === currentIndex);
+        });
+        
+        // Reset autoplay
+        resetAutoplay();
+      }
+      
+      // Get number of visible slides based on screen width
+      function getVisibleSlides() {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        if (window.innerWidth >= 480) return 2; // Changed from 1 to 2 for medium mobile
+        return 1; // For very small screens
+      }
+      
+      // Go to next slide
+      function nextSlide() {
+        const maxIndex = Math.max(0, featuredProducts.length - getVisibleSlides());
+        currentIndex = (currentIndex + 1) % (maxIndex + 1);
+        goToSlide(currentIndex);
+      }
+      
+      // Go to previous slide
+      function prevSlide() {
+        const maxIndex = Math.max(0, featuredProducts.length - getVisibleSlides());
+        currentIndex = currentIndex === 0 ? maxIndex : currentIndex - 1;
+        goToSlide(currentIndex);
+      }
+      
+      // Setup autoplay
+      function setupAutoplay() {
+        autoplayInterval = setInterval(nextSlide, 5000);
+      }
+      
+      // Reset autoplay
+      function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        setupAutoplay();
+      }
+      
+      // Event listeners
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+      
+      // Pause autoplay on hover
+      carouselTrack.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+      carouselTrack.addEventListener('mouseleave', setupAutoplay);
+      
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        goToSlide(0); // Reset to first slide on resize
+      });
+      
+      // Make function globally accessible
+      window.initCarousel = loadFeaturedProducts;
+      
+      // Initialize carousel
+      loadFeaturedProducts();
+    })();
+
+    /* ====== MOBILE MENU FUNCTIONALITY ====== */
+    (function initMobileMenu() {
+      const hamburgerMenu = document.getElementById('hamburgerMenu');
+      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      const mobileMenuClose = document.getElementById('mobileMenuClose');
+      const mobileMenuFilters = document.getElementById('mobileMenuFilters');
+      const mobileMenuClearFilters = document.getElementById('mobileMenuClearFilters');
+      const mobileDarkModeToggle = document.getElementById('mobileDarkModeToggle');
+      const mobileMenuDateTime = document.getElementById('mobileMenuDateTime');
+      const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+      const mobileSearch = document.getElementById('mobileSearch');
+      const mobileSearchInput = document.getElementById('mobileSearchInput');
+      
+      // Open mobile menu
+      hamburgerMenu.addEventListener('click', () => {
+        mobileMenuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+      });
+      
+      // Close mobile menu
+      function closeMobileMenu() {
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+      
+      mobileMenuClose.addEventListener('click', closeMobileMenu);
+      
+      // Close menu when clicking outside
+      mobileMenuOverlay.addEventListener('click', (e) => {
+        if (e.target === mobileMenuOverlay) {
+          closeMobileMenu();
+        }
+      });
+      
+      // Close menu when clicking on a navigation link
+      document.querySelectorAll('.mobile-menu-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          closeMobileMenu();
+        });
+      });
+      
+      // Sync filters with main filter panel
+      function syncMobileFilters() {
+        mobileMenuFilters.innerHTML = '';
+        
+        // Get categories from the main filter panel
+        const mainFilterItems = document.querySelectorAll('.filter-item');
+        
+        mainFilterItems.forEach(item => {
+          const checkbox = item.querySelector('input[type="checkbox"]');
+          const label = item.querySelector('span').textContent;
+          
+          const filterItem = document.createElement('div');
+          filterItem.className = 'mobile-menu-filter-item';
+          
+          filterItem.innerHTML = `
+            <input type="checkbox" id="mobile_${checkbox.id}" value="${checkbox.value}" ${checkbox.checked ? 'checked' : ''} />
+            <label for="mobile_${checkbox.id}">${label}</label>
+          `;
+          
+          mobileMenuFilters.appendChild(filterItem);
+          
+          // Add event listener to sync with main filter
+          filterItem.querySelector('input').addEventListener('change', (e) => {
+            // Update main filter
+            checkbox.checked = e.target.checked;
+            
+            // Trigger change event on main filter to apply filters
+            checkbox.dispatchEvent(new Event('change'));
+          });
+        });
+      }
+      
+      // Clear filters
+      mobileMenuClearFilters.addEventListener('click', () => {
+        // Uncheck all mobile filters
+        document.querySelectorAll('.mobile-menu-filter-item input').forEach(input => {
+          input.checked = false;
+        });
+        
+        // Uncheck all main filters
+        document.querySelectorAll('.filter-item input').forEach(input => {
+          input.checked = false;
+        });
+        
+        // Trigger change event on main filter to apply filters
+        document.querySelector('.filter-item input').dispatchEvent(new Event('change'));
+      });
+      
+      // Sync dark mode toggle
+      const isDarkMode = document.documentElement.classList.contains('dark-mode');
+      mobileDarkModeToggle.checked = isDarkMode;
+      
+      mobileDarkModeToggle.addEventListener('change', () => {
+        // Toggle dark mode
+        document.documentElement.classList.toggle('dark-mode');
+        const isDark = document.documentElement.classList.contains('dark-mode');
+        
+        // Update main dark mode toggle
+        const mainDarkModeToggle = document.getElementById('darkModeToggle');
+        mainDarkModeToggle.textContent = isDark ? '☀️' : '🌙';
+        
+        // Save preference
+        localStorage.setItem('ibrar-dark', isDark ? '1' : '0');
+      });
+      
+      // Update date/time in mobile menu
+      function updateMobileDateTime() {
+        const now = new Date();
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        const dateStr = now.toLocaleDateString('en-IN', options);
+        const timeStr = now.toLocaleTimeString('en-IN');
+        mobileMenuDateTime.textContent = `${dateStr} | ${timeStr}`;
+      }
+      
+      updateMobileDateTime();
+      setInterval(updateMobileDateTime, 1000);
+      
+      // Mobile search toggle
+      mobileSearchToggle.addEventListener('click', () => {
+        mobileSearch.classList.toggle('active');
+        if (mobileSearch.classList.contains('active')) {
+          mobileSearchInput.focus();
+        }
+      });
+      
+      // Mobile search functionality
+      mobileSearchInput.addEventListener('input', () => {
+        // Sync with main search input
+        const mainSearchInput = document.getElementById('searchInput');
+        mainSearchInput.value = mobileSearchInput.value;
+        
+        // Trigger search
+        mainSearchInput.dispatchEvent(new Event('input'));
+      });
+      
+      // Initialize mobile filters when menu is opened
+      hamburgerMenu.addEventListener('click', syncMobileFilters);
+      
+      // Close mobile search when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!mobileSearch.contains(e.target) && e.target !== mobileSearchToggle) {
+          mobileSearch.classList.remove('active');
+        }
+      });
+    })();
   
     </script>
 
@@ -1395,12 +2270,14 @@ so you get bang for your buck - everytime ❤️</p>
 document.addEventListener('DOMContentLoaded', function () {
   const nav = document.querySelector('nav');
   const ticker = document.querySelector('.ticker');
+  const mobileHeader = document.querySelector('.mobile-header');
   const header = document.querySelector('.site-header') || document.querySelector('header');
 
   if (!nav || !ticker) return; // safety
 
   // Get initial positions *relative to the document*
   const navInitialTop = nav.getBoundingClientRect().top + window.scrollY;
+  const mobileHeaderInitialTop = mobileHeader ? mobileHeader.getBoundingClientRect().top + window.scrollY : 0;
 
   // helper to recompute when window resized (nav height may change)
   function updateDims() {
@@ -1409,9 +2286,21 @@ document.addEventListener('DOMContentLoaded', function () {
     dims.navTop = nav.getBoundingClientRect().top + window.scrollY;
     dims.navHeight = nav.offsetHeight;
     dims.tickerHeight = ticker.offsetHeight;
+    
+    // For mobile
+    if (mobileHeader) {
+      dims.mobileHeaderTop = mobileHeader.getBoundingClientRect().top + window.scrollY;
+      dims.mobileHeaderHeight = mobileHeader.offsetHeight;
+    }
   }
 
-  const dims = { navTop: navInitialTop, navHeight: nav.offsetHeight, tickerHeight: ticker.offsetHeight };
+  const dims = { 
+    navTop: navInitialTop, 
+    navHeight: nav.offsetHeight, 
+    tickerHeight: ticker.offsetHeight,
+    mobileHeaderTop: mobileHeaderInitialTop,
+    mobileHeaderHeight: mobileHeader ? mobileHeader.offsetHeight : 0
+  };
 
   function setFixed() {
     nav.classList.add('fixed-nav');
@@ -1428,14 +2317,47 @@ document.addEventListener('DOMContentLoaded', function () {
     ticker.style.top = '';
     document.body.style.paddingTop = '';
   }
+  
+  function setMobileFixed() {
+    if (!mobileHeader) return;
+    
+    mobileHeader.classList.add('fixed-nav');
+    ticker.classList.add('fixed-ticker');
+    // place ticker right under mobile header
+    ticker.style.top = dims.mobileHeaderHeight + 'px';
+    // add top padding to body to prevent content jump (mobile header + ticker heights)
+    document.body.style.paddingTop = (dims.mobileHeaderHeight + dims.tickerHeight) + 'px';
+  }
+
+  function unsetMobileFixed() {
+    if (!mobileHeader) return;
+    
+    mobileHeader.classList.remove('fixed-nav');
+    ticker.classList.remove('fixed-ticker');
+    ticker.style.top = '';
+    document.body.style.paddingTop = '';
+  }
 
   function onScroll() {
-    // If we've scrolled past the nav's original top point (i.e., header gone)
-    if (window.scrollY >= dims.navTop) {
-      // only set fixed if not already
-      if (!nav.classList.contains('fixed-nav')) setFixed();
+    // Check if we're on mobile or desktop
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile && mobileHeader) {
+      // If we've scrolled past the mobile header's original top point
+      if (window.scrollY >= dims.mobileHeaderTop) {
+        // only set fixed if not already
+        if (!mobileHeader.classList.contains('fixed-nav')) setMobileFixed();
+      } else {
+        if (mobileHeader.classList.contains('fixed-nav')) unsetMobileFixed();
+      }
     } else {
-      if (nav.classList.contains('fixed-nav')) unsetFixed();
+      // If we've scrolled past the nav's original top point (i.e., header gone)
+      if (window.scrollY >= dims.navTop) {
+        // only set fixed if not already
+        if (!nav.classList.contains('fixed-nav')) setFixed();
+      } else {
+        if (nav.classList.contains('fixed-nav')) unsetFixed();
+      }
     }
   }
 
@@ -1443,6 +2365,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', function() {
     // remove fixed to get accurate natural sizes
     unsetFixed();
+    unsetMobileFixed();
     updateDims();
     onScroll();
   });
