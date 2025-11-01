@@ -1389,6 +1389,37 @@ input:checked + .slider:before {
   box-shadow: 0 6px 16px rgba(255,255,255,0.4);
 }
 
+/* Force mobile header alignment - LAST RESORT */
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  
+  .mobile-header .hamburger {
+    position: absolute !important;
+    left: 1rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+  
+  .mobile-header .logo-container {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  
+  .mobile-header .search-toggle {
+    position: absolute !important;
+    right: 1rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+}
+    
   </style>
 </head>
 <body>
