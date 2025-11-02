@@ -5,7 +5,8 @@
         "price": "₹90",
         "image": "https://m.media-amazon.com/images/I/51eV+BunOlL._SL1200_.jpg",
         "link": "https://fktr.in/bzItmSz",
-        "category": "Notebooks"
+        "category": "Notebooks",
+        "featured": true
     },
 
     {
@@ -34,7 +35,8 @@
         "price": "₹614",
         "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/diary-notebook/x/0/k/uniqpal-set-of-8-a4-notebook-spiral-plain-page-200-pages-white-original-imah6v7nncev2jqk.jpeg?q=70&crop=false%202x,%20",
         "link": "https://fktr.in/SmibK44",
-        "category": "Notebooks"
+        "category": "Notebooks",
+        "featured": true
     },
 
     {
@@ -61,7 +63,8 @@
         "price": "₹288",
         "image": "https://m.media-amazon.com/images/I/81aABEYUeyL._SL1500_.jpg",
         "link": "https://fktr.in/b5wYaWy",
-        "category": "Books"
+        "category": "Books",
+        "featured": true
     },
                       
     {
@@ -70,8 +73,7 @@
         "price": "₹589",
         "image": "https://m.media-amazon.com/images/I/81PN3gjTRhL._SL1500_.jpg",
         "link": "https://amzn.to/4qmG9M2",
-        "category": "Books",
-        "hotdeal": true
+        "category": "Books"
     },
 
     {
@@ -199,7 +201,8 @@
         "price": "₹96",
         "image": "https://m.media-amazon.com/images/I/7122BryXkJL._SL1500_.jpg",
         "link": "https://fktr.in/lE3ms79",
-        "category": "Accessories"
+        "category": "Accessories",
+        "featured": true
     },
 
     {
@@ -227,7 +230,8 @@
         "price": "₹169",
         "image": "https://m.media-amazon.com/images/I/71ZHVWqirzL._SL1417_.jpg",
         "link": "https://amzn.to/493mGJS",
-        "category": "Accessories"
+        "category": "Accessories",
+        "featured": true
     },
 
     {
@@ -266,4 +270,5 @@
         "category": "Table Decors"
     }
 ]
+
 
