@@ -749,7 +749,8 @@ nav:not(.fixed-nav) .nav-branding {
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
 .carousel-item {
@@ -1814,9 +1815,61 @@ input:checked + .slider:before {
   }
 }
     
-/* Premium transition for dark mode toggle */
-.dark-mode-transition * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+/* Premium transition for dark mode toggle - more specific to avoid conflicts */
+.dark-mode-transition {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode-transition body,
+.dark-mode-transition header,
+.dark-mode-transition nav,
+.dark-mode-transition .container,
+.dark-mode-transition .filters,
+.dark-mode-transition .product-card,
+.dark-mode-transition .carousel-card,
+.dark-mode-transition .info-box,
+.dark-mode-transition footer,
+.dark-mode-transition .mobile-menu,
+.dark-mode-transition .mobile-menu-section {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Ensure carousel transitions are not affected by dark mode changes */
+.carousel-track {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  will-change: transform;
+}
+
+/* Ensure carousel transitions work in both modes */
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+/* Prevent dark mode transitions from affecting carousel */
+.dark-mode .carousel-track {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* Ensure carousel items maintain their layout */
+.carousel-item {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+/* Tablet view */
+@media (min-width: 768px) {
+  .carousel-item {
+    width: 50%;
+  }
+}
+
+/* Desktop view */
+@media (min-width: 1024px) {
+  .carousel-item {
+    width: 33.333%;
+  }
 }
 
   </style>
@@ -2649,6 +2702,61 @@ document.documentElement.classList.add('dark-mode-transition');
   // Initialize carousel
   loadFeaturedProducts();
 })();
+
+/* ===== CAROUSEL SLIDING FIX ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  const carouselTrack = document.getElementById('carouselTrack');
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  
+  if (!carouselTrack) return;
+  
+  // Fix for dark mode transition conflicts
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+      // Temporarily disable carousel transitions during dark mode change
+      const originalTransition = carouselTrack.style.transition;
+      carouselTrack.style.transition = 'none';
+      
+      // Re-enable transitions after dark mode change is complete
+      setTimeout(() => {
+        carouselTrack.style.transition = originalTransition || 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      }, 350);
+    });
+  }
+  
+  // Add a flag to prevent multiple transitions
+  let isTransitioning = false;
+  
+  // Override the existing carousel transition functions if they exist
+  const originalNextSlide = window.nextSlide;
+  const originalPrevSlide = window.prevSlide;
+  
+  window.nextSlide = function() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    
+    if (originalNextSlide) {
+      originalNextSlide();
+    }
+    
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 500);
+  };
+  
+  window.prevSlide = function() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    
+    if (originalPrevSlide) {
+      originalPrevSlide();
+    }
+    
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 500);
+  };
+});
 
     /* ====== MOBILE MENU FUNCTIONALITY ====== */
     /* ====== MOBILE MENU FUNCTIONALITY ====== */
