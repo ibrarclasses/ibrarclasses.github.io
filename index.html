@@ -1559,6 +1559,58 @@ nav:not(.fixed-nav) .nav-branding {
   opacity: 0;
   width: 0;
   height: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: .4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .slider {
+  background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+}
+
+/* Dark mode styles for mobile toggle */
+.dark-mode .slider {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode input:checked + .slider {
+  background-color: var(--dark-accent);
 }
 
 .slider {
@@ -2093,16 +2145,6 @@ so you get bang for your buck - everytime ❤️</p>
 const darkToggle = document.getElementById('darkModeToggle');
 const mobileDarkToggle = document.getElementById('mobileDarkModeToggle');
 
-// Check for saved dark mode preference or default to light mode
-const currentDarkMode = localStorage.getItem('ibrar-dark') === '1';
-
-// Apply dark mode on page load to prevent flash
-if (currentDarkMode) {
-  document.documentElement.classList.add('dark-mode');
-  darkToggle.textContent = '☀️';
-  if (mobileDarkToggle) mobileDarkToggle.checked = true;
-}
-
 // Function to toggle dark mode with smooth transition
 function toggleDarkMode() {
   document.documentElement.classList.add('dark-mode-transition');
@@ -2111,8 +2153,16 @@ function toggleDarkMode() {
     document.documentElement.classList.toggle('dark-mode');
     const isDark = document.documentElement.classList.contains('dark-mode');
     localStorage.setItem('ibrar-dark', isDark ? '1' : '0');
-    darkToggle.textContent = isDark ? '☀️' : '🌙';
-    if (mobileDarkToggle) mobileDarkToggle.checked = isDark;
+    
+    // Update desktop toggle
+    if (darkToggle) {
+      darkToggle.textContent = isDark ? '☀️' : '🌙';
+    }
+    
+    // Update mobile toggle
+    if (mobileDarkToggle) {
+      mobileDarkToggle.checked = isDark;
+    }
     
     setTimeout(() => {
       document.documentElement.classList.remove('dark-mode-transition');
@@ -2120,11 +2170,67 @@ function toggleDarkMode() {
   }, 10);
 }
 
-// Add event listeners
-darkToggle.addEventListener('click', toggleDarkMode);
-if (mobileDarkToggle) {
-  mobileDarkToggle.addEventListener('change', toggleDarkMode);
+// Function to initialize dark mode state
+function initializeDarkMode() {
+  const currentDarkMode = localStorage.getItem('ibrar-dark') === '1';
+  
+  // Apply dark mode on page load to prevent flash
+  if (currentDarkMode) {
+    document.documentElement.classList.add('dark-mode');
+  }
+  
+  // Update desktop toggle
+  if (darkToggle) {
+    darkToggle.textContent = currentDarkMode ? '☀️' : '🌙';
+  }
+  
+  // Update mobile toggle
+  if (mobileDarkToggle) {
+    mobileDarkToggle.checked = currentDarkMode;
+  }
 }
+
+// Add event listeners
+if (darkToggle) {
+  darkToggle.addEventListener('click', toggleDarkMode);
+}
+
+if (mobileDarkToggle) {
+  mobileDarkToggle.addEventListener('change', function(e) {
+    e.preventDefault();
+    toggleDarkMode();
+  });
+}
+
+// Additional mobile toggle fix
+document.addEventListener('DOMContentLoaded', function() {
+  // Ensure mobile toggle works even if menu is dynamically loaded
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.type === 'childList') {
+        const mobileToggle = document.getElementById('mobileDarkModeToggle');
+        if (mobileToggle && !mobileToggle.hasAttribute('data-listener')) {
+          mobileToggle.setAttribute('data-listener', 'true');
+          mobileToggle.addEventListener('change', function(e) {
+            e.preventDefault();
+            toggleDarkMode();
+          });
+        }
+      }
+    });
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+});
+
+// Initialize dark mode when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeDarkMode);
+
+// Also initialize immediately in case DOM is already loaded
+initializeDarkMode();
 
 // Add a class for smooth transitions
 document.documentElement.classList.add('dark-mode-transition');
