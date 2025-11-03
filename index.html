@@ -2619,26 +2619,44 @@ document.documentElement.classList.add('dark-mode-transition');
   }
   
   // Get number of visible slides based on screen width
-  function getVisibleSlides() {
-    if (window.innerWidth >= 1024) return 3;
-    if (window.innerWidth >= 768) return 2;
-    if (window.innerWidth >= 480) return 2; // Changed from 1 to 2 for medium mobile
-    return 1; // For very small screens
+function getVisibleSlides() {
+  if (window.innerWidth >= 1024) return 3;
+  if (window.innerWidth >= 768) return 2;
+  if (window.innerWidth >= 480) return 2; // Changed from 1 to 2 for medium mobile
+  return 1; // For very small screens
+}
+
+// Go to next slide
+function nextSlide() {
+  const visibleSlides = getVisibleSlides();
+  const maxIndex = Math.max(0, featuredProducts.length - visibleSlides);
+  
+  // Always move one slide at a time, regardless of visible slides
+  if (currentIndex < maxIndex) {
+    currentIndex++;
+  } else {
+    // Restart from the beginning when reaching the end
+    currentIndex = 0;
   }
   
-  // Go to next slide
-  function nextSlide() {
-    const maxIndex = Math.max(0, featuredProducts.length - getVisibleSlides());
-    currentIndex = (currentIndex + 1) % (maxIndex + 1);
-    goToSlide(currentIndex);
+  goToSlide(currentIndex);
+}
+
+// Go to previous slide
+function prevSlide() {
+  const visibleSlides = getVisibleSlides();
+  const maxIndex = Math.max(0, featuredProducts.length - visibleSlides);
+  
+  // Always move one slide at a time, regardless of visible slides
+  if (currentIndex > 0) {
+    currentIndex--;
+  } else {
+    // Go to the last slide when at the beginning
+    currentIndex = maxIndex;
   }
   
-  // Go to previous slide
-  function prevSlide() {
-    const maxIndex = Math.max(0, featuredProducts.length - getVisibleSlides());
-    currentIndex = currentIndex === 0 ? maxIndex : currentIndex - 1;
-    goToSlide(currentIndex);
-  }
+  goToSlide(currentIndex);
+}
   
   // Setup autoplay
   function setupAutoplay() {
