@@ -100,7 +100,7 @@
         "image": "https://m.media-amazon.com/images/I/71b+cxzHonL._SL1425_.jpg",
         "link": "https://amzn.to/3KRpsYQ",
         "category": "Books",
-        "featured":true 
+    
     },
 
     {
@@ -127,7 +127,7 @@
         "title": "NCERT 40 Books Set",
         "desc": "All old NCERTs, Must for beginners seeking solid foundation",
         "price": "₹2766",
-        "mrp":  "₹2766",
+        "mrp":  "₹2767",
         "image": "https://m.media-amazon.com/images/I/918Uej-a+aL._SL1500_.jpg",
         "link": "https://amzn.to/3KXC8x9",
         "category": "Books"
@@ -147,7 +147,7 @@
         "title": "FLAIR Blue Gel Pen Set",
         "desc": "Pack of 10, Aesthetic Matt Finish body, High Quality Gel",
         "price": "₹100",
-        "mrp":  "₹100",
+        "mrp":  "₹101",
         "image": "https://m.media-amazon.com/images/I/51GIeLAOF1L.jpg",
         "link": "https://amzn.to/495PTnl",
         "category": "Pens"
@@ -222,7 +222,8 @@
         "mrp":  "₹999",
         "image": "https://m.media-amazon.com/images/I/51I1nBnQBOL._SL1500_.jpg",
         "link": "https://amzn.to/4hfeQPf",
-        "category": "Accessories"
+        "category": "Accessories",
+        "featured": true
     },
 
     {
@@ -253,7 +254,8 @@
         "mrp":  "₹499",
         "image": "https://m.media-amazon.com/images/I/61NTWfv92CL._SL1000_.jpg",
         "link": "https://amzn.to/3IS1zjd",
-        "category": "Table Decors"
+        "category": "Table Decors",
+        "featured": true
     },
 
     {
@@ -263,7 +265,8 @@
         "mrp":  "₹999",
         "image": "https://m.media-amazon.com/images/I/61nbx1RLZ+L._SL1402_.jpg",
         "link": "https://amzn.to/4qdMGZj",
-        "category": "Table Decors"
+        "category": "Table Decors",
+        "featured": true
     },
 
     {
