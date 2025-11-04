@@ -2,7 +2,8 @@
     {
         "title": "UPSC Answer Writing Practice Notebook",
         "desc": "200 Pages. But you have to order 3.",
-        "price": "₹90",
+        "price": "₹85",
+        "mrp":  "₹499",
         "image": "https://m.media-amazon.com/images/I/51eV+BunOlL._SL1200_.jpg",
         "link": "https://fktr.in/bzItmSz",
         "category": "Notebooks",
@@ -13,6 +14,7 @@
         "title": "Spiral Notebook 200 Pages",
         "desc": "200 Pages, Unruled, A4 Size, Good for note making.",
         "price": "₹109",
+        "mrp":  "₹150",
         "image": "https://m.media-amazon.com/images/I/61XhsSpZ0qL._SL1500_.jpg",
         "link": "https://amzn.to/47Gx891",
         "category": "Notebooks" 
@@ -22,6 +24,7 @@
         "title": "Spiral Notebook 400 Pages",
         "desc": "400 Pages, Unruled, A4 Size, Good for note making.",
         "price": "₹195",
+        "mrp":  "₹250",
         "image": "https://m.media-amazon.com/images/I/61pHqBcerIL._SL1000_.jpg",
         "link": "https://amzn.to/4qqPLFl",
         "category": "Notebooks"
@@ -31,6 +34,7 @@
         "title": "Spiral Notebook Set of 8",
         "desc": " Best Value, 200 Pages Each, Unruled, A4 Size.",
         "price": "₹639",
+        "mrp":  "₹1999",
         "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/diary-notebook/x/0/k/uniqpal-set-of-8-a4-notebook-spiral-plain-page-200-pages-white-original-imah6v7nncev2jqk.jpeg?q=70&crop=false%202x,%20",
         "link": "https://fktr.in/SmibK44",
         "category": "Notebooks",
@@ -38,18 +42,10 @@
     },
 
     {
-        "title": "Classmate Notebooks",
-        "desc": "Set of 6, 172 Pages Each, Ruled, A4 Size.",
-        "price": "₹268",
-        "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/diary-notebook/c/2/p/-original-imaghnn8b9zvy6tu.jpeg?q=70&crop=false%202x,%20",
-        "link": "https://fktr.in/ys9pOyo",
-        "category": "Notebooks"
-    },
-
-    {
         "title": "Indian Polity by Laxmikanth",
         "desc": "UPSC Must-haves: Latest Edition",
-        "price": "₹800",
+        "price": "₹788",
+        "mrp":  "₹1090",
         "image": "https://m.media-amazon.com/images/I/81lErh+IhdL._SL1500_.jpg",
         "link": "https://amzn.to/4h7VUSw",
         "category": "Books"
@@ -58,7 +54,8 @@
     {
         "title": "Spectrum Modern History by Rajiv Ahir",
         "desc": "UPSC Must-haves: Latest Edition",
-        "price": "₹261",
+        "price": "₹327",
+        "mrp":  "₹849",
         "image": "https://m.media-amazon.com/images/I/81aABEYUeyL._SL1500_.jpg",
         "link": "https://fktr.in/b5wYaWy",
         "category": "Books",
@@ -68,7 +65,8 @@
     {
         "title": "Art & Culture by Nitin Singhania",
         "desc": "UPSC Must-haves: Latest Edition",
-        "price": "₹689",
+        "price": "₹815",
+        "mrp":  "₹955",
         "image": "https://m.media-amazon.com/images/I/81PN3gjTRhL._SL1500_.jpg",
         "link": "https://amzn.to/4qmG9M2",
         "category": "Books"
@@ -77,7 +75,8 @@
     {
         "title": "Geography by G C Leong",
         "desc": "UPSC Must-haves: Latest Edition",
-        "price": "₹177",
+        "price": "₹196",
+        "mrp":  "₹368",
         "image": "https://m.media-amazon.com/images/I/6184so7ifHL._SL1400_.jpg",
         "link": "https://fktr.in/hk5fF4u",
         "category": "Books"
@@ -87,6 +86,7 @@
         "title": "Environment by Shankar",
         "desc": "UPSC Must-haves: Latest Edition",
         "price": "₹475",
+        "mrp":  "₹899",
         "image": "https://m.media-amazon.com/images/I/81QDvvYdNdL._SL1500_.jpg",
         "link": "https://fktr.in/Jvt0jB0",
         "category": "Books"
@@ -95,7 +95,8 @@
     {
         "title": "Oxford Student Atlas for India",
         "desc": "UPSC Must-haves: Latest Edition",
-        "price": "₹275",
+        "price": "₹279",
+        "mrp":  "₹425",
         "image": "https://m.media-amazon.com/images/I/71b+cxzHonL._SL1425_.jpg",
         "link": "https://amzn.to/3KRpsYQ",
         "category": "Books",
@@ -105,7 +106,8 @@
     {
         "title": "Indian Economy by Vivek Singh",
         "desc": "UPSC Must-haves: Latest Edition",
-        "price": "₹415",
+        "price": "₹410",
+        "mrp":  "₹699",
         "image": "https://m.media-amazon.com/images/I/71Repk+uUDL._SL1500_.jpg",
         "link": "https://amzn.to/4nYDK8G",
         "category": "Books"
@@ -115,6 +117,7 @@
         "title": "30 Years UPSC Prelims solved PYQs by Disha Publication",
         "desc": "Makes covering all the PYQs pretty easy",
         "price": "₹525",
+        "mrp":  "₹850",
         "image": "https://m.media-amazon.com/images/I/81cwXLLqQNL._SL1500_.jpg",
         "link": "https://amzn.to/3LhOCQd",
         "category": "Books"
@@ -124,6 +127,7 @@
         "title": "NCERT 40 Books Set",
         "desc": "All old NCERTs, Must for beginners seeking solid foundation",
         "price": "₹2766",
+        "mrp":  "₹2766",
         "image": "https://m.media-amazon.com/images/I/918Uej-a+aL._SL1500_.jpg",
         "link": "https://amzn.to/3KXC8x9",
         "category": "Books"
@@ -132,7 +136,8 @@
     {
         "title": "NCERT Summary Class 6 -12 by Disha Publication",
         "desc": "Great for quick revision, covers each and every fact in one liners",
-        "price": "₹374",
+        "price": "₹375",
+        "mrp":  "₹625",
         "image": "https://m.media-amazon.com/images/I/81jfw3LGtcL._SL1500_.jpg",
         "link": "https://amzn.to/49c8UVf",
         "category": "Books"
@@ -142,6 +147,7 @@
         "title": "FLAIR Blue Gel Pen Set",
         "desc": "Pack of 10, Aesthetic Matt Finish body, High Quality Gel",
         "price": "₹100",
+        "mrp":  "₹100",
         "image": "https://m.media-amazon.com/images/I/51GIeLAOF1L.jpg",
         "link": "https://amzn.to/495PTnl",
         "category": "Pens"
@@ -150,25 +156,18 @@
     {
         "title": "Cello Finegrip Ball Pen Set",
         "desc": "Pack of 25, Blue Ink, Extra smooth",
-        "price": "₹119",
+        "price": "₹123",
+        "mrp":  "₹175",
         "image": "https://m.media-amazon.com/images/I/61-ys2hFFhS._SL1500_.jpg",
         "link": "https://amzn.to/4n4ISGR",
         "category": "Pens"
     },
 
     {
-        "title": "Cello Technotip Ball Pen Set",
-        "desc": "Pack of 10, Black Ink, Lightweight ball pens",
-        "price": "₹90",
-        "image": "https://m.media-amazon.com/images/I/91dgnb70QIL._SL1500_.jpg",
-        "link": "https://amzn.to/46VhciT",
-        "category": "Pens"
-    },
-
-    {
         "title": "Hard bound Notebook Diary",
         "desc": "Premium quality, 200 pages, Ruled",
-        "price": "₹120",
+        "price": "₹148",
+        "mrp":  "₹163",
         "image": "https://images.meesho.com/images/products/296941516/kvzho_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:877928?p_id=296941516&ext_id=4wshjg&utm_source=instagram_stories",
         "category": "Notebooks"
@@ -177,7 +176,8 @@
     {
         "title": "Vintage Journal Diary",
         "desc": "Aesthetic, 200 Pages, Hand-Stitched Binding, Metal Lock",
-        "price": "₹150",
+        "price": "₹158",
+        "mrp":  "₹168",
         "image": "https://images.meesho.com/images/products/599991900/mqjiw_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:877972?p_id=599991900&ext_id=9x7wpo&utm_source=instagram_stories",
         "category": "Notebooks"
@@ -187,6 +187,7 @@
         "title": "Linc Swype Highlighters",
         "desc": "Pack of 5, Multicolor, Sumdge Proof, Quick-Drying Ink",
         "price": "₹125",
+        "mrp":  "₹125",
         "image": "https://m.media-amazon.com/images/I/61JkzSqWxyL._SL1500_.jpg",
         "link": "https://amzn.to/47s8kBs",
         "category": "Accessories"
@@ -196,6 +197,7 @@
         "title": "Faber Castell Highlighters",
         "desc": " Pack of 5, Aesthetic Colors, Sumdge Proof, Quick-Drying Ink",
         "price": "₹96",
+        "mrp":  "₹130",
         "image": "https://m.media-amazon.com/images/I/7122BryXkJL._SL1500_.jpg",
         "link": "https://fktr.in/lE3ms79",
         "category": "Accessories",
@@ -205,7 +207,8 @@
     {
         "title": "HP 250 G10 Intel® Core™ i5 13th Gen 1334U - (16 GB/512 GB SSD/Windows 11) Laptop (15.6 inch)",
         "desc": "Bought myself this Diwali, working perfect",
-        "price": "₹48820",
+        "price": "₹48805",
+        "mrp":  "₹59111",
         "image": "https://m.media-amazon.com/images/I/61qybrIqhmL._SL1500_.jpg",
         "link": "https://amzn.to/3L73mBK",
         "category": "Gadgets",
@@ -216,6 +219,7 @@
         "title": "Sticky Notes",
         "desc": "400 Sheets, 5 colors, Fluorescent Paper, Self Adhesive",
         "price": "₹139",
+        "mrp":  "₹999",
         "image": "https://m.media-amazon.com/images/I/51I1nBnQBOL._SL1500_.jpg",
         "link": "https://amzn.to/4hfeQPf",
         "category": "Accessories"
@@ -225,6 +229,7 @@
         "title": "Set of 7 Maps & Charts",
         "desc": "India & World Maps, Political & Physical, History, Geo and Constitution Map, Full Size",
         "price": "₹169",
+        "mrp":  "₹350",
         "image": "https://m.media-amazon.com/images/I/71ZHVWqirzL._SL1417_.jpg",
         "link": "https://amzn.to/493mGJS",
         "category": "Accessories",
@@ -234,7 +239,8 @@
     {
         "title": "Gold Globe for Study table",
         "desc": "Aesthetic , White and Gold, 8 inch Dia",
-        "price": "₹400",
+        "price": "₹406",
+        "mrp":  "₹427",
         "image": "https://images.meesho.com/images/products/63498381/aoz8r_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:878044?p_id=63498381&ext_id=11sznx&utm_source=instagram_stories",
         "category": "Table Decors"
@@ -244,6 +250,7 @@
         "title": "Desk Organizer",
         "desc": "Keeps the study table neat and organized",
         "price": "₹197",
+        "mrp":  "₹499",
         "image": "https://m.media-amazon.com/images/I/61NTWfv92CL._SL1000_.jpg",
         "link": "https://amzn.to/3IS1zjd",
         "category": "Table Decors"
@@ -252,7 +259,8 @@
     {
         "title": "Vintage Hour Glass for study table",
         "desc": "5 Minutes timer, Aesthetic Looks",
-        "price": "₹230",
+        "price": "₹149",
+        "mrp":  "₹999",
         "image": "https://m.media-amazon.com/images/I/61nbx1RLZ+L._SL1402_.jpg",
         "link": "https://amzn.to/4qdMGZj",
         "category": "Table Decors"
@@ -261,7 +269,8 @@
     {
         "title": "Calender for Study table",
         "desc": "Aesthetic, Classy clean look, Wooden  ",
-        "price": "₹200",
+        "price": "₹223",
+        "mrp":  "₹237",
         "image": "https://images.meesho.com/images/products/464992907/t2uzv_512.avif?width=512",
         "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:878077?p_id=464992907&ext_id=7ouetn&utm_source=instagram_stories",
         "category": "Table Decors"
