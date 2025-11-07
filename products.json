@@ -248,17 +248,6 @@
     },
 
     {
-        "title": "Desk Organizer",
-        "desc": "Keeps the study table neat and organized",
-        "price": "₹197",
-        "mrp":  "₹499",
-        "image": "https://m.media-amazon.com/images/I/61NTWfv92CL._SL1000_.jpg",
-        "link": "https://amzn.to/3IS1zjd",
-        "category": "Table Decors",
-        "featured": true
-    },
-
-    {
         "title": "Vintage Hour Glass for study table",
         "desc": "5 Minutes timer, Aesthetic Looks",
         "price": "₹149",
@@ -267,15 +256,5 @@
         "link": "https://amzn.to/4qdMGZj",
         "category": "Table Decors",
         "featured": true
-    },
-
-    {
-        "title": "Calender for Study table",
-        "desc": "Aesthetic, Classy clean look, Wooden  ",
-        "price": "₹223",
-        "mrp":  "₹237",
-        "image": "https://images.meesho.com/images/products/464992907/t2uzv_512.avif?width=512",
-        "link": "https://www.meesho.com/af_invite/282093141:instagram_stories:878077?p_id=464992907&ext_id=7ouetn&utm_source=instagram_stories",
-        "category": "Table Decors"
     }
 ]
