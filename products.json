@@ -21,7 +21,18 @@
         "featured": true
     },
 
-        {
+    {
+        "title": "LED Reading Light",
+        "desc": "Reading panel for reading books in low light",
+        "price": "₹249",
+        "mrp":  "₹999",
+        "image": "https://rukminim2.flixcart.com/image/416/416/xif0q/lamp-shade/a/4/n/10-led-reading-light-portable-flat-panel-reading-night-light-original-imah7regqbgg5ghc.jpeg?q=70&crop=false",
+        "link": "https://fktr.in/sTD5A5u",
+        "category": "Accessories",
+        "featured": true
+    },    
+    
+    {
         "title": "Crystal Miniature Globe",
         "desc": "For study table decor",
         "price": "₹153",
@@ -29,7 +40,7 @@
         "image": "https://rukminim2.flixcart.com/image/832/832/xif0q/showpiece-figurine/l/x/v/15-10-feng-shui-crystal-globe-with-golden-stand-m-s-traders-3-original-imahftgxwusmxzfc.jpeg?q=70&crop=false",
         "link": "https://fktr.in/WLQ87LU",
         "category": "Accessories",
-        "featured": false
+        "featured": true
     },
 
     {
@@ -223,7 +234,7 @@
         "image": "https://m.media-amazon.com/images/I/7122BryXkJL._SL1500_.jpg",
         "link": "https://fktr.in/lE3ms79",
         "category": "Accessories",
-        "featured": true
+        "featured": false
     },
 
     {
